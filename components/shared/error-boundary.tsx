@@ -3,8 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { NextResponse, type NextRequest } from 'next/server'
 
 // Route configurations
-// const PUBLIC_ROUTES = ['/', '/about', '/brands', '/collections', '/reviews']
-const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/callback']
+const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/auth/callback']
 const PROTECTED_ROUTES = ['/profile', '/reviews/write', '/marketplace/sell', '/my-listings']
 const ADMIN_ROUTES = ['/admin']
 
@@ -12,9 +11,7 @@ const ADMIN_ROUTES = ['/admin']
 const GUEST_LIMIT = 5
 const GUEST_TRACKED_ROUTES = ['/reviews/', '/brands/', '/profile/', '/products/']
 
-// MAIN EXPORT - Must be named "proxy" for Next.js 16
 export async function proxy(request: NextRequest) {
-  // Initialize response
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -45,7 +42,6 @@ export async function proxy(request: NextRequest) {
     )
   }
 
-  // Create Supabase client with NEW cookie API
   const supabase = createServerClient(
     supabaseUrl,
     supabaseKey,
@@ -73,27 +69,21 @@ export async function proxy(request: NextRequest) {
     }
   )
 
-  // Refresh session if expired
   const { data: { user } } = await supabase.auth.getUser()
-
-  // Get or create guest session
   const guestSessionId = await handleGuestSession(request, response)
 
-  // Route checks
   const { pathname } = request.nextUrl
   const isApiRoute = pathname.startsWith('/api/')
   const isAuthRoute = AUTH_ROUTES.some(route => pathname.startsWith(route))
   const isProtectedRoute = PROTECTED_ROUTES.some(route => pathname.startsWith(route))
   const isAdminRoute = ADMIN_ROUTES.some(route => pathname.startsWith(route))
 
-  // 1. API Routes
   if (isApiRoute) {
     response.headers.set('X-Content-Type-Options', 'nosniff')
     response.headers.set('X-Frame-Options', 'DENY')
     return response
   }
 
-  // 2. Auth Routes - Redirect logged in users away
   if (isAuthRoute) {
     if (user) {
       const redirectTo = request.nextUrl.searchParams.get('redirectedFrom') || '/'
@@ -102,14 +92,12 @@ export async function proxy(request: NextRequest) {
     return response
   }
 
-  // 3. Protected Routes - Must be logged in
   if (isProtectedRoute && !user) {
     const loginUrl = new URL('/login', request.url)
     loginUrl.searchParams.set('redirectedFrom', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
-  // 4. Admin Routes - Must be admin
   if (isAdminRoute) {
     if (!user) {
       return NextResponse.redirect(new URL('/login', request.url))
@@ -121,7 +109,6 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 5. Guest Limit Tracking
   if (!user && shouldTrackGuestView(pathname)) {
     const canProceed = await checkGuestLimit(supabase, guestSessionId, pathname)
     
@@ -136,17 +123,12 @@ export async function proxy(request: NextRequest) {
     response.headers.set('X-Guest-Views-Remaining', String(remainingViews))
   }
 
-  // 6. Security Headers
   applySecurityHeaders(response)
 
   return response
 }
 
-// Helper functions
-async function handleGuestSession(
-  request: NextRequest,
-  response: NextResponse
-): Promise<string> {
+async function handleGuestSession(request: NextRequest, response: NextResponse): Promise<string> {
   let sessionId = request.cookies.get('guest_session_id')?.value
   
   if (!sessionId) {
@@ -180,11 +162,7 @@ function shouldTrackGuestView(pathname: string): boolean {
   return GUEST_TRACKED_ROUTES.some(route => pathname.startsWith(route))
 }
 
-async function checkGuestLimit(
-  supabase: SupabaseClient,
-  sessionId: string,
-  pathname: string
-): Promise<boolean> {
+async function checkGuestLimit(supabase: SupabaseClient, sessionId: string, pathname: string): Promise<boolean> {
   try {
     const cutoffTime = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
     
@@ -205,8 +183,7 @@ async function checkGuestLimit(
       return false
     }
 
-    // Log view asynchronously
-    supabase.from('guest_activity').insert({
+    await supabase.from('guest_activity').insert({
       session_id: sessionId,
       activity_type: 'page_view',
       item_type: 'page',
@@ -215,16 +192,13 @@ async function checkGuestLimit(
     }).catch(console.error)
 
     return true
-  } catch (_error) {
-    console.error('Guest tracking error:', _error)
+  } catch (error) {
+    console.error('Guest tracking error:', error)
     return true
   }
 }
 
-async function getRemainingGuestViews(
-  supabase: SupabaseClient,
-  sessionId: string
-): Promise<number> {
+async function getRemainingGuestViews(supabase: SupabaseClient, sessionId: string): Promise<number> {
   const cutoffTime = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
   
   const { count } = await supabase
@@ -236,10 +210,7 @@ async function getRemainingGuestViews(
   return Math.max(0, GUEST_LIMIT - (count || 0))
 }
 
-async function checkIsAdmin(
-  supabase: SupabaseClient,
-  userId: string
-): Promise<boolean> {
+async function checkIsAdmin(supabase: SupabaseClient, userId: string): Promise<boolean> {
   try {
     const { data: { user } } = await supabase.auth.getUser()
     if (user?.user_metadata?.role === 'admin') return true
@@ -270,7 +241,6 @@ function applySecurityHeaders(response: NextResponse): void {
   )
 }
 
-// Config export must be named "config"
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }
