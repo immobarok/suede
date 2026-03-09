@@ -2,11 +2,12 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
     Card,
     CardContent,
@@ -15,38 +16,32 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
 import { LoadingSpinner } from "@/components/shared/loading-spinner"
-import { Chrome, Apple, AlertCircle } from "lucide-react"
+import { Chrome, Apple, AlertCircle, Chromium } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Label } from "@/components/ui/label"
 
-export default function RegisterPage() {
+export default function LoginPage() {
     const supabase = createClient()
-    const router = useRouter()
+    const searchParams = useSearchParams()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [fullName, setFullName] = useState("")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const [success, setSuccess] = useState(false)
 
-    const handleRegister = async (e: React.BaseSyntheticEvent) => {
+    const redirectedFrom = searchParams.get("redirectedFrom")
+    const reason = searchParams.get("reason")
+
+    const handleLogin = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
-            options: {
-                data: {
-                    full_name: fullName,
-                },
-                emailRedirectTo: `${window.location.origin}/auth/callback`,
-            },
         })
 
         if (error) {
@@ -55,15 +50,8 @@ export default function RegisterPage() {
             return
         }
 
-        if (data.user && data.user.identities && data.user.identities.length === 0) {
-            setError("Email already registered. Please sign in instead.")
-            setLoading(false)
-            return
-        }
-
-        setSuccess(true)
-        setLoading(false)
-        toast.success("Check your email for confirmation link!")
+        toast.success("Welcome back!")
+        window.location.href = redirectedFrom || "/"
     }
 
     const handleOAuth = async (provider: "google" | "apple") => {
@@ -82,42 +70,28 @@ export default function RegisterPage() {
         }
     }
 
-    if (success) {
-        return (
-            <div className="min-h-screen flex items-center justify-center px-4">
-                <Card className="w-full max-w-md">
-                    <CardHeader>
-                        <CardTitle className="text-center text-green-600">
-                            Check your email!
-                        </CardTitle>
-                        <CardDescription className="text-center">
-                            We have sent a confirmation link to <strong>{email}</strong>.
-                            Please click the link to complete your registration.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardFooter className="flex justify-center">
-                        <Button asChild variant="outline">
-                            <Link href="/login">Go to login</Link>
-                        </Button>
-                    </CardFooter>
-                </Card>
-            </div>
-        )
-    }
-
     return (
         <div className="min-h-screen flex items-center justify-center px-4 bg-slate-50">
             <Card className="w-full max-w-md">
                 <CardHeader className="space-y-1">
                     <CardTitle className="text-2xl font-bold text-center">
-                        Create your account
+                        Welcome back
                     </CardTitle>
                     <CardDescription className="text-center">
-                        Join SUEDE to discover your perfect fit
+                        Sign in to continue to SUEDE
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
+                    {reason === "guest_limit" && (
+                        <Alert>
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription>
+                                You have reached the guest limit. Please sign in to continue browsing.
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
                     {error && (
                         <Alert variant="destructive">
                             <AlertCircle className="h-4 w-4" />
@@ -125,22 +99,7 @@ export default function RegisterPage() {
                         </Alert>
                     )}
 
-                    <form onSubmit={handleRegister} className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="fullName">Full Name</Label>
-                            <Input
-                                id="fullName"
-                                type="text"
-                                placeholder="Jane Doe"
-                                value={fullName}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                    setFullName(e.target.value)
-                                }
-                                required
-                                disabled={loading}
-                            />
-                        </div>
-
+                    <form onSubmit={handleLogin} className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
@@ -157,7 +116,15 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <div className="flex items-center justify-between">
+                                <Label htmlFor="password">Password</Label>
+                                <Link
+                                    href="/auth/forgot-password"
+                                    className="text-sm text-muted-foreground hover:text-primary"
+                                >
+                                    Forgot password?
+                                </Link>
+                            </div>
                             <Input
                                 id="password"
                                 type="password"
@@ -167,12 +134,8 @@ export default function RegisterPage() {
                                     setPassword(e.target.value)
                                 }
                                 required
-                                minLength={8}
                                 disabled={loading}
                             />
-                            <p className="text-xs text-muted-foreground">
-                                Must be at least 8 characters
-                            </p>
                         </div>
 
                         <Button
@@ -183,10 +146,10 @@ export default function RegisterPage() {
                             {loading ? (
                                 <>
                                     <LoadingSpinner size="sm" variant="white" className="mr-2" />
-                                    Creating account...
+                                    Signing in...
                                 </>
                             ) : (
-                                "Create Account"
+                                "Sign In"
                             )}
                         </Button>
                     </form>
@@ -209,7 +172,7 @@ export default function RegisterPage() {
                             disabled={loading}
                             type="button"
                         >
-                            <Chrome className="mr-2 h-4 w-4" />
+                            <Chromium className="mr-2 h-4 w-4" />
                             Google
                         </Button>
                         <Button
@@ -226,12 +189,12 @@ export default function RegisterPage() {
 
                 <CardFooter className="flex justify-center">
                     <p className="text-sm text-muted-foreground">
-                        Already have an account?{" "}
+                        Do not have an account?{" "}
                         <Link
-                            href="/login"
+                            href="/auth/register"
                             className="font-semibold text-primary hover:underline"
                         >
-                            Sign in
+                            Sign up
                         </Link>
                     </p>
                 </CardFooter>

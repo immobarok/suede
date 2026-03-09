@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
         setError(null)
 
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/auth/callback?next=/update-password`,
+            redirectTo: `${window.location.origin}/auth/callback?next=/auth/update-password`,
         })
 
         if (error) {
@@ -63,7 +63,7 @@ export default function ForgotPasswordPage() {
                     </CardHeader>
                     <CardFooter className="flex justify-center">
                         <Button asChild variant="outline">
-                            <Link href="/login">
+                            <Link href="/auth/login">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to login
                             </Link>
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
 
                 <CardFooter className="flex justify-center">
                     <Button asChild variant="link">
-                        <Link href="/login">
+                        <Link href="/auth/login">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to login
                         </Link>
