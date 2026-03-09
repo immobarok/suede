@@ -1,6 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "./lib/supabase/middleware";
 
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
+
 // Route configurations
 const PUBLIC_ROUTES = ["/", "/about", "/brands", "/collections", "/reviews"];
 const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/auth/callback"];
@@ -16,7 +19,12 @@ const ADMIN_ROUTES = ["/admin"];
 const GUEST_LIMIT = 5;
 const GUEST_TRACKED_ROUTES = ["/reviews/", "/brands/", "/profile/", "/products/"];
 
-export async function proxy(request: NextRequest) {
+const intlMiddleware = createMiddleware(routing);
+
+export default async function proxy(request: NextRequest) {
+  // Get the base localized response
+  const intlResponse = intlMiddleware(request);
+
   // First, update the session (from official docs)
   let response = await updateSession(request);
 
@@ -42,6 +50,8 @@ export async function proxy(request: NextRequest) {
           });
           cookiesToSet.forEach(({ name, value, options }) => {
             response.cookies.set(name, value, options);
+            // Also apply to intlResponse so it propagates to the client
+            intlResponse.cookies.set(name, value, options);
           });
         },
       },
@@ -54,69 +64,75 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Get or create guest session
-  const guestSessionId = await handleGuestSession(request, response);
+  const guestSessionId = await handleGuestSession(request, intlResponse);
 
   const { pathname } = request.nextUrl;
-  const isApiRoute = pathname.startsWith("/api/");
-  const isAuthRoute = AUTH_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
-  const isAdminRoute = ADMIN_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
 
-  // 1. API Routes
+  // Normalize the pathname to ignore the locale prefix ('/en' or '/es')
+  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${routing.locales.join('|')})(/|$)`), '/');
+  const normalizedPath = pathWithoutLocale.startsWith('/') ? pathWithoutLocale : `/${pathWithoutLocale}`;
+
+  const isApiRoute = pathname.startsWith("/api/");
+  const isAuthRoute = AUTH_ROUTES.some((route) => normalizedPath === route || normalizedPath.startsWith(`${route}/`));
+  const isProtectedRoute = PROTECTED_ROUTES.some((route) => normalizedPath === route || normalizedPath.startsWith(`${route}/`));
+  const isAdminRoute = ADMIN_ROUTES.some((route) => normalizedPath === route || normalizedPath.startsWith(`${route}/`));
+
+  // 1. API Routes (No locale rewriting)
   if (isApiRoute) {
     return response;
   }
+
+  const currentLocale = request.cookies.get('NEXT_LOCALE')?.value || routing.defaultLocale;
 
   // 2. Auth Routes - Redirect logged in users away
   if (isAuthRoute) {
     if (user) {
       const redirectTo = request.nextUrl.searchParams.get("redirectedFrom") || "/";
-      return NextResponse.redirect(new URL(redirectTo, request.url));
+      return NextResponse.redirect(new URL(`/${currentLocale}${redirectTo === '/' ? '' : redirectTo}`, request.url));
     }
-    return response;
+    return intlResponse;
   }
 
   // 3. Protected Routes - Must be logged in
   if (isProtectedRoute && !user) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirectedFrom", pathname);
+    const loginUrl = new URL(`/${currentLocale}/login`, request.url);
+    loginUrl.searchParams.set("redirectedFrom", normalizedPath);
     return NextResponse.redirect(loginUrl);
   }
 
   // 4. Admin Routes - Must be admin
   if (isAdminRoute) {
     if (!user) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL(`/${currentLocale}/login`, request.url));
     }
 
     const isAdmin = await checkIsAdmin(supabase, user.id);
     if (!isAdmin) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL(`/${currentLocale}`, request.url));
     }
   }
 
   // 5. Guest Limit Tracking
-  if (!user && shouldTrackGuestView(pathname)) {
-    const canProceed = await checkGuestLimit(supabase, guestSessionId, pathname);
+  if (!user && shouldTrackGuestView(normalizedPath)) {
+    const canProceed = await checkGuestLimit(supabase, guestSessionId, normalizedPath);
 
     if (!canProceed) {
-      const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("redirectedFrom", pathname);
+      const loginUrl = new URL(`/${currentLocale}/login`, request.url);
+      loginUrl.searchParams.set("redirectedFrom", normalizedPath);
       loginUrl.searchParams.set("reason", "guest_limit");
       return NextResponse.redirect(loginUrl);
     }
 
     const remainingViews = await getRemainingGuestViews(supabase, guestSessionId);
-    response.headers.set("X-Guest-Views-Remaining", String(remainingViews));
+    intlResponse.headers.set("X-Guest-Views-Remaining", String(remainingViews));
   }
 
-  return response;
+  // Copy cookies from standard response over to our final intl response
+  response.cookies.getAll().forEach(cookie => {
+    intlResponse.cookies.set(cookie.name, cookie.value);
+  });
+
+  return intlResponse;
 }
 
 // Helper functions
