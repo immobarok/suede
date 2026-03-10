@@ -183,13 +183,17 @@ async function checkGuestLimit(supabase: SupabaseClient, sessionId: string, path
       return false
     }
 
-    await supabase.from('guest_activity').insert({
+    const { error: insertError } = await supabase.from('guest_activity').insert({
       session_id: sessionId,
       activity_type: 'page_view',
       item_type: 'page',
       item_path: pathname,
       created_at: new Date().toISOString()
-    }).catch(console.error)
+    });
+
+    if (insertError) {
+      console.error(insertError);
+    }
 
     return true
   } catch (error) {

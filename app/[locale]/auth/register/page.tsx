@@ -21,6 +21,8 @@ import { Chrome, Apple, AlertCircle } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { User, Store, Star } from "lucide-react"
 
 export default function RegisterPage() {
     const supabase = createClient()
@@ -29,6 +31,7 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [fullName, setFullName] = useState("")
+    const [role, setRole] = useState<"user" | "brand" | "reviewer">("user")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
@@ -44,6 +47,7 @@ export default function RegisterPage() {
             options: {
                 data: {
                     full_name: fullName,
+                    role: role,
                 },
                 emailRedirectTo: `${window.location.origin}/auth/callback`,
             },
@@ -126,6 +130,47 @@ export default function RegisterPage() {
                     )}
 
                     <form onSubmit={handleRegister} className="space-y-4">
+                        <div className="space-y-3">
+                            <Label>Account Type</Label>
+                            <RadioGroup 
+                                defaultValue="user" 
+                                value={role} 
+                                onValueChange={(val: "user" | "brand" | "reviewer") => setRole(val)}
+                                className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                            >
+                                <div>
+                                    <RadioGroupItem value="user" id="user" className="peer sr-only" />
+                                    <Label
+                                        htmlFor="user"
+                                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                                    >
+                                        <User className="mb-3 h-6 w-6" />
+                                        <span>User</span>
+                                    </Label>
+                                </div>
+                                <div>
+                                    <RadioGroupItem value="brand" id="brand" className="peer sr-only" />
+                                    <Label
+                                        htmlFor="brand"
+                                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                                    >
+                                        <Store className="mb-3 h-6 w-6" />
+                                        <span>Brand</span>
+                                    </Label>
+                                </div>
+                                <div>
+                                    <RadioGroupItem value="reviewer" id="reviewer" className="peer sr-only" />
+                                    <Label
+                                        htmlFor="reviewer"
+                                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                                    >
+                                        <Star className="mb-3 h-6 w-6" />
+                                        <span>Reviewer</span>
+                                    </Label>
+                                </div>
+                            </RadioGroup>
+                        </div>
+
                         <div className="space-y-2">
                             <Label htmlFor="fullName">Full Name</Label>
                             <Input

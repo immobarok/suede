@@ -39,7 +39,7 @@ export default function LoginPage() {
         setLoading(true)
         setError(null)
 
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
             email,
             password,
         })
@@ -51,6 +51,16 @@ export default function LoginPage() {
         }
 
         toast.success("Welcome back!")
+        
+        // Handle role-based redirection if no explicit redirect is set
+        if (!redirectedFrom) {
+            const userRole = data.user?.user_metadata?.role as string | undefined;
+            if (userRole === "admin") {
+                window.location.href = "/admin";
+                return;
+            }
+        }
+        
         window.location.href = redirectedFrom || "/"
     }
 
