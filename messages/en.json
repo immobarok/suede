@@ -7,5 +7,47 @@
         "line2": "Your confidence.",
         "description": "Join the community redefining how we shop for fashion online.",
         "button": "Get Started"
+    },
+    "Navbar": {
+        "capsule": "The Capsule",
+        "lookbook": "The Lookbook",
+        "collective": "The Collective",
+        "consign": "The Consign",
+        "profile": "Profile",
+        "measurements": "My Measurements",
+        "favorites": "Favorites",
+        "listings": "My Listings",
+        "signOut": "Sign out",
+        "signedOutSuccess": "Signed out successfully",
+        "signIn": "Sign in",
+        "createAccount": "Create Account",
+        "user": "User"
+    },
+    "Footer": {
+        "tagline": "The fashion trust platform. See how clothes really fit on bodies like yours.",
+        "platform": "Platform",
+        "company": "Company",
+        "capsule": "The Capsule",
+        "lookbook": "The Lookbook",
+        "collective": "The Collective",
+        "consign": "The Consign",
+        "about": "About",
+        "brandPartner": "Capsule Brand Partner",
+        "privacy": "Privacy",
+        "newsletterTitle": "Per Suede Newsletter",
+        "newsletterTagline": "Stay ahead of fit. Get curated reviews and style insights.",
+        "emailPlaceholder": "Your email",
+        "joinWaitlist": "Join The Waitlist",
+        "allRightsReserved": "All rights reserved.",
+        "terms": "Terms"
+    },
+    "Hero": {
+        "trustLayer": "The trust layer for fashion",
+        "line1": "See How Clothes",
+        "line2": "Really Fit on",
+        "line3": "Bodies Like Yours",
+        "description": "SUEDE matches you with reviewers who share your exact body measurements. Shop with confidence. Return less. Discover more.",
+        "explore": "Explore Reviews",
+        "discover": "Discover Brands"
     }
 }

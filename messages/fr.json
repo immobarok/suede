@@ -7,5 +7,47 @@
         "line2": "Votre confiance.",
         "description": "Rejoignez la communauté qui redéfinit la façon dont nous achetons la mode en ligne.",
         "button": "Commencer"
+    },
+    "Navbar": {
+        "capsule": "La Capsule",
+        "lookbook": "Le Lookbook",
+        "collective": "Le Collectif",
+        "consign": "Le Dépôt-Vente",
+        "profile": "Profil",
+        "measurements": "Mes Mesures",
+        "favorites": "Favoris",
+        "listings": "Mes Annonces",
+        "signOut": "Se déconnecter",
+        "signedOutSuccess": "Déconnexion réussie",
+        "signIn": "Se connecter",
+        "createAccount": "Créer un compte",
+        "user": "Utilisateur"
+    },
+    "Footer": {
+        "tagline": "La plateforme de confiance pour la mode. Découvrez comment les vêtements tombent vraiment sur des corps comme le vôtre.",
+        "platform": "Plateforme",
+        "company": "Entreprise",
+        "capsule": "La Capsule",
+        "lookbook": "Le Lookbook",
+        "collective": "Le Collectif",
+        "consign": "Le Dépôt-Vente",
+        "about": "À propos",
+        "brandPartner": "Partenaire de marque Capsule",
+        "privacy": "Confidentialité",
+        "newsletterTitle": "Lettre d'information Per Suede",
+        "newsletterTagline": "Gardez une longueur d'avance sur la coupe. Recevez des avis sélectionnés et des conseils de style.",
+        "emailPlaceholder": "Votre e-mail",
+        "joinWaitlist": "Rejoindre la liste d'attente",
+        "allRightsReserved": "Tous droits réservés.",
+        "terms": "Conditions"
+    },
+    "Hero": {
+        "trustLayer": "La couche de confiance pour la mode",
+        "line1": "Voyez comment les vêtements",
+        "line2": "Tombent vraiment sur",
+        "line3": "Des corps comme le vôtre",
+        "description": "SUEDE vous met en relation avec des évaluateurs qui partagent vos mensurations exactes. Achetez en toute confiance. Retournez moins. Découvrez plus.",
+        "explore": "Explorer les avis",
+        "discover": "Découvrir les marques"
     }
 }

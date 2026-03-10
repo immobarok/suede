@@ -1,6 +1,7 @@
 "use client"
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -45,6 +46,8 @@ const hoverVariants: Variants = {
 };
 
 export default function HeroArticle() {
+    const t = useTranslations("Hero");
+
     return (
         <motion.div
             className="max-w-2xl justify-center text-center"
@@ -56,7 +59,7 @@ export default function HeroArticle() {
                 variants={itemVariants}
                 className="text-muted-foreground"
             >
-                The trust layer for fashion
+                {t("trustLayer")}
             </motion.h4>
 
             <motion.h1
@@ -65,9 +68,9 @@ export default function HeroArticle() {
                 whileHover="hover"
                 initial="initial"
             >
-                <motion.span variants={hoverVariants} className="block">See How Clothes</motion.span>
-                <motion.span variants={hoverVariants} className="block">Really Fit on</motion.span>
-                <motion.span variants={hoverVariants} className="block">Bodies Like Yours</motion.span>
+                <motion.span variants={hoverVariants} className="block">{t("line1")}</motion.span>
+                <motion.span variants={hoverVariants} className="block">{t("line2")}</motion.span>
+                <motion.span variants={hoverVariants} className="block">{t("line3")}</motion.span>
             </motion.h1>
 
             <motion.p
@@ -79,7 +82,7 @@ export default function HeroArticle() {
                     transition: { duration: 0.3 }
                 }}
             >
-                SUEDE matches you with reviewers who share your exact body measurements. Shop with confidence. Return less. Discover more.
+                {t("description")}
             </motion.p>
 
             <div className='flex gap-4 items-center justify-center'>
@@ -89,7 +92,7 @@ export default function HeroArticle() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    Explore Reviews
+                    {t("explore")}
                     <ArrowRight size={20} />
                 </motion.button>
 
@@ -99,7 +102,7 @@ export default function HeroArticle() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    Discover Brands
+                    {t("discover")}
                 </motion.button>
             </div>
         </motion.div>

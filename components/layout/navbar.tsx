@@ -21,9 +21,10 @@ import { useAuth } from "@/hooks/use-user"
 import { createClient } from "@/lib/supabase/client"
 
 import { usePathname } from "@/i18n/routing"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 
 export function Navbar() {
+    const t = useTranslations("Navbar")
     const { user, isLoading, isAuthenticated } = useAuth()
     const pathname = usePathname()
     const locale = useLocale()
@@ -31,7 +32,7 @@ export function Navbar() {
     const handleSignOut = async () => {
         const supabase = createClient()
         await supabase.auth.signOut()
-        toast.success("Signed out successfully")
+        toast.success(t("signedOutSuccess"))
         window.location.reload()
     }
 
@@ -49,25 +50,25 @@ export function Navbar() {
                         href="/the-capsule"
                         className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
-                        The Capsule
+                        {t("capsule")}
                     </Link>
                     <Link
                         href="/the-lookbook"
                         className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
-                        The Lookbook
+                        {t("lookbook")}
                     </Link>
                     <Link
                         href="/the-collective"
                         className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
-                        The Collective
+                        {t("collective")}
                     </Link>
                     <Link
                         href="/the-consign"
                         className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
-                        The Consign
+                        {t("consign")}
                     </Link>
                 </nav>
 
@@ -94,7 +95,7 @@ export function Navbar() {
                                 <DropdownMenuLabel className="font-normal">
                                     <div className="flex flex-col space-y-1">
                                         <p className="text-sm font-medium leading-none">
-                                            {user?.user_metadata?.full_name || "User"}
+                                            {user?.user_metadata?.full_name || t("user")}
                                         </p>
                                         <p className="text-xs leading-none text-muted-foreground">
                                             {user?.email}
@@ -105,25 +106,25 @@ export function Navbar() {
                                 <DropdownMenuItem asChild>
                                     <Link href="/profile" className="cursor-pointer">
                                         <User className="mr-2 h-4 w-4" />
-                                        Profile
+                                        {t("profile")}
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href="/profile/measurements" className="cursor-pointer">
                                         <Ruler className="mr-2 h-4 w-4" />
-                                        My Measurements
+                                        {t("measurements")}
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href="/favorites" className="cursor-pointer">
                                         <Heart className="mr-2 h-4 w-4" />
-                                        Favorites
+                                        {t("favorites")}
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href="/my-listings" className="cursor-pointer">
                                         <ShoppingBag className="mr-2 h-4 w-4" />
-                                        My Listings
+                                        {t("listings")}
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
@@ -132,7 +133,7 @@ export function Navbar() {
                                     onClick={handleSignOut}
                                 >
                                     <LogOut className="mr-2 h-4 w-4" />
-                                    Sign out
+                                    {t("signOut")}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -154,10 +155,10 @@ export function Navbar() {
                                 </Link>
                             </div>
                             <Button variant={"link"} asChild className="text-lg font-medium">
-                                <Link href="/auth/login">Sign in</Link>
+                                <Link href="/auth/login">{t("signIn")}</Link>
                             </Button>
                             <Button asChild className="uppercase rounded-none text-[16px] h-10.5">
-                                <Link href="/auth/register">Create Account</Link>
+                                <Link href="/auth/register">{t("createAccount")}</Link>
                             </Button>
                         </div>
                     )}
@@ -172,25 +173,25 @@ export function Navbar() {
                         <SheetContent side="right">
                             <nav className="flex flex-col gap-4 mt-8">
                                 <Link href="/the-capsule" className="text-lg font-medium">
-                                    The Capsule
+                                    {t("capsule")}
                                 </Link>
                                 <Link href="/the-lookbook" className="text-lg font-medium">
-                                    The Lookbook
+                                    {t("lookbook")}
                                 </Link>
                                 <Link href="/the-collective" className="text-lg font-medium">
-                                    The Collective
+                                    {t("collective")}
                                 </Link>
                                 <Link href="/the-consign" className="text-lg font-medium">
-                                    The Consign
+                                    {t("consign")}
                                 </Link>
 
                                 {!isAuthenticated && (
                                     <div className="flex flex-col gap-2 mt-4">
                                         <Button asChild variant="outline" className="text-md font-medium">
-                                            <Link href="/auth/login">Sign in</Link>
+                                            <Link href="/auth/login">{t("signIn")}</Link>
                                         </Button>
                                         <Button asChild>
-                                            <Link href="/auth/register">Create Account</Link>
+                                            <Link href="/auth/register">{t("createAccount")}</Link>
                                         </Button>
                                     </div>
                                 )}
