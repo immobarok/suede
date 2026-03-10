@@ -1,5 +1,11 @@
 {
     "Index": {
         "title": "¡Hola mundo!"
+    },
+    "Newsletter": {
+        "line1": "Votre corps. Votre coupe.",
+        "line2": "Votre confiance.",
+        "description": "Rejoignez la communauté qui redéfinit la façon dont nous achetons la mode en ligne.",
+        "button": "Commencer"
     }
 }

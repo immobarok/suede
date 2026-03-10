@@ -1,4 +1,5 @@
 import Image from "next/image"
+import HeroArticle from "./HeroArticle"
 
 const Hero = () => {
   return (
@@ -12,6 +13,9 @@ const Hero = () => {
       />
       {/* Optional overlay to make text in navbar readable over image */}
       <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
+        <HeroArticle />
+      </div>
     </section>
   )
 }

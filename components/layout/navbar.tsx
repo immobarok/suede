@@ -40,7 +40,7 @@ export function Navbar() {
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
-                    <span className="text-2xl font-bold tracking-wider font-logo text-[#E8E4DF]">SUEDE</span>
+                    <span className="text-muted-foreground text-2xl font-serif tracking-[40%] uppercase font-logo">SUEDE</span>
                 </Link>
 
                 {/* Desktop Navigation */}

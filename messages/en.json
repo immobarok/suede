@@ -1,5 +1,11 @@
 {
     "Index": {
         "title": "Hello world!"
+    },
+    "Newsletter": {
+        "line1": "Your body. Your fit.",
+        "line2": "Your confidence.",
+        "description": "Join the community redefining how we shop for fashion online.",
+        "button": "Get Started"
     }
 }
