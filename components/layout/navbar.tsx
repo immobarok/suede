@@ -20,8 +20,13 @@ import { Menu, User, Ruler, ShoppingBag, LogOut, Heart } from "lucide-react"
 import { useAuth } from "@/hooks/use-user"
 import { createClient } from "@/lib/supabase/client"
 
+import { usePathname } from "@/i18n/routing"
+import { useLocale } from "next-intl"
+
 export function Navbar() {
     const { user, isLoading, isAuthenticated } = useAuth()
+    const pathname = usePathname()
+    const locale = useLocale()
 
     const handleSignOut = async () => {
         const supabase = createClient()
@@ -31,36 +36,36 @@ export function Navbar() {
     }
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="absolute top-0 z-50 w-full bg-transparent">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
-                    <span className="text-2xl font-bold tracking-tight">SUEDE</span>
+                    <span className="text-2xl font-bold tracking-wider font-logo text-[#E8E4DF]">SUEDE</span>
                 </Link>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
                     <Link
                         href="/the-capsule"
-                        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
                         The Capsule
                     </Link>
                     <Link
                         href="/the-lookbook"
-                        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
                         The Lookbook
                     </Link>
                     <Link
                         href="/the-collective"
-                        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
                         The Collective
                     </Link>
                     <Link
                         href="/the-consign"
-                        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
                     >
                         The Consign
                     </Link>
@@ -133,10 +138,25 @@ export function Navbar() {
                         </DropdownMenu>
                     ) : (
                         <div className="hidden md:flex items-center gap-2">
-                            <Button variant={"link"} asChild>
+                            <div className="flex items-center text-sm pr-4 border-r border-border">
+                                <Link
+                                    href={`/en${pathname === '/' ? '' : pathname}`}
+                                    className={`transition-colors ${locale === 'en' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                >
+                                    EN
+                                </Link>
+                                <span className="mx-1 text-muted-foreground">/</span>
+                                <Link
+                                    href={`/fr${pathname === '/' ? '' : pathname}`}
+                                    className={`transition-colors ${locale === 'fr' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                >
+                                    FR
+                                </Link>
+                            </div>
+                            <Button variant={"link"} asChild className="text-lg font-medium">
                                 <Link href="/auth/login">Sign in</Link>
                             </Button>
-                            <Button asChild className="uppercase rounded-none">
+                            <Button asChild className="uppercase rounded-none text-[16px] h-10.5">
                                 <Link href="/auth/register">Create Account</Link>
                             </Button>
                         </div>
@@ -166,11 +186,11 @@ export function Navbar() {
 
                                 {!isAuthenticated && (
                                     <div className="flex flex-col gap-2 mt-4">
-                                        <Button asChild variant="outline">
+                                        <Button asChild variant="outline" className="text-md font-medium">
                                             <Link href="/auth/login">Sign in</Link>
                                         </Button>
                                         <Button asChild>
-                                            <Link href="/auth/register">Get Started</Link>
+                                            <Link href="/auth/register">Create Account</Link>
                                         </Button>
                                     </div>
                                 )}

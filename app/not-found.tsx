@@ -3,15 +3,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { 
-  Search, 
-  Home, 
-  ArrowLeft, 
-  ShoppingBag, 
+import {
+  Search,
+  Home,
+  ArrowLeft,
+  ShoppingBag,
   Ruler,
   Sparkles
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import './globals.css'
 
 export default function NotFound() {
   const pathname = usePathname()
@@ -29,7 +30,7 @@ export default function NotFound() {
         ]
       }
     }
-    
+
     if (pathname.includes('/reviews')) {
       return {
         title: 'Review Not Found',
@@ -41,7 +42,7 @@ export default function NotFound() {
         ]
       }
     }
-    
+
     if (pathname.includes('/marketplace')) {
       return {
         title: 'Listing Not Found',
@@ -53,7 +54,7 @@ export default function NotFound() {
         ]
       }
     }
-    
+
     if (pathname.includes('/profile')) {
       return {
         title: 'Profile Not Found',
@@ -80,151 +81,155 @@ export default function NotFound() {
   const Icon = context.icon
 
   return (
-    <div className="min-h-screen bg-suede-50 flex items-center justify-center px-4 py-12">
-      <div className="max-w-2xl w-full text-center">
-        
-        {/* Animated 404 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <div className="relative inline-block">
-            <span className="text-9xl font-bold text-suede-200 select-none">
-              404
-            </span>
-            <motion.div 
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+    <html lang="en">
+      <body>
+        <div className="min-h-screen bg-suede-50 flex items-center justify-center px-4 py-12">
+          <div className="max-w-2xl w-full text-center">
+
+            {/* Animated 404 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
             >
-              <div className="w-24 h-24 bg-suede-900 rounded-full flex items-center justify-center shadow-2xl">
-                <Icon className="w-12 h-12 text-white" strokeWidth={1.5} />
+              <div className="relative inline-block">
+                <span className="text-9xl font-bold text-suede-200 select-none">
+                  404
+                </span>
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <div className="w-24 h-24 bg-suede-900 rounded-full flex items-center justify-center shadow-2xl">
+                    <Icon className="w-12 h-12 text-white" strokeWidth={1.5} />
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <h1 className="text-3xl font-bold text-suede-900 mb-4">
-            {context.title}
-          </h1>
-          
-          <p className="text-lg text-suede-600 mb-8 max-w-md mx-auto leading-relaxed">
-            {context.message}
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button asChild size="lg" className="gap-2">
-              <Link href={context.suggestions[0].href}>
-                <Home className="w-4 h-4" />
-                {context.suggestions[0].label}
-              </Link>
-            </Button>
-            
-            {context.suggestions[1] && (
-              <Button asChild variant="outline" size="lg" className="gap-2">
-                <Link href={context.suggestions[1].href}>
-                  {context.suggestions[1].label}
-                </Link>
-              </Button>
-            )}
-            
-            <Button 
-              variant="ghost" 
-              size="lg" 
-              className="gap-2"
-              onClick={() => window.history.back()}
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <ArrowLeft className="w-4 h-4" />
-              Go Back
-            </Button>
+              <h1 className="text-3xl font-bold text-suede-900 mb-4">
+                {context.title}
+              </h1>
+
+              <p className="text-lg text-suede-600 mb-8 max-w-md mx-auto leading-relaxed">
+                {context.message}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <Button asChild size="lg" className="gap-2">
+                  <Link href={context.suggestions[0].href}>
+                    <Home className="w-4 h-4" />
+                    {context.suggestions[0].label}
+                  </Link>
+                </Button>
+
+                {context.suggestions[1] && (
+                  <Button asChild variant="outline" size="lg" className="gap-2">
+                    <Link href={context.suggestions[1].href}>
+                      {context.suggestions[1].label}
+                    </Link>
+                  </Button>
+                )}
+
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="gap-2"
+                  onClick={() => window.history.back()}
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Go Back
+                </Button>
+              </div>
+
+              {/* Helpful Links */}
+              <div className="border-t border-suede-200 pt-8">
+                <p className="text-sm text-suede-500 mb-4">
+                  Looking for something else?
+                </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <Link
+                    href="/brands"
+                    className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
+                  >
+                    All Brands
+                  </Link>
+                  <Link
+                    href="/collections"
+                    className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
+                  >
+                    Collections
+                  </Link>
+                  <Link
+                    href="/reviews"
+                    className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
+                  >
+                    Reviews
+                  </Link>
+                  <Link
+                    href="/marketplace"
+                    className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
+                  >
+                    Marketplace
+                  </Link>
+                  <Link
+                    href="/help"
+                    className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
+                  >
+                    Help Center
+                  </Link>
+                </div>
+              </div>
+
+              {/* Search Suggestion */}
+              <motion.div
+                className="mt-8 p-4 bg-white rounded-lg border border-suede-200 inline-block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <p className="text-sm text-suede-600 mb-2">
+                  Try searching instead:
+                </p>
+                <form action="/search" className="flex gap-2">
+                  <input
+                    type="search"
+                    name="q"
+                    placeholder="Search brands, reviews..."
+                    className="px-4 py-2 border border-suede-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-suede-900 w-64"
+                    defaultValue={pathname.split('/').pop()?.replace(/-/g, ' ')}
+                  />
+                  <Button type="submit" size="sm">
+                    <Search className="w-4 h-4" />
+                  </Button>
+                </form>
+              </motion.div>
+            </motion.div>
+
+            {/* Brand Element */}
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Link href="/" className="inline-flex items-center gap-2 text-suede-400 hover:text-suede-600 transition-colors">
+                <span className="font-bold text-xl tracking-tight">SUEDE</span>
+                <span className="text-sm">Find Your Perfect Fit</span>
+              </Link>
+            </motion.div>
           </div>
-
-          {/* Helpful Links */}
-          <div className="border-t border-suede-200 pt-8">
-            <p className="text-sm text-suede-500 mb-4">
-              Looking for something else?
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link 
-                href="/brands" 
-                className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
-              >
-                All Brands
-              </Link>
-              <Link 
-                href="/collections" 
-                className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
-              >
-                Collections
-              </Link>
-              <Link 
-                href="/reviews" 
-                className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
-              >
-                Reviews
-              </Link>
-              <Link 
-                href="/marketplace" 
-                className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
-              >
-                Marketplace
-              </Link>
-              <Link 
-                href="/help" 
-                className="text-sm text-suede-600 hover:text-suede-900 underline underline-offset-4"
-              >
-                Help Center
-              </Link>
-            </div>
-          </div>
-
-          {/* Search Suggestion */}
-          <motion.div 
-            className="mt-8 p-4 bg-white rounded-lg border border-suede-200 inline-block"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <p className="text-sm text-suede-600 mb-2">
-              Try searching instead:
-            </p>
-            <form action="/search" className="flex gap-2">
-              <input
-                type="search"
-                name="q"
-                placeholder="Search brands, reviews..."
-                className="px-4 py-2 border border-suede-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-suede-900 w-64"
-                defaultValue={pathname.split('/').pop()?.replace(/-/g, ' ')}
-              />
-              <Button type="submit" size="sm">
-                <Search className="w-4 h-4" />
-              </Button>
-            </form>
-          </motion.div>
-        </motion.div>
-
-        {/* Brand Element */}
-        <motion.div 
-          className="mt-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Link href="/" className="inline-flex items-center gap-2 text-suede-400 hover:text-suede-600 transition-colors">
-            <span className="font-bold text-xl tracking-tight">SUEDE</span>
-            <span className="text-sm">Find Your Perfect Fit</span>
-          </Link>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </body>
+    </html>
   )
 }
