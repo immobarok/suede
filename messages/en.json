@@ -21,7 +21,16 @@
         "signedOutSuccess": "Signed out successfully",
         "signIn": "Sign in",
         "createAccount": "Create Account",
-        "user": "User"
+        "user": "User",
+        "tooltipHome": "Go to Home",
+        "tooltipCapsule": "The Capsule collection",
+        "tooltipLookbook": "The Lookbook",
+        "tooltipCollective": "The Collective",
+        "tooltipConsign": "The Consign",
+        "tooltipUser": "User Settings",
+        "tooltipLanguage": "Switch language",
+        "tooltipSignIn": "Sign in to your account",
+        "tooltipRegister": "Create a new account"
     },
     "Footer": {
         "tagline": "The fashion trust platform. See how clothes really fit on bodies like yours.",

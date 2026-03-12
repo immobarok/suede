@@ -1,4 +1,5 @@
 "use client"
+import ButtonTextChange from '@/components/shared/button-textchange';
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -86,25 +87,30 @@ export default function HeroArticle() {
             </motion.p>
 
             <div className='flex flex-col sm:flex-row gap-4 items-center justify-center'>
-                <motion.button
+                <motion.div
                     variants={itemVariants}
-                    className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-accentn cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    {t("explore")}
-                    <ArrowRight size={20} />
-                </motion.button>
+                    <ButtonTextChange
+                        text={t("explore")}
+                        icon={<ArrowRight size={20} />}
+                        className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-accentn cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors"
+                    />
+                </motion.div>
 
-                <motion.button
+                <motion.div
                     variants={itemVariants}
-                    className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-[#E8E4DF] text-[#E8E4DF] cursor-pointer font-normal uppercase tracking-wider transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    {t("discover")}
-                </motion.button>
+                    <ButtonTextChange
+                        text={t("discover")}
+                        className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-[#E8E4DF] text-[#E8E4DF] cursor-pointer font-normal uppercase tracking-wider transition-colors"
+                    />
+                </motion.div>
             </div>
+
         </motion.div>
     );
 }

@@ -21,7 +21,16 @@
         "signedOutSuccess": "Déconnexion réussie",
         "signIn": "Se connecter",
         "createAccount": "Créer un compte",
-        "user": "Utilisateur"
+        "user": "Utilisateur",
+        "tooltipHome": "Aller à l'accueil",
+        "tooltipCapsule": "La collection Capsule",
+        "tooltipLookbook": "Le Lookbook",
+        "tooltipCollective": "Le Collectif",
+        "tooltipConsign": "Le Dépôt-Vente",
+        "tooltipUser": "Paramètres utilisateur",
+        "tooltipLanguage": "Changer de langue",
+        "tooltipSignIn": "Se connecter à votre compte",
+        "tooltipRegister": "Créer un nouveau compte"
     },
     "Footer": {
         "tagline": "La plateforme de confiance pour la mode. Découvrez comment les vêtements tombent vraiment sur des corps comme le vôtre.",

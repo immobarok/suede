@@ -20,6 +20,12 @@ import { useAuth } from "@/hooks/use-user"
 import { createClient } from "@/lib/supabase/client"
 import MotionDrawer from "@/components/motion-drawer"
 import { useState } from "react"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 import { usePathname } from "@/i18n/routing"
 import { useLocale, useTranslations } from "next-intl"
@@ -38,41 +44,82 @@ export function Navbar() {
         window.location.reload()
     }
 
+
+    
     return (
         <header className="fixed top-0 z-50 w-full">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2">
-                    <span className="text-muted-foreground text-2xl font-serif tracking-[40%] uppercase font-logo">SUEDE</span>
-                </Link>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Link href="/" className="flex items-center gap-2">
+                            <span className="text-muted-foreground text-2xl font-serif tracking-[40%] uppercase font-logo">SUEDE</span>
+                        </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        {t("tooltipHome")}
+                    </TooltipContent>
+                </Tooltip>
 
-                {/* Desktop Navigation */}
+
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link
-                        href="/the-capsule"
-                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
-                    >
-                        {t("capsule")}
-                    </Link>
-                    <Link
-                        href="/the-lookbook"
-                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
-                    >
-                        {t("lookbook")}
-                    </Link>
-                    <Link
-                        href="/the-collective"
-                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
-                    >
-                        {t("collective")}
-                    </Link>
-                    <Link
-                        href="/the-consign"
-                        className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
-                    >
-                        {t("consign")}
-                    </Link>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href="/the-capsule"
+                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                            >
+                                {t("capsule")}
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {t("tooltipCapsule")}
+                        </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href="/the-lookbook"
+                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                            >
+                                {t("lookbook")}
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {t("tooltipLookbook")}
+                        </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href="/the-collective"
+                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                            >
+                                {t("collective")}
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {t("tooltipCollective")}
+                        </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href="/the-consign"
+                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                            >
+                                {t("consign")}
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {t("tooltipConsign")}
+                        </TooltipContent>
+                    </Tooltip>
                 </nav>
+
 
                 {/* Right Side */}
                 <div className="flex items-center gap-4">
@@ -80,19 +127,27 @@ export function Navbar() {
                         <LoadingSpinner size="sm" />
                     ) : isAuthenticated ? (
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                                    <Avatar className="h-9 w-9">
-                                        <AvatarImage
-                                            src={user?.user_metadata?.avatar_url}
-                                            alt={user?.email || ""}
-                                        />
-                                        <AvatarFallback>
-                                            {user?.email?.[0].toUpperCase()}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </Button>
-                            </DropdownMenuTrigger>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                                            <Avatar className="h-9 w-9">
+                                                <AvatarImage
+                                                    src={user?.user_metadata?.avatar_url}
+                                                    alt={user?.email || ""}
+                                                />
+                                                <AvatarFallback>
+                                                    {user?.email?.[0].toUpperCase()}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    {t("tooltipUser")}
+                                </TooltipContent>
+                            </Tooltip>
+
                             <DropdownMenuContent className="w-56" align="end" forceMount>
                                 <DropdownMenuLabel className="font-normal">
                                     <div className="flex flex-col space-y-1">
@@ -141,28 +196,52 @@ export function Navbar() {
                         </DropdownMenu>
                     ) : (
                         <div className="hidden md:flex items-center gap-2">
-                            <div className="flex items-center text-sm pr-4 border-r border-border">
-                                <Link
-                                    href={`/en${pathname === '/' ? '' : pathname}`}
-                                    className={`transition-colors ${locale === 'en' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
-                                >
-                                    EN
-                                </Link>
-                                <span className="mx-1 text-muted-foreground">/</span>
-                                <Link
-                                    href={`/fr${pathname === '/' ? '' : pathname}`}
-                                    className={`transition-colors ${locale === 'fr' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
-                                >
-                                    FR
-                                </Link>
-                            </div>
-                            <Button variant={"link"} asChild className="text-lg font-medium">
-                                <Link href="/auth/login">{t("signIn")}</Link>
-                            </Button>
-                            <Button asChild className="uppercase rounded-none text-[16px] h-10.5">
-                                <Link href="/auth/register">{t("createAccount")}</Link>
-                            </Button>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="flex items-center text-sm pr-4 border-r border-border">
+                                        <Link
+                                            href={`/en${pathname === '/' ? '' : pathname}`}
+                                            className={`transition-colors ${locale === 'en' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                        >
+                                            EN
+                                        </Link>
+                                        <span className="mx-1 text-muted-foreground">/</span>
+                                        <Link
+                                            href={`/fr${pathname === '/' ? '' : pathname}`}
+                                            className={`transition-colors ${locale === 'fr' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                        >
+                                            FR
+                                        </Link>
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    {t("tooltipLanguage")}
+                                </TooltipContent>
+                            </Tooltip>
+
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant={"link"} asChild className="text-lg font-medium">
+                                        <Link href="/auth/login">{t("signIn")}</Link>
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    {t("tooltipSignIn")}
+                                </TooltipContent>
+                            </Tooltip>
+
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button asChild className="uppercase rounded-none text-[16px] h-10.5">
+                                        <Link href="/auth/register">{t("createAccount")}</Link>
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    {t("tooltipRegister")}
+                                </TooltipContent>
+                            </Tooltip>
                         </div>
+
                     )}
 
                     {/* Mobile Menu Toggle */}
