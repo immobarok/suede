@@ -50,7 +50,7 @@ export default function HeroArticle() {
 
     return (
         <motion.div
-            className="max-w-2xl justify-center text-center"
+            className="max-w-4xl px-4 flex flex-col items-center justify-center text-center"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -64,7 +64,7 @@ export default function HeroArticle() {
 
             <motion.h1
                 variants={itemVariants}
-                className="text-[84px] font-normal font-logo leading-[105%]"
+                className="text-4xl md:text-6xl lg:text-7xl xl:text-[84px] font-normal font-logo leading-[1.1] md:leading-[105%] mb-4 md:mb-6"
                 whileHover="hover"
                 initial="initial"
             >
@@ -75,7 +75,7 @@ export default function HeroArticle() {
 
             <motion.p
                 variants={itemVariants}
-                className="text-[16px] text-[#E8E4DF] font-normal text-center max-w-lg mx-auto"
+                className="text-sm md:text-base lg:text-[16px] text-[#E8E4DF] font-normal text-center max-w-lg mx-auto mb-8"
                 whileHover={{
                     opacity: 1,
                     scale: 1.0,
@@ -85,10 +85,10 @@ export default function HeroArticle() {
                 {t("description")}
             </motion.p>
 
-            <div className='flex gap-4 items-center justify-center'>
+            <div className='flex flex-col sm:flex-row gap-4 items-center justify-center'>
                 <motion.button
                     variants={itemVariants}
-                    className="mt-8 px-8 py-3 flex gap-2.5 items-center bg-primary text-accentn cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors "
+                    className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-accentn cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
@@ -98,7 +98,7 @@ export default function HeroArticle() {
 
                 <motion.button
                     variants={itemVariants}
-                    className="mt-8 px-8 py-3 bg-none outline outline-[#E8E4DF] text-[#E8E4DF] cursor-pointer font-normal uppercase tracking-wider transition-colors"
+                    className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-[#E8E4DF] text-[#E8E4DF] cursor-pointer font-normal uppercase tracking-wider transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
