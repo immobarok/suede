@@ -1,5 +1,6 @@
 "use client"
-import ButtonTextChange from '@/components/shared/button-textchange';
+
+import ButtonTextChange from '@/components/ui/button-textchange';
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -56,16 +57,23 @@ export default function HeroArticle() {
             initial="hidden"
             animate="visible"
         >
-            <motion.h4
+            {/* Top Label - Darker Grotesque */}
+            <motion.span
                 variants={itemVariants}
-                className="text-muted-foreground"
+                className="text-[#E3D6CC] text-center text-[14px] font-normal uppercase tracking-[2.24px] leading-normal"
+                style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
             >
                 {t("trustLayer")}
-            </motion.h4>
+            </motion.span>
 
+            {/* Spacer - 12px */}
+            <div className="h-3" />
+
+            {/* Main Heading - Cormorant Garamond */}
             <motion.h1
                 variants={itemVariants}
-                className="text-4xl md:text-6xl lg:text-7xl xl:text-[84px] font-normal font-logo leading-[1.1] md:leading-[105%] mb-4 md:mb-6"
+                className="text-[32px] sm:text-[48px] md:text-[64px] lg:text-[84px] font-normal text-[#E8E4DF] leading-normal text-center"
+                style={{ fontFamily: '"Cormorant Garamond", serif' }}
                 whileHover="hover"
                 initial="initial"
             >
@@ -74,9 +82,14 @@ export default function HeroArticle() {
                 <motion.span variants={hoverVariants} className="block">{t("line3")}</motion.span>
             </motion.h1>
 
+            {/* Spacer - 12px */}
+            <div className="h-3" />
+
+            {/* Bottom Description - Darker Grotesque */}
             <motion.p
                 variants={itemVariants}
-                className="text-sm md:text-base lg:text-[16px] text-[#E8E4DF] font-normal text-center max-w-lg mx-auto mb-8"
+                className="text-[#E8E4DF] text-center text-[18px] font-normal leading-normal max-w-xl mx-auto mb-8"
+                style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
                 whileHover={{
                     opacity: 1,
                     scale: 1.0,
@@ -95,7 +108,7 @@ export default function HeroArticle() {
                     <ButtonTextChange
                         text={t("explore")}
                         icon={<ArrowRight size={20} />}
-                        className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-accentn cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors"
+                        className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-primary-foreground cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors "
                     />
                 </motion.div>
 
@@ -106,7 +119,7 @@ export default function HeroArticle() {
                 >
                     <ButtonTextChange
                         text={t("discover")}
-                        className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-[#E8E4DF] text-[#E8E4DF] cursor-pointer font-normal uppercase tracking-wider transition-colors"
+                        className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-border text-border cursor-pointer font-normal uppercase tracking-wider transition-colors"
                     />
                 </motion.div>
             </div>

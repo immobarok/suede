@@ -37,6 +37,11 @@ export function Navbar() {
     const locale = useLocale()
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
+    const isHome = pathname === "/"
+    const navTextColor = isHome ? "text-white" : "text-[#1A1A1A]"
+    const navActiveColor = isHome ? "text-white" : "text-[#1A1A1A]"
+    const navHoverColor = isHome ? "hover:text-white/80" : "hover:text-primary"
+
     const handleSignOut = async () => {
         const supabase = createClient()
         await supabase.auth.signOut()
@@ -53,7 +58,7 @@ export function Navbar() {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Link href="/" className="flex items-center gap-2">
-                            <span className="text-muted-foreground text-2xl font-serif tracking-[40%] uppercase font-logo">SUEDE</span>
+                            <span className={`${navTextColor} text-2xl font-serif tracking-[40%] uppercase font-logo`}>SUEDE</span>
                         </Link>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -67,7 +72,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-capsule"
-                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("capsule")}
                             </Link>
@@ -81,7 +86,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-lookbook"
-                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("lookbook")}
                             </Link>
@@ -95,7 +100,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-collective"
-                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("collective")}
                             </Link>
@@ -109,7 +114,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-consign"
-                                className="text-[16px] font-normal text-muted-foreground hover:text-primary transition-colors"
+                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("consign")}
                             </Link>
@@ -201,14 +206,14 @@ export function Navbar() {
                                     <div className="flex items-center text-sm pr-4 border-r border-border">
                                         <Link
                                             href={`/en${pathname === '/' ? '' : pathname}`}
-                                            className={`transition-colors ${locale === 'en' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                            className={`transition-colors ${locale === 'en' ? `${navActiveColor} font-semibold underline underline-offset-4` : `${navTextColor} ${navHoverColor}`}`}
                                         >
                                             EN
                                         </Link>
-                                        <span className="mx-1 text-muted-foreground">/</span>
+                                        <span className={`mx-1 ${navTextColor}`}>/</span>
                                         <Link
                                             href={`/fr${pathname === '/' ? '' : pathname}`}
-                                            className={`transition-colors ${locale === 'fr' ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-accent'}`}
+                                            className={`transition-colors ${locale === 'fr' ? `${navActiveColor} font-semibold underline underline-offset-4` : `${navTextColor} ${navHoverColor}`}`}
                                         >
                                             FR
                                         </Link>
@@ -221,7 +226,7 @@ export function Navbar() {
 
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant={"link"} asChild className="text-lg font-medium">
+                                    <Button variant={"link"} asChild className="text-lg font-medium font-darker-grotesque">
                                         <Link href="/auth/login">{t("signIn")}</Link>
                                     </Button>
                                 </TooltipTrigger>

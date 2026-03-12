@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "sonner";
 import { NextIntlClientProvider } from "next-intl";
@@ -8,14 +7,18 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+import { Cormorant_Garamond, Darker_Grotesque } from 'next/font/google';
+
+const cormorant = Cormorant_Garamond({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-cormorant',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const darkerGrotesque = Darker_Grotesque({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-darker-grotesque',
 });
 
 export const metadata: Metadata = {
@@ -39,9 +42,9 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${cormorant.variable} ${darkerGrotesque.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
       >
         <TooltipProvider>
           <NextIntlClientProvider messages={messages}>
