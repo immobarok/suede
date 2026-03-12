@@ -1,4 +1,5 @@
 import { AnimatedSectionHeader } from "@/components/ui/section-header"
+import { BrandCardGrid } from "./_components/BrandCardGrid"
 
 const page = () => {
     return (
@@ -10,6 +11,7 @@ const page = () => {
                     bottomText="A curated collection of minority-owned fashion brands, each vetted for quality, ethics, and design excellence."
                 />
             </section>
+            <BrandCardGrid />
         </main>
     )
 }
