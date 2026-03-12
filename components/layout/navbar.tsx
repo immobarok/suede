@@ -14,11 +14,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { LoadingSpinner } from "@/components/shared/loading-spinner"
 import { Menu, User, Ruler, ShoppingBag, LogOut, Heart } from "lucide-react"
 import { useAuth } from "@/hooks/use-user"
 import { createClient } from "@/lib/supabase/client"
+import MotionDrawer from "@/components/motion-drawer"
+import { useState } from "react"
 
 import { usePathname } from "@/i18n/routing"
 import { useLocale, useTranslations } from "next-intl"
@@ -28,6 +29,7 @@ export function Navbar() {
     const { user, isLoading, isAuthenticated } = useAuth()
     const pathname = usePathname()
     const locale = useLocale()
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
     const handleSignOut = async () => {
         const supabase = createClient()
@@ -37,7 +39,7 @@ export function Navbar() {
     }
 
     return (
-        <header className="absolute top-0 z-50 w-full bg-transparent">
+        <header className="fixed top-0 z-50 w-full">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
@@ -163,41 +165,98 @@ export function Navbar() {
                         </div>
                     )}
 
-                    {/* Mobile Menu */}
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="md:hidden">
-                                <Menu className="h-5 w-5" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right">
-                            <nav className="flex flex-col gap-4 mt-8">
-                                <Link href="/the-capsule" className="text-lg font-medium">
-                                    {t("capsule")}
-                                </Link>
-                                <Link href="/the-lookbook" className="text-lg font-medium">
-                                    {t("lookbook")}
-                                </Link>
-                                <Link href="/the-collective" className="text-lg font-medium">
-                                    {t("collective")}
-                                </Link>
-                                <Link href="/the-consign" className="text-lg font-medium">
-                                    {t("consign")}
-                                </Link>
+                    {/* Mobile Menu Toggle */}
+                    <Button
 
-                                {!isAuthenticated && (
-                                    <div className="flex flex-col gap-2 mt-4">
-                                        <Button asChild variant="outline" className="text-md font-medium">
-                                            <Link href="/auth/login">{t("signIn")}</Link>
-                                        </Button>
-                                        <Button asChild>
-                                            <Link href="/auth/register">{t("createAccount")}</Link>
-                                        </Button>
-                                    </div>
-                                )}
-                            </nav>
-                        </SheetContent>
-                    </Sheet>
+                        size="icon"
+                        className="md:hidden"
+                        onClick={() => setIsDrawerOpen(true)}
+                    >
+                        <Menu className="h-5 w-5" />
+                    </Button>
+
+                    {/* Mobile Menu Drawer */}
+                    <MotionDrawer
+                        isOpen={isDrawerOpen}
+                        onToggle={setIsDrawerOpen}
+                        direction="right"
+                        showToggleButton={false}
+                        showCloseButton={true}
+                        width={300}
+                        backgroundColor="white"
+                        contentClassName="border-l border-border"
+                        className="md:hidden"
+                    >
+                        <nav className="flex flex-col gap-6">
+                            <Link
+                                href="/the-capsule"
+                                className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                                onClick={() => setIsDrawerOpen(false)}
+                            >
+                                {t("capsule")}
+                            </Link>
+                            <Link
+                                href="/the-lookbook"
+                                className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                                onClick={() => setIsDrawerOpen(false)}
+                            >
+                                {t("lookbook")}
+                            </Link>
+                            <Link
+                                href="/the-collective"
+                                className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                                onClick={() => setIsDrawerOpen(false)}
+                            >
+                                {t("collective")}
+                            </Link>
+                            <Link
+                                href="/the-consign"
+                                className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                                onClick={() => setIsDrawerOpen(false)}
+                            >
+                                {t("consign")}
+                            </Link>
+
+                            {!isAuthenticated && (
+                                <div className="flex flex-col gap-3 mt-4">
+                                    <Button
+                                        asChild
+                                        variant="outline"
+                                        className="text-md font-medium h-12 rounded-none"
+                                        onClick={() => setIsDrawerOpen(false)}
+                                    >
+                                        <Link href="/auth/login">{t("signIn")}</Link>
+                                    </Button>
+                                    <Button
+                                        asChild
+                                        className="h-12 uppercase rounded-none"
+                                        onClick={() => setIsDrawerOpen(false)}
+                                    >
+                                        <Link href="/auth/register">{t("createAccount")}</Link>
+                                    </Button>
+                                </div>
+                            )}
+
+                            {/* Language Switcher for Mobile */}
+                            <div className="flex items-center text-sm pt-6 mt-6 border-t border-border">
+                                <Link
+                                    href={`/en${pathname === '/' ? '' : pathname}`}
+                                    className={`transition-colors text-lg ${locale === 'en' ? 'text-primary font-semibold' : 'text-muted-foreground hover:text-primary'}`}
+                                    onClick={() => setIsDrawerOpen(false)}
+                                >
+                                    EN
+                                </Link>
+                                <span className="mx-3 text-muted-foreground">/</span>
+                                <Link
+                                    href={`/fr${pathname === '/' ? '' : pathname}`}
+                                    className={`transition-colors text-lg ${locale === 'fr' ? 'text-primary font-semibold' : 'text-muted-foreground hover:text-primary'}`}
+                                    onClick={() => setIsDrawerOpen(false)}
+                                >
+                                    FR
+                                </Link>
+                            </div>
+                        </nav>
+                    </MotionDrawer>
                 </div>
             </div>
         </header>
