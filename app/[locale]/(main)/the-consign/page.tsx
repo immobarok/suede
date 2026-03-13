@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
 import { AnimatedSearchBar } from "@/components/shared/AnimatedSearchBar";
 import ConsignFilterRow from "./_components/ConsignFilterRow";
 import ConsignProductGrid from "./_components/ConsignProductGrid";
 import ConsignSellAction from "./_components/ConsignSellAction";
+
+export const metadata: Metadata = {
+  title: "The Consign",
+  description:
+    "Shop curated secondhand fashion on The Consign with verified seller profiles and fit-aware browsing.",
+};
 
 const page = () => {
   return (
