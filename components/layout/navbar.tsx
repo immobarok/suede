@@ -53,7 +53,7 @@ export function Navbar() {
     
     return (
         <header className="fixed top-0 z-50 w-full">
-            <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+            <div className="container mx-auto h-16 flex items-center justify-between">
                 {/* Logo */}
                 <Tooltip>
                     <TooltipTrigger asChild>
