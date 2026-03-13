@@ -7,12 +7,11 @@ const page = () => {
     <>
       <main>
         <Hero />
-        <NewsletterSection />
-
         <PreLovedSection />
+        <NewsletterSection />
       </main>
     </>
   );
-}
+};
 
 export default page;
