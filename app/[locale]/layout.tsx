@@ -39,6 +39,14 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(getSiteOrigin()),
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/icon", type: "image/png" },
+      ],
+      shortcut: "/favicon.svg",
+      apple: [{ url: "/apple-icon", type: "image/png" }],
+    },
     title: {
       default: siteTitle,
       template: "%s | SUEDE",

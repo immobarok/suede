@@ -12,7 +12,7 @@ import {
   Sparkles
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import './globals.css'
+import "./globals.css";
 
 export default function NotFound() {
   const pathname = usePathname()
