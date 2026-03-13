@@ -14,6 +14,7 @@ import { useQueryModal } from "@/hooks";
 
 const SortItem = ({ label, value }: { label: string; value: string }) => {
   const { open } = useQueryModal("sort", value);
+
   return (
     <DropdownMenuRadioItem value={value} onClick={open}>
       {label}
@@ -21,19 +22,18 @@ const SortItem = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-const SortBy = () => {
+const FilterInquiries = () => {
   const searchParams = useSearchParams();
   const currentSort = searchParams.get("sort") || "date_added";
 
   const sortOptions = [
     { label: "DATE ADDED (DEFAULT)", value: "date_added" },
-    { label: "BRAND A → Z", value: "brand_a_z" },
-    { label: "HIGHEST RATING", value: "highest_rating" },
-    { label: "LOWEST RATING", value: "lowest_rating" },
+    { label: "MOST HELPFUL", value: "most_helpful" },
   ];
 
   const currentLabel =
-    sortOptions.find((opt) => opt.value === currentSort)?.label || "Sort By";
+    sortOptions.find((option) => option.value === currentSort)?.label ||
+    "Sort By";
 
   return (
     <DropdownMenu>
@@ -67,4 +67,4 @@ const SortBy = () => {
   );
 };
 
-export default SortBy;
+export default FilterInquiries;

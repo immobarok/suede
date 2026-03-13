@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
 
 interface Response {
   id: string;
@@ -60,7 +59,7 @@ export function CommunityQuestionCard({
         {/* Product Header Section */}
         <div className="p-5 flex gap-4">
           {/* Product Image */}
-          <div className="relative aspect-square w-30 h-32 flex-shrink-0 bg-[#f5f5f5]">
+          <div className="relative aspect-square w-30 h-32 shrink-0 bg-[#f5f5f5]">
             <Image
               src={productImage}
               alt={productName}
@@ -141,8 +140,8 @@ export function CommunityQuestionCard({
             {responses.map((response) => (
               <div key={response.id} className="flex gap-3 relative pl-4 items-center">
                 {/* Vertical Bar */}
-                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#C9A96E]/30" />    
-                <Avatar className="w-8 h-8 rounded-full flex-shrink-0">
+                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#C9A96E]/30" />    
+                <Avatar className="w-8 h-8 rounded-full shrink-0">
                   <AvatarImage src={response.userAvatar} alt={response.userName} />
                   <AvatarFallback className="bg-[#f5f5f5] text-[#1a1a1a] text-xs">
                     {response.userName.charAt(0)}
