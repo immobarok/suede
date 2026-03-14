@@ -31,26 +31,28 @@ const desktopCards: FloatingCardProps[] = [
 
 const mobileCards: FloatingCardProps[] = [
   {
-    image: "/images/products/red-blazer.jpg",
+    image: desktopCards[0].image,
     brand: "Nodi",
     name: "Aya Studio Wide-Leg Trouser",
     price: 85,
     originalPrice: 145,
     rotation: -6,
-    xOffset: 10,
-    yOffset: 20,
+    xOffset: -45,
+    yOffset: 30,
     delay: 0.2,
+    centerOnMobile: true,
   },
   {
-    image: "/images/products/brown-shirt.jpg",
+    image: desktopCards[1].image,
     brand: "Nodi",
     name: "Aya Studio Wide-Leg Trouser",
     price: 85,
     originalPrice: 145,
     rotation: 8,
-    xOffset: 80,
-    yOffset: 100,
+    xOffset: 45,
+    yOffset: 40,
     delay: 0.4,
+    centerOnMobile: true,
   },
 ];
 

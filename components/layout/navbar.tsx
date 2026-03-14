@@ -52,7 +52,7 @@ export function Navbar() {
 
     
     return (
-        <header className="fixed top-0 z-50 w-full">
+        <header className="fixed top-0 z-50 w-full px-4 md:px-0">
             <div className="container mx-auto h-16 flex items-center justify-between">
                 {/* Logo */}
                 <Tooltip>
@@ -72,7 +72,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-capsule"
-                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
+                                className={`text-[16px] font-darker uppercase ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("capsule")}
                             </Link>
@@ -86,7 +86,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-lookbook"
-                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
+                                className={`text-[16px] font-darker uppercase ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("lookbook")}
                             </Link>
@@ -100,7 +100,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-collective"
-                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
+                                className={`text-[16px] font-darker uppercase ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("collective")}
                             </Link>
@@ -114,7 +114,7 @@ export function Navbar() {
                         <TooltipTrigger asChild>
                             <Link
                                 href="/the-consign"
-                                className={`text-[16px] font-normal ${navTextColor} ${navHoverColor} transition-colors`}
+                                className={`text-[16px] font-darker uppercase ${navTextColor} ${navHoverColor} transition-colors`}
                             >
                                 {t("consign")}
                             </Link>
@@ -154,7 +154,7 @@ export function Navbar() {
                             </Tooltip>
 
                             <DropdownMenuContent className="w-56" align="end" forceMount>
-                                <DropdownMenuLabel className="font-normal">
+                                <DropdownMenuLabel className="font-darker uppercase">
                                     <div className="flex flex-col space-y-1">
                                         <p className="text-sm font-medium leading-none">
                                             {user?.user_metadata?.full_name || t("user")}

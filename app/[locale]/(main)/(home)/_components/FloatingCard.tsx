@@ -13,6 +13,7 @@ export interface FloatingCardProps {
   xOffset: number;
   yOffset: number;
   delay: number;
+  centerOnMobile?: boolean;
 }
 
 const FloatingCard = ({
@@ -25,13 +26,14 @@ const FloatingCard = ({
   xOffset,
   yOffset,
   delay,
+  centerOnMobile = false,
 }: FloatingCardProps) => {
   return (
     <motion.div
-      className="absolute w-70 bg-white p-4 shadow-xl"
+      className={`absolute w-56 max-w-[calc(100vw-2rem)] bg-white p-3 shadow-xl sm:w-64 md:w-70 md:p-4 ${centerOnMobile ? "-translate-x-1/2" : ""}`}
       style={{
         rotate: rotation,
-        left: xOffset,
+        left: centerOnMobile ? `calc(50% + ${xOffset}px)` : xOffset,
         top: yOffset,
       }}
       initial={{ opacity: 0, scale: 0.8, y: 50 }}
@@ -48,13 +50,13 @@ const FloatingCard = ({
         transition: { duration: 0.3 },
       }}
     >
-      <div className="relative mb-4 aspect-4/5 overflow-hidden bg-[#f5f5f5]">
+      <div className="relative mb-0 md:mb-4 aspect-4/5 overflow-hidden bg-[#f5f5f5]">
         <Image
           src={image}
           alt={name}
           fill
           className="object-cover"
-          sizes="280px"
+          sizes="(max-width: 768px) 224px, 280px"
         />
       </div>
 
