@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 
 type ConsignProductCardProps = {
+  slug: string;
   imageUrl: string;
   brandName: string;
   productName: string;
@@ -15,6 +17,7 @@ type ConsignProductCardProps = {
 };
 
 const ConsignProductCard = ({
+  slug,
   imageUrl,
   brandName,
   productName,
@@ -103,12 +106,12 @@ const ConsignProductCard = ({
             </p>
 
             <div className="space-y-2 pt-2">
-              <button
-                type="button"
-                className="bg-primary font-darker hover:bg-primary/90 h-11 w-full cursor-pointer text-base tracking-[0.06em] text-white transition-colors"
+              <Link
+                href={`/the-consign/buy-now/${slug}`}
+                className="bg-primary font-darker hover:bg-primary/90 flex h-11 w-full items-center justify-center text-base tracking-[0.06em] text-white transition-colors"
               >
                 BUY NOW
-              </button>
+              </Link>
               <button
                 type="button"
                 className="font-darker h-11 w-full cursor-pointer border border-[#E7E4DF] bg-transparent text-base tracking-[0.06em] text-[#4F4F4D] transition-colors hover:bg-[#F7F6F4]"

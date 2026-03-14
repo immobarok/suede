@@ -27,8 +27,8 @@ const page = async (props: { searchParams: SearchParams }) => {
   const view = searchParams.view;
 
   return (
-    <main className="bg-[#F5F5F0]">
-      <section className="px-4 pt-24 pb-0">
+    <main className="bg-[#F5F5F0] py-24">
+      <section className="px-4">
         <AnimatedSectionHeader
           topText="Discovery feed"
           middleText="The Lookbook"
