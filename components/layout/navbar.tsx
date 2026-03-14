@@ -240,16 +240,13 @@ export function Navbar() {
                     ref={searchContainerRef}
                     className="border-border flex items-center gap-2 border-r pr-4 text-sm"
                   >
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className={`h-8 w-8 hover:bg-primary rounded-full ${navTextColor} ${navHoverColor}`}
+                    <button
+                      className={`h-8 w-8 rounded-full ${navTextColor} ${navHoverColor}`}
                       onClick={() => setIsSearchOpen((prev) => !prev)}
                       aria-label="Toggle search"
                     >
                       <Search className="h-4 w-4" />
-                    </Button>
+                    </button>
                     {isSearchOpen && (
                       <Input
                         value={searchValue}

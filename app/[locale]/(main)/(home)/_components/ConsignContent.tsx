@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const ConsignContent = () => {
   return (
@@ -54,16 +55,16 @@ const ConsignContent = () => {
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.6 }}
       >
-        <button className="group relative inline-flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-none bg-[#A67B5B] text-white shadow-lg">
+        <Link href="/the-consign" className="group relative inline-flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-none bg-[#A67B5B] text-white shadow-lg">
           <span className="absolute inline-flex h-12 w-full -translate-x-full items-center justify-center bg-[#bb8b67] px-8 text-[11px] font-normal tracking-[1.5px] text-white uppercase transition duration-300 group-hover:translate-x-0">
-            Sell Your Pieces
+            The consign
             <ArrowRight className="ml-2 h-4 w-4" />
           </span>
           <span className="bg-primary inline-flex h-12 translate-x-0 items-center justify-center px-8 text-[11px] font-normal tracking-[1.5px] uppercase transition group-hover:translate-x-[150%]">
             Sell Your Pieces
             <ArrowRight className="ml-2 h-4 w-4" />
           </span>
-        </button>
+        </Link>
       </motion.div>
     </motion.div>
   );
