@@ -256,7 +256,7 @@ export function Navbar() {
                         className="h-8 w-36 rounded-md border-[#2A2A2A] bg-[#1A1A1A] text-xs text-white placeholder:text-white/60 md:w-44"
                       />
                     )}
-                    <Link
+                    {/* <Link
                       href={`/en${pathname === "/" ? "" : pathname}`}
                       className={`transition-colors ${locale === "en" ? `${navActiveColor} font-semibold underline underline-offset-4` : `${navTextColor} ${navHoverColor}`}`}
                     >
@@ -268,7 +268,7 @@ export function Navbar() {
                       className={`transition-colors ${locale === "fr" ? `${navActiveColor} font-semibold underline underline-offset-4` : `${navTextColor} ${navHoverColor}`}`}
                     >
                       FR
-                    </Link>
+                    </Link> */}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>{t("tooltipLanguage")}</TooltipContent>
@@ -373,7 +373,7 @@ export function Navbar() {
               )}
 
               {/* Language Switcher for Mobile */}
-              <div className="border-border mt-6 flex items-center border-t pt-6 text-sm">
+              {/* <div className="border-border mt-6 flex items-center border-t pt-6 text-sm">
                 <Link
                   href={`/en${pathname === "/" ? "" : pathname}`}
                   className={`text-lg transition-colors ${locale === "en" ? "text-primary font-semibold" : "text-muted-foreground hover:text-primary"}`}
@@ -389,7 +389,7 @@ export function Navbar() {
                 >
                   FR
                 </Link>
-              </div>
+              </div> */}
             </nav>
           </MotionDrawer>
         </div>
