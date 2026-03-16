@@ -66,7 +66,7 @@ export function AnimatedSectionHeader({
             {/* Main Heading - Cormorant Garamond */}
             <motion.h2 
                 variants={itemVariants}
-                className="text-[#1A1A1A] text-center text-[32px] sm:text-[48px] md:text-[64px] lg:text-[84px] font-normal leading-normal"
+                className="text-primary text-center text-[32px] sm:text-[48px] md:text-[64px] lg:text-[84px] font-normal leading-normal"
                 style={{ fontFamily: '"Cormorant Garamond", serif' }}
             >
                 {middleText}

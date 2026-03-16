@@ -6,35 +6,72 @@ export type ConsignProduct = {
   price: string;
   originalPrice?: string;
   sizeLabel: string;
+  condition: string;
+  description: string;
+  thumbnails: string[];
+  seller: {
+    name: string;
+    username: string;
+    avatarUrl: string;
+  };
+  measurements: {
+    height: string;
+    bust: string;
+    waist: string;
+    hips: string;
+  };
 };
 
 export const consignProducts: ConsignProduct[] = [
   {
+    slug: "structured-wool-blazer",
+    imageUrl: "https://i.ibb.co.com/27gJcNQN/Rectangle-7-1.png",
+    brandName: "Nadi",
+    productName: "Structured Wool Blazer",
+    price: "$245",
+    sizeLabel: "M",
+    condition: "Like New",
+    description: "Classic tailored blazer in premium wool blend. Features structured shoulders, single-button closure, and functional pockets. Worn only twice for special events. Professionally dry cleaned and in pristine condition.",
+    thumbnails: [
+      "https://i.ibb.co.com/27gJcNQN/Rectangle-7-1.png",
+      "https://i.ibb.co.com/5bBXmq7/Rectangle-7-2.png",
+      "https://i.ibb.co.com/RpMxPqQ7/Rectangle-7.png",
+      "https://i.ibb.co.com/LddnM1Lr/Image-With-Fallback.png",
+    ],
+    seller: {
+      name: "Amara K.",
+      username: "@amara",
+      avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    },
+    measurements: {
+      height: '5\'6"',
+      bust: '28"',
+      waist: '31"',
+      hips: '25"',
+    },
+  },
+  {
     slug: "aya-studio-wide-leg-trouser-sand",
     imageUrl: "https://i.ibb.co.com/5bBXmq7/Rectangle-7-2.png",
-    brandName: "Nodi",
+    brandName: "Nadi",
     productName: "Aya Studio Wide-Leg Trouser",
     price: "$85",
     originalPrice: "$145",
-    sizeLabel: "Size M",
-  },
-  {
-    slug: "aya-studio-wide-leg-trouser-cocoa",
-    imageUrl: "https://i.ibb.co.com/27gJcNQN/Rectangle-7-1.png",
-    brandName: "Nodi",
-    productName: "Aya Studio Wide-Leg Trouser",
-    price: "$85",
-    originalPrice: "$145",
-    sizeLabel: "Size M",
-  },
-  {
-    slug: "aya-studio-wide-leg-trouser-charcoal",
-    imageUrl: "https://i.ibb.co.com/RpMxPqQ7/Rectangle-7.png",
-    brandName: "Nodi",
-    productName: "Aya Studio Wide-Leg Trouser",
-    price: "$85",
-    originalPrice: "$145",
-    sizeLabel: "Size M",
+    sizeLabel: "M",
+    condition: "Good",
+    description: "Wide-leg trousers in a beautiful sand color.",
+    thumbnails: ["https://i.ibb.co.com/5bBXmq7/Rectangle-7-2.png"],
+    seller: {
+        name: "Amara K.",
+        username: "@amara",
+        avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    },
+    measurements: {
+        height: '5\'6"',
+        bust: '28"',
+        waist: '31"',
+        hips: '25"',
+    }
   },
 ];
 
