@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
-import { AnimatedSearchBar } from "@/components/shared/AnimatedSearchBar";
+import { AnimatedSearchBar } from "@/components/shared/animated-search-bar";
 import ConsignFilterRow from "./_components/ConsignFilterRow";
 import ConsignProductGrid from "./_components/ConsignProductGrid";
 import ConsignSellAction from "./_components/ConsignSellAction";

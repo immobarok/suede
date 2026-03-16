@@ -5,7 +5,7 @@ import { Star, ThumbsUp, MessageCircle, Camera, Video } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-import ButtonHoverTopSlowFlip from "@/components/ui/ButtonHoverTopSlowFlip";
+import ButtonHoverTopSlowFlip from "@/components/ui/button-hover-top-slow-flip";
 
 interface ReviewCardProps {
   productImage: string;

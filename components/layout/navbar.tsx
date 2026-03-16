@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-user";
 import { createClient } from "@/lib/supabase/client";
-import MotionDrawer from "@/components/motion-drawer";
+import MotionDrawer from "@/components/shared/motion-drawer";
 import { useEffect, useRef, useState } from "react";
 import {
   Tooltip,
