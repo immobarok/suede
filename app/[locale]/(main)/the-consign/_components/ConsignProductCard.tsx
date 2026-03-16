@@ -108,7 +108,7 @@ const ConsignProductCard = ({
             <div className="space-y-2 pt-2">
               <Link
                 href={`/the-consign/buy/${slug}`}
-                className="bg-primary font-darker hover:bg-primary/90 flex h-11 w-full items-center justify-center text-base tracking-[0.06em] text-white transition-colors"
+                className="bg-primary font-darker hover:bg-[#3d0b13] flex h-11 w-full items-center justify-center text-base tracking-[0.06em] text-white transition-colors"
               >
                 BUY NOW
               </Link>

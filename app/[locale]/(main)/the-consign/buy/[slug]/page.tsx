@@ -100,51 +100,90 @@ const BuyNowProductPage = async (props: { params: Params }) => {
             </p>
           </AnimatedItem>
 
-          {/* Seller */}
-          <AnimatedItem className="mb-4">
-             <p className="font-darker text-[12px] uppercase tracking-[0.2em] text-[#1A1A1A] mb-4 font-semibold">Seller</p>
-             <div className="flex items-center justify-between border border-[#E7E4DF] p-5 rounded-sm">
-                <div className="flex items-center gap-4">
-                    <div className="relative h-12 w-12 rounded-full overflow-hidden">
-                        <Image src={product.seller.avatarUrl} alt={product.seller.name} fill className="object-cover" />
-                    </div>
-                    <div>
-                        <p className="font-darker text-[15px] text-[#1A1A1A] font-medium">{product.seller.name}</p>
-                        <p className="font-darker text-[13px] text-[#8A8A82]">{product.seller.username}</p>
-                    </div>
+          {/* Seller Section - Matches The Collective aesthetic */}
+          <AnimatedItem className="mb-8">
+            <p className="font-darker text-[12px] uppercase tracking-[0.2em] text-[#1A1A1A] mb-6 font-semibold">Seller Profile</p>
+            <div className="bg-white p-6 border border-[#E7E4DF] rounded-none shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+              {/* Header: Avatar and Name */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                  <Image
+                    src={product.seller.avatarUrl}
+                    alt={product.seller.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <button className="font-darker text-[12px] px-6 py-2 border border-[#E7E4DF] rounded-sm text-[#1A1A1A] font-medium hover:bg-[#F8F8F8] transition-colors">
-                    View Profile
-                </button>
-             </div>
-          </AnimatedItem>
+                <div>
+                  <h3 className="font-darker text-[16px] font-medium leading-none text-[#1A1A1A]">
+                    {product.seller.name}{" "}
+                    <span className="font-normal text-[#8A8A82] ml-1 italic">
+                      {product.measurements.height}/{product.measurements.bust}/{product.measurements.waist}/{product.measurements.hips}
+                    </span>
+                  </h3>
+                  <p className="font-darker text-[14px] text-[#8A8A82] lowercase">
+                    {product.seller.username}
+                  </p>
+                </div>
+              </div>
 
-          {/* Measurements */}
-          <AnimatedItem className="mb-6">
-             <p className="font-darker text-[12px] uppercase tracking-[0.2em] text-[#1A1A1A] mb-6 font-semibold">Measurements</p>
-             <div className="grid grid-cols-2 gap-x-12 gap-y-2">
-                <div className="flex justify-between border-b border-[#E7E4DF] pb-3">
-                    <span className="font-darker text-[14px] text-[#8A8A82]">Height</span>
-                    <span className="font-darker text-[14px] text-[#1A1A1A] font-medium">{product.measurements.height}</span>
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-4 mb-6 border-b border-[#F0EFEA] pb-6">
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.15em] text-[#8A8A82] mb-1">
+                    Reviews
+                  </p>
+                  <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+                    1
+                  </p>
                 </div>
-                <div className="flex justify-between border-b border-[#E7E4DF] pb-3">
-                    <span className="font-darker text-[14px] text-[#8A8A82]">Bust</span>
-                    <span className="font-darker text-[14px] text-[#1A1A1A] font-medium">{product.measurements.bust}</span>
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.15em] text-[#8A8A82] mb-1">
+                    Inquiries
+                  </p>
+                  <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+                    0
+                  </p>
                 </div>
-                <div className="flex justify-between border-b border-[#E7E4DF] pb-3">
-                    <span className="font-darker text-[14px] text-[#8A8A82]">Waist</span>
-                    <span className="font-darker text-[14px] text-[#1A1A1A] font-medium">{product.measurements.waist}</span>
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.15em] text-[#8A8A82] mb-1">
+                    Capsule Brands
+                  </p>
+                  <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+                    1
+                  </p>
                 </div>
-                <div className="flex justify-between border-b border-[#E7E4DF] pb-3">
-                    <span className="font-darker text-[14px] text-[#8A8A82]">Hips</span>
-                    <span className="font-darker text-[14px] text-[#1A1A1A] font-medium">{product.measurements.hips}</span>
+              </div>
+
+              {/* Measurement Preview */}
+              <div className="grid grid-cols-4 gap-2 mb-6">
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.1em] text-[#8A8A82] mb-1">Ht</p>
+                  <p className="font-darker text-[13px] font-medium text-[#1A1A1A]">{product.measurements.height}</p>
                 </div>
-             </div>
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.1em] text-[#8A8A82] mb-1">Bust</p>
+                  <p className="font-darker text-[13px] font-medium text-[#1A1A1A]">{product.measurements.bust}</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.1em] text-[#8A8A82] mb-1">Waist</p>
+                  <p className="font-darker text-[13px] font-medium text-[#1A1A1A]">{product.measurements.waist}</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-darker text-[10px] uppercase tracking-[0.1em] text-[#8A8A82] mb-1">Hips</p>
+                  <p className="font-darker text-[13px] font-medium text-[#1A1A1A]">{product.measurements.hips}</p>
+                </div>
+              </div>
+
+              <button className="w-full border border-[#E7E4DF] text-[#1A1A1A] font-darker text-[13px] font-medium py-2.5 rounded-none transition-colors hover:bg-[#F9F8F6]">
+                View Profile
+              </button>
+            </div>
           </AnimatedItem>
 
           {/* Action Buttons */}
           <AnimatedItem className="space-y-3 mb-8">
-            <AnimatedButton className="w-full bg-primary hover:bg-primary/90 cursor-pointer text-white font-darker py-4 text-[16px] font-medium transition-colors tracking-wide">
+            <AnimatedButton className="w-full bg-primary hover:bg-[#3d0b13] cursor-pointer text-white font-darker py-4 text-[16px] font-medium transition-colors tracking-wide">
               Buy Now - {product.price}
             </AnimatedButton>
             <AnimatedButton className="w-full bg-[#F8F8F8] hover:bg-[#F0F0F0] border border-[#E7E4DF] text-[#1A1A1A] font-darker py-4 text-[16px] font-medium transition-colors tracking-wide cursor-pointer">

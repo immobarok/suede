@@ -16,7 +16,7 @@ const ConsignSellAction = () => {
     >
       <button
         type="button"
-        className="bg-primary hover:bg-primary/90 h-10 cursor-pointer px-6 text-xs tracking-wide text-white transition-colors"
+        className="bg-primary hover:bg-[#3d0b13] h-10 cursor-pointer px-6 text-xs tracking-wide text-white transition-colors"
       >
         SELL YOUR PIECE
       </button>

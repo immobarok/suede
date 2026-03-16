@@ -100,7 +100,7 @@ export function NewsletterContent() {
         /> */}
         <Button 
           type="submit"
-          className="bg-primary mx-auto hover:bg-primary/80 text-white px-8 py-6 text-sm tracking-[0.15em] uppercase font-medium rounded-none group transition-all duration-300 cursor-pointer"
+          className="bg-primary mx-auto hover:bg-[#3d0b13] text-white px-8 py-6 text-sm tracking-[0.15em] uppercase font-medium rounded-none group transition-all duration-300 cursor-pointer"
         >
           {t("button")}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -108,7 +108,7 @@ export default function HeroArticle() {
                     <ButtonTextChange
                         text={t("explore")}
                         icon={<ArrowRight size={20} />}
-                        className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-primary-foreground cursor-pointer font-normal uppercase tracking-wider hover:bg-primary/90 transition-colors "
+                        className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-primary-foreground cursor-pointer font-normal uppercase tracking-wider hover:bg-[#3d0b13] transition-colors "
                     />
                 </motion.div>
 
