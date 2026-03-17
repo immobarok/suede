@@ -3,12 +3,12 @@ import { LookBookCard } from "./lookbookcard";
 
 const reviews = [
   {
-    productImage: "https://i.ibb.co.com/DH2d8GH2/Frame-103.png",
+    productImage: "https://i.ibb.co.com/99dFgFQL/Frame-103-3.png",
     imageCount: 5,
     videoCount: 2,
     userName: "Amara K.",
     userHandle: "@amara",
-    userAvatar: "/images/avatars/amara.jpg",
+    userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
     brandName: "Nodi",
     productName: "Tailored Wide-Leg Trouser",
     rating: 5,
@@ -28,7 +28,7 @@ const reviews = [
     videoCount: 2,
     userName: "Amara K.",
     userHandle: "@amara",
-    userAvatar: "/images/avatars/amara2.jpg",
+    userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
     brandName: "Nodi",
     productName: "Tailored Wide-Leg Trouser",
     rating: 5,
@@ -48,7 +48,7 @@ const reviews = [
     videoCount: 2,
     userName: "Amara K.",
     userHandle: "@amara",
-    userAvatar: "/images/avatars/amara3.jpg",
+    userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
     brandName: "Nodi",
     productName: "Tailored Wide-Leg Trouser",
     rating: 5,

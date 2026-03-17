@@ -76,9 +76,9 @@ export function LookBookCard({
         }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Card className="flex h-full flex-col overflow-hidden rounded-none border border-[#e5e5e5] bg-white">
+        <Card className="flex h-full flex-col overflow-hidden rounded-none bg-white !gap-0 !py-0">
           {/* Product Image Section */}
-          <div className="relative aspect-4/3 overflow-hidden bg-[#f5f5f5]">
+          <div className="relative aspect-square overflow-hidden bg-[#f5f5f5]">
             <motion.div
               variants={{
                 rest: { scale: 1, y: 0, filter: "brightness(1)" },
@@ -124,7 +124,7 @@ export function LookBookCard({
           <div className="flex flex-1 flex-col p-4 pt-0">
             {/* User Info */}
             <div className="mb-3 flex items-center gap-3">
-              <Avatar className="h-10 w-10 rounded-full">
+              <Avatar className="h-10 w-10 rounded-full mt-4">
                 <AvatarImage src={userAvatar} alt={userName} />
                 <AvatarFallback className="bg-[#f5f5f5] text-sm text-[#1a1a1a]">
                   {userName.charAt(0)}

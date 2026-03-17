@@ -71,10 +71,15 @@ export default function LoginPage() {
     const handleOAuth = async (provider: "google" | "apple") => {
         setLoading(true)
 
+        const callbackUrl = new URL(`${window.location.origin}/auth/callback`)
+        if (redirectedFrom) {
+            callbackUrl.searchParams.set("next", redirectedFrom)
+        }
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo: callbackUrl.toString(),
             },
         })
 
@@ -83,6 +88,7 @@ export default function LoginPage() {
             setLoading(false)
         }
     }
+
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-[#f8f6f3] py-8">
