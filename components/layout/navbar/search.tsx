@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/use-user";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,7 @@ export function SearchComponent({
   navHoverColor,
 }: SearchProps) {
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!isSearchOpen) return;
@@ -65,35 +67,37 @@ export function SearchComponent({
 
   return (
     <div ref={searchContainerRef} className="flex items-center gap-8 text-sm">
-      <DropdownMenu>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="flex h-8 items-center gap-1 bg-primary px-3 text-primary-foreground transition-colors hover:bg-primary/90"
-                aria-label="Submit review or inquiry"
-              >
-                <span className="text-[11px] uppercase tracking-[0.18em]">
-                  Submit
-                </span>
-                <span className="flex h-4 w-4 items-center justify-center border border-primary">
-                  <ChevronDown className="h-3 w-3" />
-                </span>
-              </button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent>Submit review or inquiry</TooltipContent>
-        </Tooltip>
-        <DropdownMenuContent align="start" className="w-48">
-          <DropdownMenuItem className="hover:text-white focus:text-white">
-            Submit a review
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:text-white focus:text-white">
-            Submit an inquiry
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {isAuthenticated && (
+        <DropdownMenu>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 flex h-10 items-center gap-1 px-4 transition-colors"
+                  aria-label="Submit review or inquiry"
+                >
+                  <span className="text-[11px] tracking-[0.18em] uppercase">
+                    Submit
+                  </span>
+                  <span className="border-primary flex h-4 w-4 items-center justify-center border">
+                    <ChevronDown className="h-3 w-3" />
+                  </span>
+                </button>
+              </DropdownMenuTrigger>
+            </TooltipTrigger>
+            <TooltipContent>Submit review or inquiry</TooltipContent>
+          </Tooltip>
+          <DropdownMenuContent align="start" className="w-48">
+            <DropdownMenuItem className="hover:text-white focus:text-white">
+              Submit a review
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:text-white focus:text-white">
+              Submit an inquiry
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
       <div className="flex items-center gap-2">
         <button
           className={`h-8 w-8 rounded-full ${navTextColor} ${navHoverColor}`}

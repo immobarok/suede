@@ -79,7 +79,7 @@ export function AuthSection({
           <Tooltip>
             <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
-                <Button className="relative h-9 items-center gap-1 rounded-full bg-transparent px-2 hover:bg-transparent active:bg-transparent">
+                <Button className="relative h-9 items-center gap-1 rounded-full bg-transparent px-2 outline-none hover:bg-transparent focus:ring-0 focus-visible:border-transparent focus-visible:ring-0 active:bg-transparent">
                   <Avatar className="h-9 w-9">
                     <AvatarImage
                       src={user?.user_metadata?.avatar_url}
@@ -99,10 +99,10 @@ export function AuthSection({
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-darker uppercase">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm leading-none font-medium">
+                <p className="text-xs leading-none font-medium text-black">
                   {user?.user_metadata?.full_name || t.user}
                 </p>
-                <p className="text-muted-foreground text-xs leading-none">
+                <p className="text-xs leading-none font-medium text-black">
                   {user?.email}
                 </p>
               </div>
@@ -110,7 +110,7 @@ export function AuthSection({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               asChild
-              className="hover:text-white focus:text-white"
+              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
             >
               <Link href="/profile" className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
@@ -119,7 +119,7 @@ export function AuthSection({
             </DropdownMenuItem>
             <DropdownMenuItem
               asChild
-              className="hover:text-white focus:text-white"
+              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
             >
               <Link href="/profile/measurements" className="cursor-pointer">
                 <Ruler className="mr-2 h-4 w-4" />
@@ -128,7 +128,7 @@ export function AuthSection({
             </DropdownMenuItem>
             <DropdownMenuItem
               asChild
-              className="hover:text-white focus:text-white"
+              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
             >
               <Link href="/favorites" className="cursor-pointer">
                 <Heart className="mr-2 h-4 w-4" />
@@ -137,7 +137,7 @@ export function AuthSection({
             </DropdownMenuItem>
             <DropdownMenuItem
               asChild
-              className="hover:text-white focus:text-white"
+              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
             >
               <Link href="/my-listings" className="cursor-pointer">
                 <ShoppingBag className="mr-2 h-4 w-4" />
@@ -146,7 +146,7 @@ export function AuthSection({
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="cursor-pointer text-red-600 hover:text-white focus:text-white"
+              className="cursor-pointer text-red-600 hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />
