@@ -2,8 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { usePathname } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/use-user";
 
 import { MainNav } from "./main-nav";
@@ -15,7 +14,6 @@ interface NavbarClientProps {
 }
 
 export function NavbarClient({ logoSlot }: NavbarClientProps) {
-  const t = useTranslations("Navbar");
   const { isAuthenticated } = useAuth();
   const pathname = usePathname();
 
@@ -28,39 +26,72 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
   const navActiveColor = "text-[#4F0E19]";
   const navHoverColor = isHome ? "hover:text-white/80" : "hover:text-primary";
 
+  const labels = {
+    capsule: "The Capsule",
+    lookbook: "The Lookbook",
+    collective: "The Collective",
+    consign: "The Consign",
+    profile: "Profile",
+    measurements: "My Measurements",
+    favorites: "Favorites",
+    listings: "My Listings",
+    signOut: "Sign out",
+    signedOutSuccess: "Signed out successfully",
+    signIn: "Sign in",
+    createAccount: "Create Account",
+    user: "User",
+    tooltipHome: "Go to Home",
+    tooltipCapsule: "The Capsule collection",
+    tooltipLookbook: "The Lookbook",
+    tooltipCollective: "The Collective",
+    tooltipConsign: "The Consign",
+    tooltipUser: "User Settings",
+    tooltipLanguage: "Switch language",
+    tooltipSignIn: "Sign in to your account",
+    tooltipRegister: "Create a new account",
+  };
+
   const navItems = [
-    { href: "/the-capsule", label: t("capsule"), tooltip: t("tooltipCapsule") },
+    {
+      href: "/the-capsule",
+      label: labels.capsule,
+      tooltip: labels.tooltipCapsule,
+    },
     {
       href: "/the-lookbook",
-      label: t("lookbook"),
-      tooltip: t("tooltipLookbook"),
+      label: labels.lookbook,
+      tooltip: labels.tooltipLookbook,
     },
     {
       href: "/the-collective",
-      label: t("collective"),
-      tooltip: t("tooltipCollective"),
+      label: labels.collective,
+      tooltip: labels.tooltipCollective,
     },
-    { href: "/the-consign", label: t("consign"), tooltip: t("tooltipConsign") },
+    {
+      href: "/the-consign",
+      label: labels.consign,
+      tooltip: labels.tooltipConsign,
+    },
   ];
 
   const translations = {
-    tooltipUser: t("tooltipUser"),
-    tooltipLanguage: t("tooltipLanguage"),
-    tooltipSignIn: t("tooltipSignIn"),
-    tooltipRegister: t("tooltipRegister"),
-    signedOutSuccess: t("signedOutSuccess"),
-    user: t("user"),
-    profile: t("profile"),
-    measurements: t("measurements"),
-    favorites: t("favorites"),
-    listings: t("listings"),
-    signOut: t("signOut"),
-    signIn: t("signIn"),
-    createAccount: t("createAccount"),
-    capsule: t("capsule"),
-    lookbook: t("lookbook"),
-    collective: t("collective"),
-    consign: t("consign"),
+    tooltipUser: labels.tooltipUser,
+    tooltipLanguage: labels.tooltipLanguage,
+    tooltipSignIn: labels.tooltipSignIn,
+    tooltipRegister: labels.tooltipRegister,
+    signedOutSuccess: labels.signedOutSuccess,
+    user: labels.user,
+    profile: labels.profile,
+    measurements: labels.measurements,
+    favorites: labels.favorites,
+    listings: labels.listings,
+    signOut: labels.signOut,
+    signIn: labels.signIn,
+    createAccount: labels.createAccount,
+    capsule: labels.capsule,
+    lookbook: labels.lookbook,
+    collective: labels.collective,
+    consign: labels.consign,
   };
 
   return (

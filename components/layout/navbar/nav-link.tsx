@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { usePathname } from "@/i18n/routing";
+import { usePathname } from "next/navigation";
 import {
   Tooltip,
   TooltipContent,

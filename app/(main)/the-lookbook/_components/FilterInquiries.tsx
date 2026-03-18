@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import {

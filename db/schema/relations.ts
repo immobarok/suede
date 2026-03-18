@@ -19,6 +19,12 @@ import {
   brandClaims,
 } from "./brand-portal";
 import { consultationSessions } from "./consultation";
+import {
+  affiliates,
+  affiliateLinks,
+  affiliateClicks,
+  affiliateConversions,
+} from "./affiliates";
 
 // ============================================
 // RELATIONS
@@ -327,3 +333,33 @@ export const activityFeedRelations = relations(activityFeed, ({ one }) => ({
     references: [profiles.id],
   }),
 }));
+
+export const affiliatesRelations = relations(affiliates, ({ many }) => ({
+  links: many(affiliateLinks),
+}));
+
+export const affiliateLinksRelations = relations(affiliateLinks, ({ one, many }) => ({
+  affiliate: one(affiliates, {
+    fields: [affiliateLinks.affiliateId],
+    references: [affiliates.id],
+  }),
+  clicks: many(affiliateClicks),
+}));
+
+export const affiliateClicksRelations = relations(affiliateClicks, ({ one, many }) => ({
+  link: one(affiliateLinks, {
+    fields: [affiliateClicks.affiliateLinkId],
+    references: [affiliateLinks.id],
+  }),
+  conversions: many(affiliateConversions),
+}));
+
+export const affiliateConversionsRelations = relations(
+  affiliateConversions,
+  ({ one }) => ({
+    click: one(affiliateClicks, {
+      fields: [affiliateConversions.suedeRedirectId],
+      references: [affiliateClicks.suedeRedirectId],
+    }),
+  })
+);

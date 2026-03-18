@@ -57,7 +57,7 @@ export default function UpdatePasswordPage() {
         }
 
         toast.success("Password updated successfully!")
-        router.push("/login")
+        router.push("/auth/login")
     }
 
     return (

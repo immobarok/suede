@@ -21,7 +21,7 @@ export const follows = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     followerId: uuid("follower_id").references(() => profiles.id, {
       onDelete: "cascade",
     }),
@@ -42,7 +42,7 @@ export const matchScores = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     userId: uuid("user_id").references(() => profiles.id, {
       onDelete: "cascade",
     }),

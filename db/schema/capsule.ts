@@ -12,7 +12,7 @@ import { profiles } from "./core";
 export const featuredBrands = pgTable("featured_brands", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   brandId: uuid("brand_id").references(() => brands.id, {
     onDelete: "cascade",
   }),
@@ -28,7 +28,7 @@ export const featuredBrands = pgTable("featured_brands", {
 export const brandEvaluations = pgTable("brand_evaluations", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   brandId: uuid("brand_id").references(() => brands.id, {
     onDelete: "cascade",
   }),

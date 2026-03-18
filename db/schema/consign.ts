@@ -19,7 +19,7 @@ import { brands, profiles } from "./core";
 export const listings = pgTable("listings", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   sellerId: uuid("seller_id").references(() => profiles.id, {
     onDelete: "cascade",
   }),
@@ -78,7 +78,7 @@ export const listings = pgTable("listings", {
 export const offers = pgTable("offers", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   listingId: uuid("listing_id").references(() => listings.id, {
     onDelete: "cascade",
   }),
@@ -101,7 +101,7 @@ export const offers = pgTable("offers", {
 export const orders = pgTable("orders", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   listingId: uuid("listing_id").references(() => listings.id),
   buyerId: uuid("buyer_id").references(() => profiles.id),
   sellerId: uuid("seller_id").references(() => profiles.id),

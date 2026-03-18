@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-user";
-import { usePathname } from "@/i18n/routing";
+import { usePathname } from "next/navigation";
 import {
   Dialog,
   DialogContent,

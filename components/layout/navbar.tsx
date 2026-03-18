@@ -35,14 +35,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { usePathname } from "@/i18n/routing";
-import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 export function Navbar() {
-  const t = useTranslations("Navbar");
   const { user, isLoading, isAuthenticated } = useAuth();
   const pathname = usePathname();
-  const locale = useLocale();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -52,11 +49,35 @@ export function Navbar() {
   const navTextColor = isHome ? "text-white" : "text-[#1A1A1A]";
   const navActiveColor = isHome ? "text-white" : "text-[#1A1A1A]";
   const navHoverColor = isHome ? "hover:text-white/80" : "hover:text-primary";
+  const labels = {
+    capsule: "The Capsule",
+    lookbook: "The Lookbook",
+    collective: "The Collective",
+    consign: "The Consign",
+    profile: "Profile",
+    measurements: "My Measurements",
+    favorites: "Favorites",
+    listings: "My Listings",
+    signOut: "Sign out",
+    signedOutSuccess: "Signed out successfully",
+    signIn: "Sign in",
+    createAccount: "Create Account",
+    user: "User",
+    tooltipHome: "Go to Home",
+    tooltipCapsule: "The Capsule collection",
+    tooltipLookbook: "The Lookbook",
+    tooltipCollective: "The Collective",
+    tooltipConsign: "The Consign",
+    tooltipUser: "User Settings",
+    tooltipLanguage: "Switch language",
+    tooltipSignIn: "Sign in to your account",
+    tooltipRegister: "Create a new account",
+  };
 
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    toast.success(t("signedOutSuccess"));
+    toast.success(labels.signedOutSuccess);
     window.location.reload();
   };
 
@@ -105,7 +126,7 @@ export function Navbar() {
               </span>
             </Link>
           </TooltipTrigger>
-          <TooltipContent>{t("tooltipHome")}</TooltipContent>
+          <TooltipContent>{labels.tooltipHome}</TooltipContent>
         </Tooltip>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -115,10 +136,10 @@ export function Navbar() {
                 href="/the-capsule"
                 className={`font-darker text-[16px] uppercase ${navTextColor} ${navHoverColor} transition-colors`}
               >
-                {t("capsule")}
+                {labels.capsule}
               </Link>
             </TooltipTrigger>
-            <TooltipContent>{t("tooltipCapsule")}</TooltipContent>
+            <TooltipContent>{labels.tooltipCapsule}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -127,10 +148,10 @@ export function Navbar() {
                 href="/the-lookbook"
                 className={`font-darker text-[16px] uppercase ${navTextColor} ${navHoverColor} transition-colors`}
               >
-                {t("lookbook")}
+                {labels.lookbook}
               </Link>
             </TooltipTrigger>
-            <TooltipContent>{t("tooltipLookbook")}</TooltipContent>
+            <TooltipContent>{labels.tooltipLookbook}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -139,10 +160,10 @@ export function Navbar() {
                 href="/the-collective"
                 className={`font-darker text-[16px] uppercase ${navTextColor} ${navHoverColor} transition-colors`}
               >
-                {t("collective")}
+                {labels.collective}
               </Link>
             </TooltipTrigger>
-            <TooltipContent>{t("tooltipCollective")}</TooltipContent>
+            <TooltipContent>{labels.tooltipCollective}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -151,10 +172,10 @@ export function Navbar() {
                 href="/the-consign"
                 className={`font-darker text-[16px] uppercase ${navTextColor} ${navHoverColor} transition-colors`}
               >
-                {t("consign")}
+                {labels.consign}
               </Link>
             </TooltipTrigger>
-            <TooltipContent>{t("tooltipConsign")}</TooltipContent>
+            <TooltipContent>{labels.tooltipConsign}</TooltipContent>
           </Tooltip>
         </nav>
 
@@ -164,10 +185,10 @@ export function Navbar() {
             <LoadingSpinner size="sm" />
           ) : isAuthenticated ? (
             <DropdownMenu>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <DropdownMenuTrigger asChild>
-                    <Button
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                      <Button
                       variant="ghost"
                       className="relative h-9 w-9 rounded-full"
                     >
@@ -182,15 +203,15 @@ export function Navbar() {
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
-                </TooltipTrigger>
-                <TooltipContent>{t("tooltipUser")}</TooltipContent>
-              </Tooltip>
+                  </TooltipTrigger>
+                  <TooltipContent>{labels.tooltipUser}</TooltipContent>
+                </Tooltip>
 
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-darker uppercase">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm leading-none font-medium">
-                      {user?.user_metadata?.full_name || t("user")}
+                      {user?.user_metadata?.full_name || labels.user}
                     </p>
                     <p className="text-muted-foreground text-xs leading-none">
                       {user?.email}
@@ -201,25 +222,25 @@ export function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile" className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
-                    {t("profile")}
+                    {labels.profile}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/profile/measurements" className="cursor-pointer">
                     <Ruler className="mr-2 h-4 w-4" />
-                    {t("measurements")}
+                    {labels.measurements}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/favorites" className="cursor-pointer">
                     <Heart className="mr-2 h-4 w-4" />
-                    {t("favorites")}
+                    {labels.favorites}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/my-listings" className="cursor-pointer">
                     <ShoppingBag className="mr-2 h-4 w-4" />
-                    {t("listings")}
+                    {labels.listings}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -228,7 +249,7 @@ export function Navbar() {
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  {t("signOut")}
+                  {labels.signOut}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -271,7 +292,7 @@ export function Navbar() {
                     </Link> */}
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>{t("tooltipLanguage")}</TooltipContent>
+                <TooltipContent>{labels.tooltipLanguage}</TooltipContent>
               </Tooltip>
 
               <Tooltip>
@@ -281,10 +302,10 @@ export function Navbar() {
                     asChild
                     className="font-darker-grotesque text-lg font-medium"
                   >
-                    <Link href="/auth/login">{t("signIn")}</Link>
+                    <Link href="/auth/login">{labels.signIn}</Link>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{t("tooltipSignIn")}</TooltipContent>
+                <TooltipContent>{labels.tooltipSignIn}</TooltipContent>
               </Tooltip>
 
               <Tooltip>
@@ -293,10 +314,10 @@ export function Navbar() {
                     asChild
                     className="h-10.5 rounded-none text-[16px] uppercase"
                   >
-                    <Link href="/auth/register">{t("createAccount")}</Link>
+                    <Link href="/auth/register">{labels.createAccount}</Link>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{t("tooltipRegister")}</TooltipContent>
+                <TooltipContent>{labels.tooltipRegister}</TooltipContent>
               </Tooltip>
             </div>
           )}
@@ -328,28 +349,28 @@ export function Navbar() {
                 className="text-foreground hover:text-primary text-xl font-medium transition-colors"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                {t("capsule")}
+                {labels.capsule}
               </Link>
               <Link
                 href="/the-lookbook"
                 className="text-foreground hover:text-primary text-xl font-medium transition-colors"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                {t("lookbook")}
+                {labels.lookbook}
               </Link>
               <Link
                 href="/the-collective"
                 className="text-foreground hover:text-primary text-xl font-medium transition-colors"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                {t("collective")}
+                {labels.collective}
               </Link>
               <Link
                 href="/the-consign"
                 className="text-foreground hover:text-primary text-xl font-medium transition-colors"
                 onClick={() => setIsDrawerOpen(false)}
               >
-                {t("consign")}
+                {labels.consign}
               </Link>
 
               {!isAuthenticated && (
@@ -360,14 +381,14 @@ export function Navbar() {
                     className="text-md h-12 rounded-none font-medium"
                     onClick={() => setIsDrawerOpen(false)}
                   >
-                    <Link href="/auth/login">{t("signIn")}</Link>
+                    <Link href="/auth/login">{labels.signIn}</Link>
                   </Button>
                   <Button
                     asChild
                     className="h-12 rounded-none uppercase"
                     onClick={() => setIsDrawerOpen(false)}
                   >
-                    <Link href="/auth/register">{t("createAccount")}</Link>
+                    <Link href="/auth/register">{labels.createAccount}</Link>
                   </Button>
                 </div>
               )}

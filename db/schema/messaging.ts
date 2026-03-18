@@ -23,7 +23,7 @@ export const conversations = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     listingId: uuid("listing_id").references(() => listings.id, {
       onDelete: "cascade",
     }),
@@ -51,7 +51,7 @@ export const conversations = pgTable(
 export const messages = pgTable("messages", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   conversationId: uuid("conversation_id").references(() => conversations.id, {
     onDelete: "cascade",
   }),
@@ -67,7 +67,7 @@ export const messages = pgTable("messages", {
 export const messageRequests = pgTable("message_requests", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   senderId: uuid("sender_id").references(() => profiles.id, {
     onDelete: "cascade",
   }),

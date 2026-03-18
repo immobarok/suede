@@ -5,7 +5,6 @@ import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -53,7 +52,12 @@ const lineVariants: Variants = {
 };
 
 export function NewsletterContent() {
-  const t = useTranslations("Newsletter");
+  const copy = {
+    line1: "Your body. Your fit.",
+    line2: "Your confidence.",
+    description: "Join the community redefining how we shop for fashion online.",
+    button: "Get Started",
+  };
 
   return (
     <motion.div
@@ -71,13 +75,13 @@ export function NewsletterContent() {
           className="block"
           variants={lineVariants}
         >
-          {t("line1")}
+          {copy.line1}
         </motion.span>
         <motion.span 
           className="block"
           variants={lineVariants}
         >
-          {t("line2")}
+          {copy.line2}
         </motion.span>
       </motion.h2>
 
@@ -85,7 +89,7 @@ export function NewsletterContent() {
         className="text-accent/80 text-sm md:text-sm max-w-md mx-auto mb-10 font-light tracking-[0.1em]"
         variants={itemVariants}
       >
-        {t("description")}
+        {copy.description}
       </motion.p>
 
       <motion.form 
@@ -102,7 +106,7 @@ export function NewsletterContent() {
           type="submit"
           className="bg-primary mx-auto hover:bg-[#3d0b13] text-white px-8 py-6 text-sm tracking-[0.15em] uppercase font-medium rounded-none group transition-all duration-300 cursor-pointer"
         >
-          {t("button")}
+          {copy.button}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </motion.form>

@@ -3,7 +3,12 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { NextResponse, type NextRequest } from 'next/server'
 
 // Route configurations
-const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/auth/callback']
+const AUTH_ROUTES = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/forgot-password',
+  '/auth/callback',
+]
 const PROTECTED_ROUTES = ['/profile', '/reviews/write', '/marketplace/sell', '/my-listings']
 const ADMIN_ROUTES = ['/admin']
 
@@ -93,14 +98,14 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isProtectedRoute && !user) {
-    const loginUrl = new URL('/login', request.url)
+    const loginUrl = new URL('/auth/login', request.url)
     loginUrl.searchParams.set('redirectedFrom', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
   if (isAdminRoute) {
     if (!user) {
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(new URL('/auth/login', request.url))
     }
 
     const isAdmin = await checkIsAdmin(supabase, user.id)
@@ -113,7 +118,7 @@ export async function proxy(request: NextRequest) {
     const canProceed = await checkGuestLimit(supabase, guestSessionId, pathname)
     
     if (!canProceed) {
-      const loginUrl = new URL('/login', request.url)
+      const loginUrl = new URL('/auth/login', request.url)
       loginUrl.searchParams.set('redirectedFrom', pathname)
       loginUrl.searchParams.set('reason', 'guest_limit')
       return NextResponse.redirect(loginUrl)

@@ -59,5 +59,13 @@ export {
   consultationSessions,
 } from "./consultation";
 
+// Affiliate Tracking
+export {
+  affiliates,
+  affiliateLinks,
+  affiliateClicks,
+  affiliateConversions,
+} from "./affiliates";
+
 // Relations
 export * from "./relations";

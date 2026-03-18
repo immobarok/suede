@@ -20,7 +20,7 @@ import { brands, profiles } from "./core";
 export const reviews = pgTable("reviews", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   userId: uuid("user_id").references(() => profiles.id, {
     onDelete: "cascade",
   }),
@@ -78,7 +78,7 @@ export const reviews = pgTable("reviews", {
 export const reviewRequests = pgTable("review_requests", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   userId: uuid("user_id").references(() => profiles.id, {
     onDelete: "cascade",
   }),
@@ -109,7 +109,7 @@ export const reviewRequests = pgTable("review_requests", {
 export const inquiryResponses = pgTable("inquiry_responses", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   inquiryId: uuid("inquiry_id").references(() => reviewRequests.id, {
     onDelete: "cascade",
   }),
@@ -134,7 +134,7 @@ export const reviewReactions = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     reviewId: uuid("review_id").references(() => reviews.id, {
       onDelete: "cascade",
     }),
@@ -155,7 +155,7 @@ export const savedItems = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     userId: uuid("user_id").references(() => profiles.id, {
       onDelete: "cascade",
     }),

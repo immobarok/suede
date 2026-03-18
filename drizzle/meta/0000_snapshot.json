@@ -1,9 +1,281 @@
 {
-  "id": "27517355-bc10-486b-b45e-6653ed988507",
+  "id": "fa207827-8cd3-4337-916d-139f89528097",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.affiliate_clicks": {
+      "name": "affiliate_clicks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "affiliate_link_id": {
+          "name": "affiliate_link_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "suede_redirect_id": {
+          "name": "suede_redirect_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip_hash": {
+          "name": "ip_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raw_ip": {
+          "name": "raw_ip",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_agent": {
+          "name": "user_agent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "affiliate_clicks_affiliate_link_id_affiliate_links_id_fk": {
+          "name": "affiliate_clicks_affiliate_link_id_affiliate_links_id_fk",
+          "tableFrom": "affiliate_clicks",
+          "tableTo": "affiliate_links",
+          "columnsFrom": [
+            "affiliate_link_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "affiliate_clicks_suede_redirect_id_unique": {
+          "name": "affiliate_clicks_suede_redirect_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "suede_redirect_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.affiliate_conversions": {
+      "name": "affiliate_conversions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "suede_redirect_id": {
+          "name": "suede_redirect_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "network_event_id": {
+          "name": "network_event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raw_payload": {
+          "name": "raw_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "commission_amount": {
+          "name": "commission_amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'pending'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "affiliate_conversions_suede_redirect_id_affiliate_clicks_suede_redirect_id_fk": {
+          "name": "affiliate_conversions_suede_redirect_id_affiliate_clicks_suede_redirect_id_fk",
+          "tableFrom": "affiliate_conversions",
+          "tableTo": "affiliate_clicks",
+          "columnsFrom": [
+            "suede_redirect_id"
+          ],
+          "columnsTo": [
+            "suede_redirect_id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "affiliate_conversions_network_event_id_unique": {
+          "name": "affiliate_conversions_network_event_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "network_event_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.affiliate_links": {
+      "name": "affiliate_links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "affiliate_id": {
+          "name": "affiliate_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "destination_url": {
+          "name": "destination_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "campaign_name": {
+          "name": "campaign_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "affiliate_links_affiliate_id_affiliates_id_fk": {
+          "name": "affiliate_links_affiliate_id_affiliates_id_fk",
+          "tableFrom": "affiliate_links",
+          "tableTo": "affiliates",
+          "columnsFrom": [
+            "affiliate_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.affiliates": {
+      "name": "affiliates",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "affiliates_email_unique": {
+          "name": "affiliates_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.brand_analytics": {
       "name": "brand_analytics",
       "schema": "",
@@ -13,7 +285,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "brand_id": {
           "name": "brand_id",
@@ -102,7 +374,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "applicant_id": {
           "name": "applicant_id",
@@ -236,7 +508,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "brand_id": {
           "name": "brand_id",
@@ -333,7 +605,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "brand_id": {
           "name": "brand_id",
@@ -442,7 +714,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "brand_id": {
           "name": "brand_id",
@@ -508,7 +780,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "follower_id": {
           "name": "follower_id",
@@ -588,7 +860,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -675,7 +947,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "seller_id": {
           "name": "seller_id",
@@ -870,7 +1142,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "listing_id": {
           "name": "listing_id",
@@ -961,7 +1233,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "listing_id": {
           "name": "listing_id",
@@ -1152,7 +1424,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -1799,7 +2071,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -1890,7 +2162,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "listing_id": {
           "name": "listing_id",
@@ -2005,7 +2277,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "inquiry_id": {
           "name": "inquiry_id",
@@ -2110,7 +2382,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "sender_id": {
           "name": "sender_id",
@@ -2221,7 +2493,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "conversation_id": {
           "name": "conversation_id",
@@ -2300,7 +2572,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -2416,7 +2688,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "review_id": {
           "name": "review_id",
@@ -2498,7 +2770,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -2627,7 +2899,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",
@@ -2825,7 +3097,7 @@
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "default": "uuid_generate_v4()"
+          "default": "gen_random_uuid()"
         },
         "user_id": {
           "name": "user_id",

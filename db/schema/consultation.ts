@@ -17,7 +17,7 @@ import { profiles } from "./core";
 export const consultationSessions = pgTable("consultation_sessions", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   userId: uuid("user_id").references(() => profiles.id, {
     onDelete: "cascade",
   }),

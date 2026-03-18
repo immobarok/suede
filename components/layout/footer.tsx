@@ -2,25 +2,42 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useTranslations } from "next-intl";
 import { Logo } from "./navbar/Logo";
 
 // Data for navigation links
 export function Footer() {
-  const t = useTranslations("Footer");
+  const copy = {
+    tagline:
+      "The fashion trust platform. See how clothes really fit on bodies like yours.",
+    platform: "Platform",
+    company: "Company",
+    capsule: "The Capsule",
+    lookbook: "The Lookbook",
+    collective: "The Collective",
+    consign: "The Consign",
+    about: "About",
+    brandPartner: "Capsule Brand Partner",
+    privacy: "Privacy",
+    newsletterTitle: "Per Suede Newsletter",
+    newsletterTagline: "Stay ahead of fit. Get curated reviews and style insights.",
+    emailPlaceholder: "Your email",
+    joinWaitlist: "Join The Waitlist",
+    allRightsReserved: "All rights reserved.",
+    terms: "Terms",
+  };
 
   // Data for navigation links
   const platformLinks = [
-    { label: t("capsule"), href: "#" },
-    { label: t("lookbook"), href: "#" },
-    { label: t("collective"), href: "#" },
-    { label: t("consign"), href: "#" },
+    { label: copy.capsule, href: "#" },
+    { label: copy.lookbook, href: "#" },
+    { label: copy.collective, href: "#" },
+    { label: copy.consign, href: "#" },
   ];
 
   const companyLinks = [
-    { label: t("about"), href: "#" },
-    { label: t("brandPartner"), href: "#" },
-    { label: t("privacy"), href: "#" },
+    { label: copy.about, href: "#" },
+    { label: copy.brandPartner, href: "#" },
+    { label: copy.privacy, href: "#" },
   ];
 
   return (
@@ -31,7 +48,7 @@ export function Footer() {
           <div className="flex flex-col gap-6 md:col-span-4">
             <Logo />
             <p className="text-primary-foreground/70 max-w-xs leading-relaxed">
-              {t("tagline")}
+              {copy.tagline}
             </p>
           </div>
 
@@ -40,7 +57,7 @@ export function Footer() {
             {/* Column 1 */}
             <div className="flex flex-col gap-4">
               <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
-                {t("platform")}
+                {copy.platform}
               </h3>
               <ul className="flex flex-col gap-3">
                 {platformLinks.map((link) => (
@@ -59,7 +76,7 @@ export function Footer() {
             {/* Column 2 */}
             <div className="flex flex-col gap-4">
               <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
-                {t("company")}
+                {copy.company}
               </h3>
               <ul className="flex flex-col gap-3">
                 {companyLinks.map((link) => (
@@ -79,23 +96,23 @@ export function Footer() {
           {/* Newsletter Section (Right) */}
           <div className="flex flex-col gap-4 md:col-span-4">
             <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
-              {t("newsletterTitle")}
+              {copy.newsletterTitle}
             </h3>
             <p className="text-primary-foreground/70 mb-2 leading-relaxed">
-              {t("newsletterTagline")}
+              {copy.newsletterTagline}
             </p>
             <form className="flex w-full max-w-sm items-center">
               <div className="relative flex w-full">
                 <Input
                   type="email"
-                  placeholder={t("emailPlaceholder")}
+                  placeholder={copy.emailPlaceholder}
                   className="h-12 rounded-none border-none bg-[#222222] text-white placeholder:text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Button
                   type="submit"
                   className="h-12 cursor-pointer rounded-none bg-[#C9A96E] px-6 text-xs font-semibold tracking-wider whitespace-nowrap text-black uppercase hover:bg-[#C9A96E]/80"
                 >
-                  {t("joinWaitlist")}
+                  {copy.joinWaitlist}
                 </Button>
               </div>
             </form>
@@ -107,13 +124,13 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-primary-foreground md:flex-row">
-          <p>© 2026 SUEDE. {t("allRightsReserved")}</p>
+          <p>© 2026 SUEDE. {copy.allRightsReserved}</p>
           <div className="flex gap-6">
             <Link href="#" className="transition-colors hover:text-white">
-              {t("privacy")}
+              {copy.privacy}
             </Link>
             <Link href="#" className="transition-colors hover:text-white">
-              {t("terms")}
+              {copy.terms}
             </Link>
           </div>
         </div>

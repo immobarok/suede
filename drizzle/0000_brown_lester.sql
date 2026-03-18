@@ -1,5 +1,44 @@
+CREATE TABLE "affiliate_clicks" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"affiliate_link_id" uuid NOT NULL,
+	"suede_redirect_id" text NOT NULL,
+	"ip_hash" text NOT NULL,
+	"raw_ip" text,
+	"user_agent" text,
+	"created_at" timestamp with time zone DEFAULT now(),
+	CONSTRAINT "affiliate_clicks_suede_redirect_id_unique" UNIQUE("suede_redirect_id")
+);
+--> statement-breakpoint
+CREATE TABLE "affiliate_conversions" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"suede_redirect_id" text,
+	"network_event_id" text NOT NULL,
+	"raw_payload" jsonb NOT NULL,
+	"commission_amount" numeric(10, 2),
+	"status" text DEFAULT 'pending',
+	"created_at" timestamp with time zone DEFAULT now(),
+	CONSTRAINT "affiliate_conversions_network_event_id_unique" UNIQUE("network_event_id")
+);
+--> statement-breakpoint
+CREATE TABLE "affiliate_links" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"affiliate_id" uuid NOT NULL,
+	"destination_url" text NOT NULL,
+	"campaign_name" text,
+	"created_at" timestamp with time zone DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "affiliates" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" text NOT NULL,
+	"email" text NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now(),
+	"updated_at" timestamp with time zone DEFAULT now(),
+	CONSTRAINT "affiliates_email_unique" UNIQUE("email")
+);
+--> statement-breakpoint
 CREATE TABLE "brand_analytics" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"brand_id" uuid,
 	"month" date NOT NULL,
 	"profile_views" integer DEFAULT 0,
@@ -11,7 +50,7 @@ CREATE TABLE "brand_analytics" (
 );
 --> statement-breakpoint
 CREATE TABLE "brand_applications" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"applicant_id" uuid,
 	"company_name" text NOT NULL,
 	"company_email" text NOT NULL,
@@ -29,7 +68,7 @@ CREATE TABLE "brand_applications" (
 );
 --> statement-breakpoint
 CREATE TABLE "brand_claims" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"brand_id" uuid,
 	"claimant_id" uuid,
 	"company_email" text NOT NULL,
@@ -41,7 +80,7 @@ CREATE TABLE "brand_claims" (
 );
 --> statement-breakpoint
 CREATE TABLE "brand_evaluations" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"brand_id" uuid,
 	"evaluator_id" uuid,
 	"design_innovation" integer,
@@ -55,7 +94,7 @@ CREATE TABLE "brand_evaluations" (
 );
 --> statement-breakpoint
 CREATE TABLE "featured_brands" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"brand_id" uuid,
 	"feature_type" text,
 	"start_date" timestamp with time zone DEFAULT now(),
@@ -64,7 +103,7 @@ CREATE TABLE "featured_brands" (
 );
 --> statement-breakpoint
 CREATE TABLE "follows" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"follower_id" uuid,
 	"following_id" uuid,
 	"created_at" timestamp with time zone DEFAULT now(),
@@ -73,7 +112,7 @@ CREATE TABLE "follows" (
 );
 --> statement-breakpoint
 CREATE TABLE "match_scores" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"target_id" uuid,
 	"score" integer,
@@ -83,7 +122,7 @@ CREATE TABLE "match_scores" (
 );
 --> statement-breakpoint
 CREATE TABLE "listings" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"seller_id" uuid,
 	"title" text NOT NULL,
 	"description" text,
@@ -110,7 +149,7 @@ CREATE TABLE "listings" (
 );
 --> statement-breakpoint
 CREATE TABLE "offers" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"listing_id" uuid,
 	"buyer_id" uuid,
 	"offer_amount" numeric(10, 2) NOT NULL,
@@ -121,7 +160,7 @@ CREATE TABLE "offers" (
 );
 --> statement-breakpoint
 CREATE TABLE "orders" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"listing_id" uuid,
 	"buyer_id" uuid,
 	"seller_id" uuid,
@@ -146,7 +185,7 @@ CREATE TABLE "orders" (
 );
 --> statement-breakpoint
 CREATE TABLE "consultation_sessions" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"current_step" integer DEFAULT 1,
 	"completed_steps" integer[] DEFAULT '{}'::int[],
@@ -243,7 +282,7 @@ CREATE TABLE "reviewer_stats" (
 );
 --> statement-breakpoint
 CREATE TABLE "activity_feed" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"type" text NOT NULL,
 	"actor_id" uuid,
@@ -254,7 +293,7 @@ CREATE TABLE "activity_feed" (
 );
 --> statement-breakpoint
 CREATE TABLE "conversations" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"listing_id" uuid,
 	"buyer_id" uuid,
 	"seller_id" uuid,
@@ -266,7 +305,7 @@ CREATE TABLE "conversations" (
 );
 --> statement-breakpoint
 CREATE TABLE "inquiry_responses" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"inquiry_id" uuid,
 	"user_id" uuid,
 	"response_text" text NOT NULL,
@@ -277,7 +316,7 @@ CREATE TABLE "inquiry_responses" (
 );
 --> statement-breakpoint
 CREATE TABLE "message_requests" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"sender_id" uuid,
 	"recipient_id" uuid,
 	"context_type" text DEFAULT 'review',
@@ -289,7 +328,7 @@ CREATE TABLE "message_requests" (
 );
 --> statement-breakpoint
 CREATE TABLE "messages" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"conversation_id" uuid,
 	"sender_id" uuid,
 	"content" text NOT NULL,
@@ -298,7 +337,7 @@ CREATE TABLE "messages" (
 );
 --> statement-breakpoint
 CREATE TABLE "notifications" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"type" text NOT NULL,
 	"actor_id" uuid,
@@ -313,7 +352,7 @@ CREATE TABLE "notifications" (
 );
 --> statement-breakpoint
 CREATE TABLE "review_reactions" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"review_id" uuid,
 	"user_id" uuid,
 	"reaction" text DEFAULT 'helpful',
@@ -322,7 +361,7 @@ CREATE TABLE "review_reactions" (
 );
 --> statement-breakpoint
 CREATE TABLE "review_requests" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"product_name" text NOT NULL,
 	"brand_name" text NOT NULL,
@@ -339,7 +378,7 @@ CREATE TABLE "review_requests" (
 );
 --> statement-breakpoint
 CREATE TABLE "reviews" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"brand_id" uuid,
 	"product_name" text NOT NULL,
@@ -367,7 +406,7 @@ CREATE TABLE "reviews" (
 );
 --> statement-breakpoint
 CREATE TABLE "saved_items" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v4() NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid,
 	"item_type" text NOT NULL,
 	"item_id" uuid NOT NULL,
@@ -375,6 +414,9 @@ CREATE TABLE "saved_items" (
 	CONSTRAINT "saved_items_unique" UNIQUE("user_id","item_type","item_id")
 );
 --> statement-breakpoint
+ALTER TABLE "affiliate_clicks" ADD CONSTRAINT "affiliate_clicks_affiliate_link_id_affiliate_links_id_fk" FOREIGN KEY ("affiliate_link_id") REFERENCES "public"."affiliate_links"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "affiliate_conversions" ADD CONSTRAINT "affiliate_conversions_suede_redirect_id_affiliate_clicks_suede_redirect_id_fk" FOREIGN KEY ("suede_redirect_id") REFERENCES "public"."affiliate_clicks"("suede_redirect_id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "affiliate_links" ADD CONSTRAINT "affiliate_links_affiliate_id_affiliates_id_fk" FOREIGN KEY ("affiliate_id") REFERENCES "public"."affiliates"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "brand_analytics" ADD CONSTRAINT "brand_analytics_brand_id_brands_id_fk" FOREIGN KEY ("brand_id") REFERENCES "public"."brands"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "brand_applications" ADD CONSTRAINT "brand_applications_applicant_id_profiles_id_fk" FOREIGN KEY ("applicant_id") REFERENCES "public"."profiles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "brand_applications" ADD CONSTRAINT "brand_applications_reviewed_by_profiles_id_fk" FOREIGN KEY ("reviewed_by") REFERENCES "public"."profiles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

@@ -1,7 +1,4 @@
-import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
-
-const withNextIntl = createNextIntlPlugin();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseHostname = supabaseUrl
@@ -10,6 +7,30 @@ const supabaseHostname = supabaseUrl
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  async redirects() {
+    return [
+      {
+        source: "/en",
+        destination: "/",
+        permanent: false,
+      },
+      {
+        source: "/fr",
+        destination: "/",
+        permanent: false,
+      },
+      {
+        source: "/en/:path*",
+        destination: "/:path*",
+        permanent: false,
+      },
+      {
+        source: "/fr/:path*",
+        destination: "/:path*",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -39,4 +60,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

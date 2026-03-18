@@ -3,7 +3,6 @@
 import ButtonTextChange from '@/components/ui/button-textchange';
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -48,7 +47,16 @@ const hoverVariants: Variants = {
 };
 
 export default function HeroArticle() {
-    const t = useTranslations("Hero");
+    const copy = {
+        trustLayer: "The trust layer for fashion",
+        line1: "See How Clothes",
+        line2: "Really Fit on",
+        line3: "Bodies Like Yours",
+        description:
+            "SUEDE matches you with reviewers who share your exact body measurements. Shop with confidence. Return less. Discover more.",
+        explore: "Explore Reviews",
+        discover: "Discover Brands",
+    };
 
     return (
         <motion.div
@@ -63,7 +71,7 @@ export default function HeroArticle() {
                 className="text-[#E3D6CC] text-center text-[14px] font-normal uppercase tracking-[2.24px] leading-normal"
                 style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
             >
-                {t("trustLayer")}
+                {copy.trustLayer}
             </motion.span>
 
             {/* Spacer - 12px */}
@@ -77,9 +85,9 @@ export default function HeroArticle() {
                 whileHover="hover"
                 initial="initial"
             >
-                <motion.span variants={hoverVariants} className="block">{t("line1")}</motion.span>
-                <motion.span variants={hoverVariants} className="block">{t("line2")}</motion.span>
-                <motion.span variants={hoverVariants} className="block">{t("line3")}</motion.span>
+                <motion.span variants={hoverVariants} className="block">{copy.line1}</motion.span>
+                <motion.span variants={hoverVariants} className="block">{copy.line2}</motion.span>
+                <motion.span variants={hoverVariants} className="block">{copy.line3}</motion.span>
             </motion.h1>
 
             {/* Spacer - 12px */}
@@ -96,7 +104,7 @@ export default function HeroArticle() {
                     transition: { duration: 0.3 }
                 }}
             >
-                {t("description")}
+                {copy.description}
             </motion.p>
 
             <div className='flex flex-col sm:flex-row gap-4 items-center justify-center'>
@@ -106,7 +114,7 @@ export default function HeroArticle() {
                     whileTap={{ scale: 0.95 }}
                 >
                     <ButtonTextChange
-                        text={t("explore")}
+                        text={copy.explore}
                         icon={<ArrowRight size={20} />}
                         className="w-full sm:w-auto mt-0 px-8 py-3 flex gap-2.5 items-center justify-center bg-primary text-primary-foreground cursor-pointer font-normal uppercase tracking-wider hover:bg-[#3d0b13] transition-colors "
                     />
@@ -118,7 +126,7 @@ export default function HeroArticle() {
                     whileTap={{ scale: 0.95 }}
                 >
                     <ButtonTextChange
-                        text={t("discover")}
+                        text={copy.discover}
                         className="w-full sm:w-auto mt-0 px-8 py-3 bg-none outline outline-border text-border cursor-pointer font-normal uppercase tracking-wider transition-colors"
                     />
                 </motion.div>

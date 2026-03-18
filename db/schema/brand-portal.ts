@@ -20,7 +20,7 @@ import { brands, profiles } from "./core";
 export const brandApplications = pgTable("brand_applications", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   applicantId: uuid("applicant_id").references(() => profiles.id),
 
   // Company info
@@ -52,7 +52,7 @@ export const brandApplications = pgTable("brand_applications", {
 export const brandClaims = pgTable("brand_claims", {
   id: uuid("id")
     .primaryKey()
-    .default(sql`uuid_generate_v4()`),
+    .default(sql`gen_random_uuid()`),
   brandId: uuid("brand_id").references(() => brands.id),
   claimantId: uuid("claimant_id").references(() => profiles.id),
 
@@ -77,7 +77,7 @@ export const brandAnalytics = pgTable(
   {
     id: uuid("id")
       .primaryKey()
-      .default(sql`uuid_generate_v4()`),
+      .default(sql`gen_random_uuid()`),
     brandId: uuid("brand_id").references(() => brands.id),
     month: date("month").notNull(),
 
