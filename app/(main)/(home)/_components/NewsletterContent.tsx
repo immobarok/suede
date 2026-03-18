@@ -68,7 +68,7 @@ export function NewsletterContent() {
       viewport={{ once: true, margin: "-100px" }}
     >
       <motion.h2 
-        className="text-accent text-3xl md:text-4xl lg:text-[48px] font-logo leading-[120%] mb-6 tracking-wider font-normal"
+        className="text-muted text-3xl md:text-4xl lg:text-[48px] font-logo leading-[120%] mb-6 tracking-wider font-normal"
         variants={containerVariants}
       >
         <motion.span 
@@ -86,7 +86,7 @@ export function NewsletterContent() {
       </motion.h2>
 
       <motion.p 
-        className="text-accent/80 text-sm md:text-sm max-w-md mx-auto mb-10 font-light tracking-[0.1em]"
+        className="text-muted-foreground text-md md:text-sm max-w-md mx-auto mb-10 font-light tracking-widest"
         variants={itemVariants}
       >
         {copy.description}

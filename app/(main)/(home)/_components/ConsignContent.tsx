@@ -39,7 +39,7 @@ const ConsignContent = () => {
       </motion.h2>
 
       <motion.p
-        className="mb-10 max-w-md font-sans text-[15px] leading-relaxed text-[#5a5a5a]"
+        className="mb-10 max-w-md font-sans text-lg md:text-[15px] leading-relaxed text-[#5a5a5a]"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
