@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
@@ -25,7 +25,7 @@ import { Logo } from "@/components/layout/navbar/Logo"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 
-export default function LoginPage() {
+function LoginPageInner() {
     const supabase = createClient()
     const searchParams = useSearchParams()
 
@@ -253,5 +253,13 @@ export default function LoginPage() {
                     </p>
                 </CardFooter>
         </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#f8f6f3]" />}>
+            <LoginPageInner />
+        </Suspense>
     )
 }

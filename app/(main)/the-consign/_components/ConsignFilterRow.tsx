@@ -22,8 +22,8 @@ const categories = [
 
 const sortOptions = [
   { label: "NEWEST FIRST", value: "newest" },
-  { label: "PRICE: LOW TO HIGH", value: "price_low_high" },
-  { label: "PRICE: HIGH TO LOW", value: "price_high_low" },
+  { label: "LOW TO HIGH", value: "price_low_high" },
+  { label: "HIGH TO LOW", value: "price_high_low" },
 ];
 
 const ConsignFilterRow = () => {
@@ -46,7 +46,7 @@ const ConsignFilterRow = () => {
 
   return (
     <motion.div
-      className="container mx-auto flex items-center justify-between px-4 pt-3 pb-10 md:px-0"
+      className="container mx-auto flex flex-col gap-3 px-4 pt-3 pb-10 md:flex-row md:items-center md:justify-between md:gap-0 md:px-0"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -55,7 +55,7 @@ const ConsignFilterRow = () => {
         ease: [0.25, 0.1, 0.25, 1],
       }}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex w-full items-center gap-2 overflow-x-auto pb-1 md:w-auto md:overflow-visible md:pb-0">
         {categories.map((category) => {
           const isActive = currentCategory === category.value;
 
@@ -66,8 +66,8 @@ const ConsignFilterRow = () => {
               onClick={() => setParam("category", category.value)}
               className={
                 isActive
-                  ? "h-8 bg-[#1A1A1A] px-4 text-[10px] tracking-wide text-white"
-                  : "h-8 bg-[#EFEDE9] px-4 text-[10px] tracking-wide text-[#8A8A82] transition-colors hover:text-primary"
+                  ? "h-8 shrink-0 bg-[#1A1A1A] px-4 text-[10px] tracking-wide text-white"
+                  : "h-8 shrink-0 bg-[#EFEDE9] px-4 text-[10px] tracking-wide text-[#8A8A82] transition-colors hover:text-primary"
               }
             >
               {category.label}
@@ -76,37 +76,39 @@ const ConsignFilterRow = () => {
         })}
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="group flex h-8 items-center gap-2 bg-[#FFFFFF] px-4 text-[12px] font-medium tracking-wide text-[#8A8A82] transition-colors hover:text-primary"
-          >
-            <span className="relative inline-flex overflow-hidden py-1">
-              <span className="flex translate-y-0 items-center gap-1 transition duration-500 group-hover:-translate-y-[175%]">
-                {currentSortLabel}
-                <ChevronDown className="h-3 w-3" />
+      <div className="w-full md:w-auto">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="group flex h-8 w-full items-center justify-between gap-2 bg-[#FFFFFF] px-4 text-[12px] font-medium tracking-wide text-[#8A8A82] transition-colors hover:text-primary md:w-auto md:justify-start"
+            >
+              <span className="relative inline-flex overflow-hidden py-1">
+                <span className="flex translate-y-0 items-center gap-1 transition duration-500 group-hover:-translate-y-[175%]">
+                  {currentSortLabel}
+                  <ChevronDown className="h-3 w-3" />
+                </span>
+                <span className="absolute top-0 left-0 flex h-full w-full translate-y-[175%] items-center gap-1 transition duration-500 group-hover:translate-y-0">
+                  {currentSortLabel}
+                  <ChevronDown className="h-3 w-3" />
+                </span>
               </span>
-              <span className="absolute top-0 left-0 flex h-full w-full translate-y-[175%] items-center gap-1 transition duration-500 group-hover:translate-y-0">
-                {currentSortLabel}
-                <ChevronDown className="h-3 w-3" />
-              </span>
-            </span>
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuRadioGroup
-            value={currentSort}
-            onValueChange={(value) => setParam("sort", value)}
-          >
-            {sortOptions.map((option) => (
-              <DropdownMenuRadioItem key={option.value} value={option.value}>
-                {option.label}
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuRadioGroup
+              value={currentSort}
+              onValueChange={(value) => setParam("sort", value)}
+            >
+              {sortOptions.map((option) => (
+                <DropdownMenuRadioItem key={option.value} value={option.value}>
+                  {option.label}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </motion.div>
   );
 };

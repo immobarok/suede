@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "./navbar/Logo";
+import Image from "next/image";
 
 // Data for navigation links
 export function Footer() {
@@ -19,7 +20,8 @@ export function Footer() {
     brandPartner: "Capsule Brand Partner",
     privacy: "Privacy",
     newsletterTitle: "Per Suede Newsletter",
-    newsletterTagline: "Stay ahead of fit. Get curated reviews and style insights.",
+    newsletterTagline:
+      "Stay ahead of fit. Get curated reviews and style insights.",
     emailPlaceholder: "Your email",
     joinWaitlist: "Join The Waitlist",
     allRightsReserved: "All rights reserved.",
@@ -46,7 +48,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8 lg:gap-16">
           {/* Brand Section (Left) */}
           <div className="flex flex-col gap-6 md:col-span-4">
-            <Logo />
+            <Image
+              src="/logo-white.svg"
+              alt="Suede Logo"
+              width={120}
+              height={40}
+              className="object-contain"
+            />
             <p className="text-primary-foreground/70 max-w-xs leading-relaxed">
               {copy.tagline}
             </p>
@@ -56,7 +64,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 md:col-span-4">
             {/* Column 1 */}
             <div className="flex flex-col gap-4">
-              <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
+              <h3 className="text-primary-foreground mb-2 text-xs font-semibold tracking-widest uppercase">
                 {copy.platform}
               </h3>
               <ul className="flex flex-col gap-3">
@@ -75,7 +83,7 @@ export function Footer() {
 
             {/* Column 2 */}
             <div className="flex flex-col gap-4">
-              <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
+              <h3 className="text-primary-foreground mb-2 text-xs font-semibold tracking-widest uppercase">
                 {copy.company}
               </h3>
               <ul className="flex flex-col gap-3">
@@ -95,7 +103,7 @@ export function Footer() {
 
           {/* Newsletter Section (Right) */}
           <div className="flex flex-col gap-4 md:col-span-4">
-            <h3 className="mb-2 text-xs font-semibold tracking-widest text-primary-foreground uppercase">
+            <h3 className="text-primary-foreground mb-2 text-xs font-semibold tracking-widest uppercase">
               {copy.newsletterTitle}
             </h3>
             <p className="text-primary-foreground/70 mb-2 leading-relaxed">
@@ -123,7 +131,7 @@ export function Footer() {
         <Separator className="my-12 bg-zinc-800" />
 
         {/* Bottom Bar */}
-        <div className="flex flex-col items-center justify-between gap-4 text-xs text-primary-foreground md:flex-row">
+        <div className="text-primary-foreground flex flex-col items-center justify-between gap-4 text-xs md:flex-row">
           <p>© 2026 SUEDE. {copy.allRightsReserved}</p>
           <div className="flex gap-6">
             <Link href="#" className="transition-colors hover:text-white">

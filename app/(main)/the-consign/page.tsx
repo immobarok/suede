@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
+import { Suspense } from "react";
 import { AnimatedSearchBar } from "@/components/shared/animated-search-bar";
 import ConsignFilterRow from "./_components/ConsignFilterRow";
 import ConsignProductGrid from "./_components/ConsignProductGrid";
@@ -28,7 +29,9 @@ const page = () => {
           inputClassName="bg-[#F9F8F6] border-[#E7E4DF]"
         />
       </div>
-      <ConsignFilterRow />
+      <Suspense fallback={null}>
+        <ConsignFilterRow />
+      </Suspense>
       <ConsignProductGrid />
     </main>
   );
