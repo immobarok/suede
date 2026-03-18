@@ -9,7 +9,7 @@ export async function testIpHashAction() {
   try {
     const headersList = await headers();
     
-    // 1. Get raw IP
+    // 1. Get raw IP (used only for hashing)
     const rawIp =
       headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       headersList.get("x-real-ip") ||
@@ -18,8 +18,6 @@ export async function testIpHashAction() {
     // 2. Hash IP securely (same logic as the redirect route)
     const salt = process.env.IP_HASH_SALT || "fallback_suede_salt_123";
     const ipHash = crypto.createHash("sha256").update(`${rawIp}${salt}`).digest("hex");
-
-    const userAgent = headersList.get("user-agent") || "unknown_test_agent";
 
     // 3. Generate a fake suedeRedirectId for testing
     const testSuedeRedirectId = `test_${crypto.randomBytes(8).toString("hex")}`;
@@ -50,14 +48,11 @@ export async function testIpHashAction() {
       affiliateLinkId: defaultLink.id,
       suedeRedirectId: testSuedeRedirectId,
       ipHash: ipHash,
-      rawIp: rawIp,
-      userAgent: userAgent,
     }).returning();
 
     return {
       success: true,
       data: {
-        rawIp,
         ipHash,
         clickRecord: insertedClick,
       },

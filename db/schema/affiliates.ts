@@ -35,8 +35,6 @@ export const affiliateClicks = pgTable("affiliate_clicks", {
     .notNull(),
   suedeRedirectId: text("suede_redirect_id").unique().notNull(),
   ipHash: text("ip_hash").notNull(),
-  rawIp: text("raw_ip"), // <--- Add this line
-  userAgent: text("user_agent"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
@@ -56,5 +54,4 @@ export const affiliateConversions = pgTable("affiliate_conversions", {
   status: text("status").default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
-
 

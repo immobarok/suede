@@ -37,16 +37,12 @@ export async function GET(request: Request) {
     const salt = process.env.IP_HASH_SALT || 'fallback_suede_salt_123';
     const ipHash = crypto.createHash('sha256').update(`${rawIp}${salt}`).digest('hex');
 
-    const userAgent = request.headers.get('user-agent') || 'unknown';
-
     // 4. Insert click record using Drizzle
     try {
       await db.insert(affiliateClicks).values({
         affiliateLinkId: affiliateLinkId,
         suedeRedirectId: suedeRedirectId,
-        ipHash: ipHash,
-        rawIp: rawIp,
-        userAgent: userAgent
+        ipHash: ipHash
       });
 
     } catch (insertError) {

@@ -46,9 +46,9 @@ export default function TestIpPage() {
         <CardHeader>
           <CardTitle className="text-2xl">IP Hash Tester</CardTitle>
           <CardDescription>
-            Test the affiliate click IP hashing logic. This will capture your
-            machine&apos;s IP, hash it securely, and insert a dummy click record
-            into the database.
+            Test the affiliate click IP hashing logic. This will hash your IP
+            and insert a dummy click record into the database without storing
+            the raw IP or user agent.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -61,17 +61,8 @@ export default function TestIpPage() {
             {loading ? "Testing..." : "Run IP Hash Test"}
           </Button>
 
-          {result && (
+        {result && (
             <div className="bg-muted border-border mt-8 space-y-4 rounded-lg border p-4">
-              <div>
-                <h3 className="text-muted-foreground mb-1 text-sm font-medium">
-                  Raw IP Detected
-                </h3>
-                <code className="bg-background relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm">
-                  {result.rawIp}
-                </code>
-              </div>
-
               <div>
                 <h3 className="text-muted-foreground mb-1 text-sm font-medium">
                   Generated IP Hash
