@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -26,7 +25,7 @@ const SortBy = () => {
   const currentSort = searchParams.get("sort") || "date_added";
 
   const sortOptions = [
-    { label: "DATE ADDED (DEFAULT)", value: "date_added" },
+    { label: "DATE", value: "date_added" },
     { label: "BRAND A → Z", value: "brand_a_z" },
     { label: "HIGHEST RATING", value: "highest_rating" },
     { label: "LOWEST RATING", value: "lowest_rating" },

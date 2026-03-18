@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown, Filter, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { AnimatedSearchBar } from "@/components/shared/animated-search-bar";
 import {
   DropdownMenu,
@@ -23,7 +23,7 @@ export const CollectiveSearchBar = () => {
         <AnimatedSearchBar
           placeholder="Search Members"
           inputClassName="bg-white border-[#E7E4DF] rounded-none h-12"
-          animate={false} // Disable individual animation since parent handles it
+          animate={false}
         />
       </div>
       
@@ -34,7 +34,11 @@ export const CollectiveSearchBar = () => {
               Sort by <ChevronDown className="h-4 w-4" />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48 rounded-none border-[#E7E4DF]">
+          <DropdownMenuContent
+            align="start"
+            sideOffset={6}
+            className="w-48 max-w-[calc(100vw-2rem)] rounded-none border-[#E7E4DF]"
+          >
             <DropdownMenuRadioGroup value="recent">
               <DropdownMenuRadioItem value="recent" className="font-darker">Recent</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="popular" className="font-darker">Popular</DropdownMenuRadioItem>
