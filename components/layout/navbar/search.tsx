@@ -74,7 +74,7 @@ export function SearchComponent({
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 flex h-10 items-center gap-1 px-4 transition-colors"
+                  className="bg-primary text-primary-foreground flex h-10 items-center gap-1 px-4 transition-colors hover:bg-[#3d0b13]"
                   aria-label="Submit review or inquiry"
                 >
                   <span className="text-[11px] tracking-[0.18em] uppercase">

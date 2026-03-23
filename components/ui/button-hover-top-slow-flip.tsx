@@ -3,7 +3,7 @@
 const ButtonHoverTopSlowFlip = ({text}: {text: string}) => {
   return (
     <>
-      <button className='group relative inline-flex h-10 items-center justify-center overflow-hidden font-medium cursor-pointer bg-primary/80 text-white'>
+      <button className='group relative inline-flex h-10 items-center justify-center overflow-hidden font-medium cursor-pointer bg-primary hover:bg-[#3d0b13] text-white'>
         <div className='inline-flex h-10 translate-y-0 items-center justify-center px-6 bg-linear-to-r dark:from-primary dark:to-primary/80  transition duration-500 group-hover:-translate-y-[150%]'>
           {text}
         </div>

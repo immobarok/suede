@@ -214,7 +214,7 @@ export function CommunityQuestionCard({
           {/* Footer Actions */}
           <div className="mt-auto p-5 pt-0">
             <div className="grid grid-cols-2 gap-3">
-              <Button className="bg-primary h-auto cursor-pointer rounded-none px-4 py-3 text-[14px] font-normal tracking-wider text-white uppercase transition-colors hover:bg-[#8f6a4e]">
+              <Button className="bg-primary h-auto cursor-pointer rounded-none px-4 py-3 text-[14px] font-normal tracking-wider text-white uppercase transition-colors hover:bg-">
                 Login To Respond
               </Button>
               <Button
