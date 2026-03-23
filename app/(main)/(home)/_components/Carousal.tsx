@@ -280,6 +280,13 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   const scrambledName = useTextScramble(brand.name, isActive);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [transitionKey, setTransitionKey] = useState(0);
+
+  useEffect(() => {
+    if (isActive) {
+      setTransitionKey((k) => k + 1);
+    }
+  }, [isActive, brand.id]);
 
   const getVariant = () => {
     if (shouldReduceMotion) return "center";
@@ -316,7 +323,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
           willChange: "transform, opacity",
         }}
       >
-      {/* Image Container (static) */}
+      {/* Image Container */}
       <div className="relative aspect-[3/4] w-[280px] md:w-[380px] lg:w-[420px]">
         {/* Loading Skeleton */}
         {!isLoaded && !hasError && (
@@ -330,21 +337,60 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
           </div>
         )}
 
-        <Image
-          src={brand.src}
-          alt={`${brand.name} brand showcase`}
-          fill
-          priority={isActive}
-          className={`rounded-lg object-contain transition-all duration-500 ${
-            isActive
-              ? "opacity-100 drop-shadow-[0_30px_60px_rgba(255,255,255,0.2)]"
-              : "opacity-100"
-          } ${isLoaded ? "" : "opacity-0"} `}
-          sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
-          onLoad={() => setIsLoaded(true)}
-          onError={() => setHasError(true)}
-          draggable={false}
-        />
+        <motion.div
+          key={transitionKey}
+          initial={
+            shouldReduceMotion
+              ? {}
+              : {
+                  opacity: 0,
+                  scale: 0.92,
+                  rotateZ: -2,
+                  filter: "blur(10px)",
+                }
+          }
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  opacity: 1,
+                  scale: 1,
+                  rotateZ: 0,
+                  filter: "blur(0px)",
+                }
+          }
+          transition={{
+            duration: 0.6,
+            ease: [0.2, 0.8, 0.2, 1],
+          }}
+          className="relative h-full w-full"
+        >
+          <Image
+            src={brand.src}
+            alt={`${brand.name} brand showcase`}
+            fill
+            priority={isActive}
+            className={`rounded-lg object-contain transition-all duration-500 ${
+              isActive
+                ? "opacity-100 drop-shadow-[0_30px_60px_rgba(0,0,0,0.2)]"
+                : "opacity-100"
+            } ${isLoaded ? "" : "opacity-0"} `}
+            sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
+            onLoad={() => setIsLoaded(true)}
+            onError={() => setHasError(true)}
+            draggable={false}
+          />
+
+          {!shouldReduceMotion && isActive && (
+            <motion.div
+              key={`flash-${transitionKey}`}
+              initial={{ opacity: 0.9 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-white/40 via-white/5 to-transparent"
+            />
+          )}
+        </motion.div>
       </div>
 
       {/* Brand Label with Scramble Effect */}
