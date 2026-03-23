@@ -118,7 +118,7 @@ export function Footer() {
                 />
                 <Button
                   type="submit"
-                  className="h-12 cursor-pointer rounded-none bg-[#C9A96E] px-6 text-xs font-semibold tracking-wider whitespace-nowrap text-black uppercase hover:bg-[#C9A96E]/80"
+                  className="h-12 cursor-pointer rounded-none bg-[#F8F7F2] px-6 text-xs font-semibold tracking-wider whitespace-nowrap text-black uppercase hover:bg-[#ffffff]"
                 >
                   {copy.joinWaitlist}
                 </Button>

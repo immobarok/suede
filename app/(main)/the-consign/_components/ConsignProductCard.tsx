@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
@@ -38,31 +38,21 @@ const ConsignProductCard = ({
       }}
       className="h-full"
     >
+      {/* Container that triggers the hover state */}
       <motion.div
         initial="rest"
-        animate="rest"
         whileHover="hover"
-        className="h-full"
-        variants={{
-          rest: {
-            y: 0,
-            boxShadow: "0 2px 8px rgba(17, 24, 39, 0.04)",
-          },
-          hover: {
-            y: -6,
-            boxShadow: "0 16px 36px rgba(17, 24, 39, 0.14)",
-          },
-        }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        animate="rest"
+        className="group h-full"
       >
-        <Card className="h-full gap-0 rounded-none bg-white p-0 ring-0">
+        <Card className="h-full gap-0 rounded-none border-none bg-white p-0 ring-0 transition-shadow duration-500 hover:shadow-2xl">
           <div className="relative aspect-5/4 overflow-hidden bg-[#F7F6F4]">
             <motion.div
               variants={{
-                rest: { scale: 1, y: 0, filter: "brightness(1)" },
-                hover: { scale: 1.03, y: -4, filter: "brightness(1.03)" },
+                rest: { scale: 1.15, filter: "blur(8px)" },
+                hover: { scale: 1, filter: "blur(0px)" },
               }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
               className="absolute inset-0"
             >
               <Image
@@ -75,13 +65,40 @@ const ConsignProductCard = ({
               />
             </motion.div>
 
-            <motion.div
-              variants={{ rest: { opacity: 0.08 }, hover: { opacity: 0.18 } }}
-              transition={{ duration: 0.4 }}
-              className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/15 via-transparent to-white/10"
-            />
+            <div className="pointer-events-none absolute inset-0 z-20 flex">
+              <motion.div
+                variants={{
+                  rest: { x: 0 },
+                  hover: { x: "-100%" },
+                }}
+                transition={{ duration: 0.6, ease: [0.45, 0, 0.55, 1] }}
+                className="flex h-full w-1/2 items-center justify-end border-r border-white/5 bg-[#1A1A1A]/10 opacity-1"
+              >
+                <span className="translate-x-3 rotate-90 text-[9px] font-light tracking-[0.4em] text-white/20 uppercase">
+                  Reveal
+                </span>
+              </motion.div>
+
+              {/* Right Curtain */}
+              <motion.div
+                variants={{
+                  rest: { x: 0 },
+                  hover: { x: "100%" },
+                }}
+                transition={{ duration: 0.6, ease: [0.45, 0, 0.55, 1] }}
+                className="flex h-full w-1/2 items-center justify-start border-l border-white/5 bg-[#1A1A1A]/10 opacity-1"
+              >
+                <span className="-translate-x-3 -rotate-90 text-[9px] font-light tracking-[0.4em] text-white/20 uppercase">
+                  Archive
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Subtle Gradient Shadow that appears on reveal */}
+            <div className="absolute inset-0 z-10 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
           </div>
 
+          {/* --- CONTENT SECTION (Kept original logic/colors) --- */}
           <div className="space-y-2 p-4">
             <p className="font-darker text-[14px] text-[#8A8A82]">
               {brandName}
@@ -108,7 +125,7 @@ const ConsignProductCard = ({
             <div className="space-y-2 pt-2">
               <Link
                 href={`/the-consign/buy/${slug}`}
-                className="bg-primary font-darker hover:bg-[#3d0b13] flex h-11 w-full items-center justify-center text-base tracking-[0.06em] text-white transition-colors"
+                className="bg-primary font-darker flex h-11 w-full items-center justify-center text-base tracking-[0.06em] text-white transition-colors hover:bg-[#3d0b13]"
               >
                 BUY NOW
               </Link>
