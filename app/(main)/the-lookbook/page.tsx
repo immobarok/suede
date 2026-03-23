@@ -25,6 +25,7 @@ export async function generateMetadata(props: {
 const page = async (props: { searchParams: SearchParams }) => {
   const searchParams = await props.searchParams;
   const view = searchParams.view;
+  const isOpenInquiries = view === "open-inquiries";
 
   return (
     <main className="bg-[#F5F5F0] py-24">
@@ -35,9 +36,9 @@ const page = async (props: { searchParams: SearchParams }) => {
           bottomText="Real reviews from real bodies. Ranked by your measurement match."
         />
       </section>
-      <LookbookSearchBar />
-      <LookbookTabsSortRow isOpenInquiries={view === "open-inquiries"} />
-      {view === "open-inquiries" ? <Inqueries /> : <LookBookGrid />}
+      <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
+      <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
+      {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
     </main>
   );
 };

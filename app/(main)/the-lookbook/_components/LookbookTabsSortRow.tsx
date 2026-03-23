@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import ReviewsButton from "./ReviewsButton";
 import OpenInquiriesButton from "./OpenInquiriesButton";
-import SortBy from "./SortBy";
-import FilterInquiries from "./FilterInquiries";
 
 type LookbookTabsSortRowProps = {
   isOpenInquiries: boolean;
@@ -12,22 +10,21 @@ type LookbookTabsSortRowProps = {
 
 const LookbookTabsSortRow = ({ isOpenInquiries }: LookbookTabsSortRowProps) => {
   return (
-    <motion.div
-      className="container mx-auto flex items-center justify-between px-4 pt-5 pb-0"
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
-    >
-      <div className="flex items-center gap-6">
+    <div className="container mx-auto flex flex-col gap-4 px-4 pt-5 pb-0">
+      <motion.div
+        className="flex items-center gap-6"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{
+          duration: 0.8,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+      >
         <ReviewsButton />
         <OpenInquiriesButton />
-      </div>
-      {isOpenInquiries ? <FilterInquiries /> : <SortBy />}
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

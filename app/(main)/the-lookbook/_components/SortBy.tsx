@@ -35,34 +35,34 @@ const SortBy = () => {
     sortOptions.find((opt) => opt.value === currentSort)?.label || "Sort By";
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="hover:text-primary group flex cursor-pointer items-center gap-2 text-sm font-medium transition-colors duration-300 outline-none">
-          <SlidersHorizontal className="h-4 w-4" />
-          <span className="relative inline-flex overflow-hidden py-1">
-            <div className="flex translate-y-0 items-center gap-1 transition duration-500 group-hover:-translate-y-[175%]">
-              Sort By: {currentLabel}
-              <ChevronDown className="h-3 w-3 opacity-50" />
-            </div>
-            <div className="absolute top-0 left-0 flex h-full w-full translate-y-[175%] items-center gap-1 transition duration-500 group-hover:translate-y-0">
-              Sort By: {currentLabel}
-              <ChevronDown className="h-3 w-3 opacity-50" />
-            </div>
-          </span>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-56">
-        <DropdownMenuRadioGroup value={currentSort}>
-          {sortOptions.map((option) => (
-            <SortItem
-              key={option.value}
-              label={option.label}
-              value={option.value}
-            />
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex w-full flex-col items-stretch justify-end gap-3 md:w-auto md:flex-row md:items-center">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="flex h-12 items-center justify-between gap-2 border border-[#E7E4DF] bg-white px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
+            Sort by: {currentLabel} <ChevronDown className="h-4 w-4" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="start"
+          sideOffset={6}
+          className="w-48 max-w-[calc(100vw-2rem)] rounded-none border-[#E7E4DF]"
+        >
+          <DropdownMenuRadioGroup value={currentSort}>
+            {sortOptions.map((option) => (
+              <SortItem
+                key={option.value}
+                label={option.label}
+                value={option.value}
+              />
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <button className="flex h-12 items-center justify-center gap-2 border border-[#E7E4DF] bg-white px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
+        <SlidersHorizontal className="h-4 w-4" /> Filter
+      </button>
+    </div>
   );
 };
 

@@ -2,19 +2,19 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { AnimatedSearchBar } from "@/components/shared/animated-search-bar";
+import FilterInquiries from "./FilterInquiries";
+import SortBy from "./SortBy";
 
-const LookbookSearchBar = () => {
-  const [value, setValue] = React.useState("");
-  const [isFocused, setIsFocused] = React.useState(false);
-
-  const showAnimatedHint = !isFocused && value.length === 0;
-
+export const LookbookSearchBar = ({
+  isOpenInquiries,
+}: {
+  isOpenInquiries?: boolean;
+}) => {
   return (
     <motion.div
-      className="container mx-auto pt-24 px-4 md:px-0"
-      initial={{ opacity: 0, y: 60 }}
+      className="container mx-auto px-4 pt-16 md:px-0"
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{
@@ -22,28 +22,18 @@ const LookbookSearchBar = () => {
         ease: [0.25, 0.1, 0.25, 1],
       }}
     >
-      <div className="group relative">
-        <Search className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-[#8A8A82]" />
-        <Input
-          type="search"
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          className="border-primary/20 h-12 rounded-none bg-[#F9F8F6] pl-10"
-          aria-label="Search by item or brand"
-        />
+      <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+        <div className="flex-1">
+          <AnimatedSearchBar
+            placeholder={
+              isOpenInquiries ? "Search Inquiries" : "Search Reviews"
+            }
+            inputClassName="bg-white border-[#E7E4DF] rounded-none h-12 flex-1 w-full"
+            animate={false}
+          />
+        </div>
 
-        {showAnimatedHint && (
-          <span className="pointer-events-none absolute top-1/2 left-10 -translate-y-1/2 overflow-hidden text-sm text-[#8A8A82]">
-            <span className="block translate-y-0 transition duration-500 group-hover:-translate-y-[175%]">
-              Search by item or brand
-            </span>
-            <span className="absolute top-0 left-0 block translate-y-[175%] transition duration-500 group-hover:translate-y-0">
-              Search by item or brand
-            </span>
-          </span>
-        )}
+        {isOpenInquiries ? <FilterInquiries /> : <SortBy />}
       </div>
     </motion.div>
   );
