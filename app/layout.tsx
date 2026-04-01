@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getSiteOrigin } from "@/lib/site-url";
 
+
 import { Cormorant_Garamond, Darker_Grotesque } from "next/font/google";
 
 const cormorant = Cormorant_Garamond({
@@ -72,6 +73,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${darkerGrotesque.variable}`}>
       <body className="antialiased">
+
         <TooltipProvider>
           {children}
           <Toaster richColors />

@@ -27,8 +27,6 @@ import Image from "next/image"
 
 export default function RegisterPage() {
     const supabase = createClient()
-    const router = useRouter()
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -133,7 +131,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-[#f8f6f3] py-6 my-10">
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-[#f8f6f3]  py-16">
             <div className="mb-4 flex flex-col items-center gap-2">
                 <Logo />
                 <p className="text-[#a8a29e] font-darker text-sm text-center">

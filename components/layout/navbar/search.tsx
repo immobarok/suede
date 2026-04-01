@@ -104,7 +104,7 @@ export function SearchComponent({
           onClick={() => setIsSearchOpen(!isSearchOpen)}
           aria-label="Toggle search"
         >
-          <Search className="h-4 w-4" />
+          <Search className="h-[22px] w-[22px]" />
         </button>
         {isSearchOpen && (
           <Input

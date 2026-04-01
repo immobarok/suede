@@ -1,11 +1,11 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/use-user";
 
-import { MainNav } from "./main-nav";
+import { Logo } from "./Logo";
 import { AuthSection } from "./auth-section";
 import { MobileMenu } from "./mobile";
 
@@ -18,11 +18,28 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
   const pathname = usePathname();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  const isHome = pathname === "/";
-  const navTextColor = isHome ? "text-white" : "text-[#1A1A1A]";
+  const isHome = pathname === "/" || pathname === "/en" || pathname === "";
+  const isAuthPage = pathname?.startsWith("/auth");
+
+  useEffect(() => {
+    setIsScrolled(false);
+  }, [isHome]);
+
+  const isHeroMode = isHome;
+
+  // Use a more explicit background for the scrolled state
+  const headerBgStyle = "bg-transparent py-4";
+
+  const navTextColor = isHeroMode ? "text-white" : "text-black";
+
+  useEffect(() => {
+    console.log("Navbar State:", { pathname, isHome, isScrolled, isHeroMode });
+  }, [pathname, isHome, isScrolled, isHeroMode]);
+
   const navActiveColor = "text-[#4F0E19]";
   const navHoverColor = isHome ? "hover:text-white/80" : "hover:text-primary";
 
@@ -94,17 +111,17 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
     consign: labels.consign,
   };
 
-  return (
-    <header className="fixed top-0 z-50 w-full px-4 md:px-0">
-      <div className="container mx-auto flex h-16 items-center justify-between">
-        <div className={navTextColor}>{logoSlot}</div>
+  const headerBaseClass = "fixed top-0 z-50 w-full px-4 md:px-0";
+  const headerMotionClass = isHome ? "transition-all duration-300" : "";
 
-        <MainNav
-          navItems={navItems}
-          navTextColor={navTextColor}
-          navActiveColor={navActiveColor}
-          navHoverColor={navHoverColor}
-        />
+  return (
+    <header className={`${headerBaseClass} ${headerMotionClass} ${headerBgStyle}`}>
+      <div className="container mx-auto flex items-center justify-between">
+        <div className={navTextColor}>
+          <Logo isHeroMode={isHeroMode} />
+        </div>
+
+        {/* MainNav is now replaced by Hamburger on all pages/scrolled states as per minimalist request */}
 
         <div className="flex items-center gap-4">
           <AuthSection
@@ -118,12 +135,16 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
             translations={translations}
           />
 
-          <MobileMenu
-            isOpen={isDrawerOpen}
-            setIsOpen={setIsDrawerOpen}
-            isAuthenticated={isAuthenticated}
-            translations={translations}
-          />
+          {/* Mobile Menu: Hide on Home and Auth pages, show on all other pages and devices */}
+          {!isHome && !isAuthPage && (
+            <MobileMenu
+              isOpen={isDrawerOpen}
+              setIsOpen={setIsDrawerOpen}
+              isAuthenticated={isAuthenticated}
+              translations={translations}
+              showOnDesktop={true}
+            />
+          )}
         </div>
       </div>
     </header>

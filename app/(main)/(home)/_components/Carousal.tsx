@@ -12,13 +12,10 @@ import {
   AnimatePresence,
   useReducedMotion,
   PanInfo,
+  Variants,
 } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
-
-// ============================================================================
-// TYPES & INTERFACES
-// ============================================================================
 
 interface Brand {
   id: number;
@@ -34,45 +31,35 @@ interface CarouselProps {
   className?: string;
 }
 
-interface CardPosition {
-  index: number;
-  offset: number;
-  scale: number;
-  zIndex: number;
-  blur: number;
-  opacity: number;
-}
-
-// ============================================================================
-// CONFIGURATION
-// ============================================================================
 
 const DEFAULT_BRANDS: Brand[] = [
   {
     id: 1,
     name: "MEJI MEJI",
-    src: "https://i.ibb.co.com/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co/YBCQStfF/Adobe-Express-file.png",
   },
+
   {
     id: 2,
     name: "NADI",
-    src: "https://i.ibb.co.com/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co.com/KzB2SD5b/Untitled-4.png",
   },
   {
     id: 3,
     name: "TOFECOL",
-    src: "https://i.ibb.co.com/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co.com/99f5bVRW/Untitled-3.png",
   },
   {
     id: 4,
     name: "STARFISH MRKT",
-    src: "https://i.ibb.co.com/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co.com/QF9vhFBC/Untitled-2.png",
   },
   {
     id: 5,
     name: "BUBON",
-    src: "https://i.ibb.co.com/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co.com/Ld5DNkR7/Untitled-1.png",
   },
+
 ];
 
 const CONFIG = {
@@ -90,20 +77,14 @@ const CONFIG = {
   autoPlayInterval: 5000,
 } as const;
 
-// ============================================================================
-// UTILITY HOOKS
-// ============================================================================
 
-/**
- * Custom hook for text scramble effect
- */
 const useTextScramble = (
   text: string,
   isActive: boolean,
   duration: number = 400,
 ) => {
   const [displayText, setDisplayText] = useState(text);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | null>(null);
   const chars = useMemo(() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", []);
 
   useEffect(() => {
@@ -157,7 +138,7 @@ const useCarousel = (
 ) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
-  const autoPlayRef = useRef<NodeJS.Timeout>();
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const wrap = useCallback(
     (index: number) => {
@@ -205,11 +186,7 @@ const useCarousel = (
   };
 };
 
-// ============================================================================
-// ANIMATION VARIANTS
-// ============================================================================
-
-const cardVariants = {
+const cardVariants: Variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? CONFIG.sideOffset * 1.5 : -CONFIG.sideOffset * 1.5,
     opacity: 0,
@@ -323,101 +300,99 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
           willChange: "transform, opacity",
         }}
       >
-      {/* Image Container */}
-      <div className="relative aspect-[3/4] w-[280px] md:w-[380px] lg:w-[420px]">
-        {/* Loading Skeleton */}
-        {!isLoaded && !hasError && (
-          <div className="absolute inset-0 animate-pulse rounded-lg bg-neutral-800" />
-        )}
+        {/* Image Container */}
+        <div className="relative aspect-[3/4] w-[280px] md:w-[380px] lg:w-[420px]">
+          {/* Loading Skeleton */}
+          {!isLoaded && !hasError && (
+            <div className="absolute inset-0 animate-pulse rounded-lg bg-neutral-800" />
+          )}
 
-        {/* Error State */}
-        {hasError && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-neutral-800 text-neutral-500">
-            <span className="text-sm">Failed to load</span>
-          </div>
-        )}
+          {/* Error State */}
+          {hasError && (
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-neutral-800 text-neutral-500">
+              <span className="text-sm">Failed to load</span>
+            </div>
+          )}
 
-        <motion.div
-          key={transitionKey}
-          initial={
-            shouldReduceMotion
-              ? {}
-              : {
-                  opacity: 0,
-                  scale: 0.92,
-                  rotateZ: -2,
-                  filter: "blur(10px)",
-                }
-          }
-          animate={
-            shouldReduceMotion
-              ? {}
-              : {
-                  opacity: 1,
-                  scale: 1,
-                  rotateZ: 0,
-                  filter: "blur(0px)",
-                }
-          }
-          transition={{
-            duration: 0.6,
-            ease: [0.2, 0.8, 0.2, 1],
-          }}
-          className="relative h-full w-full"
-        >
-          <Image
-            src={brand.src}
-            alt={`${brand.name} brand showcase`}
-            fill
-            priority={isActive}
-            className={`rounded-lg object-contain transition-all duration-500 ${
-              isActive
-                ? "opacity-100 drop-shadow-[0_30px_60px_rgba(0,0,0,0.2)]"
-                : "opacity-100"
-            } ${isLoaded ? "" : "opacity-0"} `}
-            sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
-            onLoad={() => setIsLoaded(true)}
-            onError={() => setHasError(true)}
-            draggable={false}
-          />
-
-          {!shouldReduceMotion && isActive && (
-            <motion.div
-              key={`flash-${transitionKey}`}
-              initial={{ opacity: 0.9 }}
-              animate={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-white/40 via-white/5 to-transparent"
+          <motion.div
+            key={transitionKey}
+            initial={
+              shouldReduceMotion
+                ? {}
+                : {
+                    opacity: 0,
+                    scale: 0.98,
+                    filter: "blur(8px)",
+                  }
+            }
+            animate={
+              shouldReduceMotion
+                ? {}
+                : {
+                    opacity: 1,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }
+            }
+            transition={{
+              duration: 0.7,
+              ease: "easeOut",
+            }}
+            className="relative h-full w-full"
+          >
+            <Image
+              src={brand.src}
+              alt={`${brand.name} brand showcase`}
+              fill
+              priority={isActive}
+              className={`rounded-lg object-contain transition-all duration-500 ${
+                isActive
+                  ? "opacity-100 drop-shadow-[0_30px_60px_rgba(0,0,0,0.2)]"
+                  : "opacity-100"
+              } ${isLoaded ? "" : "opacity-0"} `}
+              sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
+              onLoad={() => setIsLoaded(true)}
+              onError={() => setHasError(true)}
+              draggable={false}
             />
-          )}
-        </motion.div>
-      </div>
 
-      {/* Brand Label with Scramble Effect */}
-      <div className="relative mt-8 h-12 overflow-hidden text-center">
-        <AnimatePresence mode="wait">
-          {isActive && (
-            <motion.div
-              key={brand.id}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="flex flex-col items-center"
-            >
-              <h3 className="text-sm font-bold tracking-[0.3em] text-neutral-900 uppercase md:text-base">
-                {scrambledName}
-              </h3>
+            {!shouldReduceMotion && isActive && (
               <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "48px" }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-                className="mt-2 h-[2px] bg-gradient-to-r from-transparent via-neutral-400 to-transparent"
+                key={`flash-${transitionKey}`}
+                initial={{ opacity: 0.35 }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-white/25 via-white/5 to-transparent"
               />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            )}
+          </motion.div>
+        </div>
+
+        {/* Brand Label with Scramble Effect */}
+        <div className="relative mt-8 h-12 overflow-hidden text-center">
+          <AnimatePresence mode="wait">
+            {isActive && (
+              <motion.div
+                key={brand.id}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex flex-col items-center"
+              >
+                <h3 className="text-sm font-bold tracking-[0.3em] text-neutral-900 uppercase md:text-base">
+                  {scrambledName}
+                </h3>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "48px" }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  className="mt-2 h-[2px] bg-gradient-to-r from-transparent via-neutral-400 to-transparent"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.div>
     </div>
   );
@@ -576,15 +551,13 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
         </header>
 
         {/* Carousel Stage */}
-        <div
-          className="relative flex min-h-[550px] flex-1 touch-pan-y items-center justify-center"
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}
-        >
+        <div className="relative flex min-h-[550px] flex-1 touch-pan-y items-center justify-center">
           <motion.div
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.1}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
             className="relative h-full w-full cursor-grab active:cursor-grabbing"
             style={{ perspective: 1200 }}
           >

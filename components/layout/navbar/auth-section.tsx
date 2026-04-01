@@ -10,6 +10,7 @@ import {
   LogOut,
   Heart,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -28,6 +29,7 @@ import {
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/use-user";
+import { usePathname } from "next/navigation";
 import { SearchComponent } from "./search";
 
 interface AuthSectionProps {
@@ -51,6 +53,10 @@ export function AuthSection({
   translations: t,
 }: AuthSectionProps) {
   const { user, isLoading, isAuthenticated } = useAuth();
+  const pathname = usePathname();
+  
+  // Determine active tab from current pathname
+  const activeTab = pathname === "/auth/register" ? "register" : "signin";
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -64,7 +70,7 @@ export function AuthSection({
   }
 
   return (
-    <div className="hidden items-center gap-1 md:flex">
+    <div className="hidden items-center gap-4 md:flex">
       <SearchComponent
         isSearchOpen={isSearchOpen}
         setIsSearchOpen={setIsSearchOpen}
@@ -108,37 +114,25 @@ export function AuthSection({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              asChild
-              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-            >
+            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
               <Link href="/profile" className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
                 {t.profile}
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              asChild
-              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-            >
+            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
               <Link href="/profile/measurements" className="cursor-pointer">
                 <Ruler className="mr-2 h-4 w-4" />
                 {t.measurements}
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              asChild
-              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-            >
+            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
               <Link href="/favorites" className="cursor-pointer">
                 <Heart className="mr-2 h-4 w-4" />
                 {t.favorites}
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              asChild
-              className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-            >
+            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
               <Link href="/my-listings" className="cursor-pointer">
                 <ShoppingBag className="mr-2 h-4 w-4" />
                 {t.listings}
@@ -155,32 +149,38 @@ export function AuthSection({
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="link"
-                asChild
-                className="font-darker-grotesque text-lg font-medium"
-              >
-                <Link href="/auth/login">{t.signIn}</Link>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>{t.tooltipSignIn}</TooltipContent>
-          </Tooltip>
+        /* --- PILL AUTH BUTTONS with animated sliding border --- */
+        <div className="relative flex h-[39px] items-center rounded-full bg-black border-2 border-white">
+          {/* Sign In tab */}
+          <Link
+            href="/auth/login"
+            className="relative flex h-full items-center px-7 text-[15px] font-medium text-white transition-colors duration-200"
+          >
+            {activeTab === "signin" && (
+              <motion.span
+                layoutId="auth-pill-border"
+                className="absolute inset-0 z-0 rounded-full bg-[#3E3E3E] border-r-2 border-white"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">{t.signIn}</span>
+          </Link>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                asChild
-                className="h-10.5 rounded-none text-[16px] uppercase"
-              >
-                <Link href="/auth/register">{t.createAccount}</Link>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>{t.tooltipRegister}</TooltipContent>
-          </Tooltip>
-        </>
+          {/* Create Account tab */}
+          <Link
+            href="/auth/register"
+            className="relative flex h-full items-center px-4 text-[15px] font-medium whitespace-nowrap text-white transition-colors duration-200"
+          >
+            {activeTab === "register" && (
+              <motion.span
+                layoutId="auth-pill-border"
+                className="absolute inset-0 z-0 rounded-full bg-[#3E3E3E] border-l-2 border-white"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">{t.createAccount}</span>
+          </Link>
+        </div>
       )}
     </div>
   );

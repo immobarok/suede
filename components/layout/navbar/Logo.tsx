@@ -1,19 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface LogoProps {
-  isHome?: boolean;
-}
+export function Logo({ isHeroMode }: { isHeroMode?: boolean }) {
+  const logoSrc = isHeroMode ? "/Logo_white.svg" : "/Logo_black.svg";
 
-export function Logo({ isHome }: LogoProps) {
   return (
     <Link href="/" className="flex items-center gap-2">
       <Image
-        src="/logo.svg"
+        src={logoSrc}
         alt="Logo"
         width={100}
-        height={100}
-        className={isHome ? "brightness-0 invert" : ""}
+        height={40}
+        className="object-contain"
+        priority
       />
     </Link>
   );

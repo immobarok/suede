@@ -10,6 +10,7 @@ interface MobileMenuProps {
   setIsOpen: (value: boolean) => void;
   isAuthenticated: boolean;
   translations: Record<string, string>;
+  showOnDesktop?: boolean;
 }
 
 export function MobileMenu({
@@ -17,6 +18,7 @@ export function MobileMenu({
   setIsOpen,
   isAuthenticated,
   translations: t,
+  showOnDesktop = false,
 }: MobileMenuProps) {
   const navItems = [
     { href: "/the-capsule", label: t.capsule },
@@ -27,8 +29,12 @@ export function MobileMenu({
 
   return (
     <>
-      <Button size="icon" className="md:hidden" onClick={() => setIsOpen(true)}>
-        <Menu className="h-5 w-5" />
+      <Button
+        size="icon"
+        className={`${showOnDesktop ? "flex" : "md:hidden"} bg-transparent hover:bg-transparent active:bg-transparent shadow-none`}
+        onClick={() => setIsOpen(true)}
+      >
+        <Menu className="h-6! w-6! text-black" />
       </Button>
 
       <MotionDrawer
@@ -40,14 +46,14 @@ export function MobileMenu({
         width={300}
         backgroundColor="white"
         contentClassName="border-l border-border"
-        className="md:hidden"
+        className={showOnDesktop ? "" : "md:hidden"}
       >
         <nav className="flex flex-col gap-6">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-foreground hover:text-primary text-xl font-medium transition-colors"
+              className="text-black hover:text-primary text-xl font-medium transition-colors"
               onClick={() => setIsOpen(false)}
             >
               {item.label}
