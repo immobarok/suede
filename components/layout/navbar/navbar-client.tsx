@@ -23,7 +23,6 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
   const [searchValue, setSearchValue] = useState("");
 
   const isHome = pathname === "/" || pathname === "/en" || pathname === "";
-  const isAuthPage = pathname?.startsWith("/auth");
 
   useEffect(() => {
     setIsScrolled(false);
@@ -32,7 +31,7 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
   const isHeroMode = isHome;
 
   // Use a more explicit background for the scrolled state
-  const headerBgStyle = "bg-transparent py-4";
+  const headerBgStyle = isHome ? "bg-transparent py-4" : "bg-transparent py-7";
 
   const navTextColor = isHeroMode ? "text-white" : "text-black";
 
@@ -68,28 +67,6 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
     tooltipRegister: "Create a new account",
   };
 
-  const navItems = [
-    {
-      href: "/the-capsule",
-      label: labels.capsule,
-      tooltip: labels.tooltipCapsule,
-    },
-    {
-      href: "/the-lookbook",
-      label: labels.lookbook,
-      tooltip: labels.tooltipLookbook,
-    },
-    {
-      href: "/the-collective",
-      label: labels.collective,
-      tooltip: labels.tooltipCollective,
-    },
-    {
-      href: "/the-consign",
-      label: labels.consign,
-      tooltip: labels.tooltipConsign,
-    },
-  ];
 
   const translations = {
     tooltipUser: labels.tooltipUser,
@@ -135,8 +112,8 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
             translations={translations}
           />
 
-          {/* Mobile Menu: Hide on Home and Auth pages, show on all other pages and devices */}
-          {!isHome && !isAuthPage && (
+          {/* Mobile Menu: Hide on Home, show on all other pages and devices */}
+          {!isHome && (
             <MobileMenu
               isOpen={isDrawerOpen}
               setIsOpen={setIsDrawerOpen}

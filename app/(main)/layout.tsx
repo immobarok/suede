@@ -5,11 +5,11 @@ import { Navbar } from "@/components/layout/navbar/navbar";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
-    <>
-      <Navbar />
+    <main>
+      <Navbar/>
       {/* <GuestClickGate /> */}
-      <main>{children}</main>
+      <main className="">{children}</main>
       <Footer />
-    </>
+    </main>
   );
 }

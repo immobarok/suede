@@ -28,7 +28,7 @@ const page = async (props: { searchParams: SearchParams }) => {
   const isOpenInquiries = view === "open-inquiries";
 
   return (
-    <main className="bg-[#F5F5F0] py-24">
+    <main className="bg-[#F5F5F0]">
       <section className="px-4">
         <AnimatedSectionHeader
           topText="Discovery feed"
