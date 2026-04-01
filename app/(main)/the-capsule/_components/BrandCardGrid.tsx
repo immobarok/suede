@@ -1,53 +1,119 @@
 import { BrandCard } from "./brandcard";
 
-
 const brands = [
   {
-    name: "Ìtẹ́fé",
+    name: "Nadi by Dani",
     category: "Womenswear",
     location: "Brooklyn, NY",
     description:
-      "Founded by Aya Okonkwo, blending West African textiles with modern silhouettes.",
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
     rating: 4.8,
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/5hg3KYZX/Frame-71.png",
+    image:
+      "https://i.ibb.co.com/6kg0xWX/1588ceeb46301bd3aee45e9f938f00d7c8cb966c.png",
+  },
+  {
+    name: "Hanifa",
+    category: "Womenswear",
+    location: "Los Angeles, CA",
+    description:
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
+    rating: 4.8,
+    ethics: 5,
+    reviews: 234,
+    followers: "12.4k",
+    image:
+      "https://i.ibb.co.com/bj3Q0gYj/image-43.png",
   },
   {
     name: "BBX Brand",
-    category: "Unisex Streetwear",
-    location: "Los Angeles, CA",
+    category: "Womenswear",
+    location: "New York, NY",
     description:
-      "Minimalist streetwear with an on ethical manufacturing and inclusivity.",
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
     rating: 4.8,
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/JwVRNzYy/Frame-74.png",
+    image: "https://i.ibb.co.com/RwFxkcQ/image-45.png",
   },
   {
-    name: "Meji Meji",
-    category: "Accessories",
+    name: "Cou Coo",
+    category: "Womenswear",
     location: "Atlanta, GA",
     description:
-      "Handcrafted jewelry and accessories celebrating Black artisan traditions.",
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
     rating: 4.8,
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/BkZwhcY/Frame-70.png",
+    image: "https://i.ibb.co.com/XfYvFtXG/image-42.png",
+  },
+  {
+    name: "Cai’s Collective",
+    category: "Womenswear",
+    location: "Chicago, IL",
+    description:
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
+    rating: 4.8,
+    ethics: 5,
+    reviews: 234,
+    followers: "12.4k",
+    image: "https://i.ibb.co.com/DgmCrjCv/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
+  },
+  {
+    name: "Cai’s Collective",
+    category: "Womenswear",
+    location: "Chicago, IL",
+    description:
+      "Designed for women Who value quality.expression, NADI is notabout fashion Of fleeting trends.",
+    rating: 4.8,
+    ethics: 5,
+    reviews: 234,
+    followers: "12.4k",
+    image: "https://i.ibb.co.com/vCBRyFQd/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
   },
 ];
 
 export function BrandCardGrid() {
   return (
-    <section className="py-24 px-4 md:px-8 lg:px-16 bg-[#f5f5f0]">
+    <section className="px-4 py-24 md:px-0">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {brands.map((brand, index) => (
-            <BrandCard key={brand.name} {...brand} index={index} />
+            <BrandCard key={`${brand.name}-${index}`} {...brand} index={index} />
           ))}
+        </div>
+
+        <div className="mt-16 flex items-center justify-center gap-4 text-sm text-neutral-700">
+          <button
+            className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
+            aria-label="Previous page"
+            type="button"
+          >
+            ←
+          </button>
+          <button
+            className="px-2 py-1 text-neutral-900 underline underline-offset-4"
+            type="button"
+          >
+            1
+          </button>
+          <button className="px-2 py-1 text-neutral-500 hover:text-neutral-900" type="button">
+            2
+          </button>
+          <button className="px-2 py-1 text-neutral-500 hover:text-neutral-900" type="button">
+            3
+          </button>
+          <button
+            className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
+            aria-label="Next page"
+            type="button"
+          >
+            →
+          </button>
         </div>
       </div>
     </section>

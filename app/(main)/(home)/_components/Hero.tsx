@@ -36,14 +36,10 @@ const Hero = () => {
         priority
       />
       {/* Optional overlay to make text in navbar readable over image */}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/15 via-black/40 to-black/70" />
       <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
         <HeroArticle />
       </div>
-      <div className="absolute bottom-16 inset-x-0 flex justify-between items-center px-0 z-20 container mx-auto">
-        
-      </div>
-
       {/* Bottom Navigation Links */}
       <div className="absolute bottom-16 inset-x-0 flex justify-between items-center px-0 z-20 container mx-auto">
         {navItems.map((item) => (

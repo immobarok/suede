@@ -35,7 +35,7 @@ export default function HeroArticle() {
         </div>
       </div>
 
-      <div className="mt-12 flex justify-center">
+      <div className="absolute bottom-20 inset-x-0 flex justify-center">
         <Image
           src="/vector-logo.svg"
           alt="Vector logo"

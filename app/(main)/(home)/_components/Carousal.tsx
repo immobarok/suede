@@ -14,7 +14,7 @@ import {
   PanInfo,
   Variants,
 } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Icon, MoveLeft, MoveRight } from "lucide-react";
 import Image from "next/image";
 
 interface Brand {
@@ -36,28 +36,28 @@ const DEFAULT_BRANDS: Brand[] = [
   {
     id: 1,
     name: "MEJI MEJI",
-    src: "https://i.ibb.co/YBCQStfF/Adobe-Express-file.png",
+    src: "https://i.ibb.co.com/tpd2fMgh/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
   },
 
   {
     id: 2,
     name: "NADI",
-    src: "https://i.ibb.co.com/KzB2SD5b/Untitled-4.png",
+    src: "https://i.ibb.co.com/Q3phd8gR/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
   },
   {
     id: 3,
     name: "TOFECOL",
-    src: "https://i.ibb.co.com/99f5bVRW/Untitled-3.png",
+    src: "https://i.ibb.co.com/hFT0mX6L/image-42.png",
   },
   {
     id: 4,
     name: "STARFISH MRKT",
-    src: "https://i.ibb.co.com/QF9vhFBC/Untitled-2.png",
+    src: "https://i.ibb.co.com/t0FJFN2/image-45.png",
   },
   {
     id: 5,
     name: "BUBON",
-    src: "https://i.ibb.co.com/Ld5DNkR7/Untitled-1.png",
+    src: "https://i.ibb.co.com/BKvLD7qR/image-43.png",
   },
 
 ];
@@ -65,11 +65,14 @@ const DEFAULT_BRANDS: Brand[] = [
 const CONFIG = {
   visibleCards: 5,
   centerScale: 1,
-  sideScale: 0.8,
-  farScale: 0.65,
+  sideScale: 0.88,
+  farScale: 0.78,
   centerOffset: 0,
   sideOffset: 320,
   farOffset: 640,
+  centerYOffset: -60,
+  sideYOffset: 10,
+  farYOffset: 70,
   centerAnchor: "50%",
   springStiffness: 300,
   springDamping: 30,
@@ -195,6 +198,7 @@ const cardVariants: Variants = {
   }),
   center: {
     x: CONFIG.centerOffset,
+    y: CONFIG.centerYOffset,
     opacity: 1,
     scale: CONFIG.centerScale,
     rotateY: 0,
@@ -207,7 +211,8 @@ const cardVariants: Variants = {
   },
   side: (position: "left" | "right") => ({
     x: position === "left" ? -CONFIG.sideOffset : CONFIG.sideOffset,
-    opacity: 0.6,
+    y: CONFIG.sideYOffset,
+    opacity: 1,
     scale: CONFIG.sideScale,
     rotateY: position === "left" ? 15 : -15,
     transition: {
@@ -218,7 +223,8 @@ const cardVariants: Variants = {
   }),
   far: (position: "left" | "right") => ({
     x: position === "left" ? -CONFIG.farOffset : CONFIG.farOffset,
-    opacity: 0.35,
+    y: CONFIG.farYOffset,
+    opacity: 1,
     scale: CONFIG.farScale,
     rotateY: position === "left" ? 20 : -20,
     transition: {
@@ -236,9 +242,6 @@ const cardVariants: Variants = {
   }),
 };
 
-// ============================================================================
-// SUB-COMPONENTS
-// ============================================================================
 
 interface CarouselCardProps {
   brand: Brand;
@@ -301,7 +304,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
         }}
       >
         {/* Image Container */}
-        <div className="relative aspect-[3/4] w-[280px] md:w-[380px] lg:w-[420px]">
+        <div className="relative mt-6 aspect-[4/5] w-[280px] md:w-[380px] lg:w-[420px] py-12">
           {/* Loading Skeleton */}
           {!isLoaded && !hasError && (
             <div className="absolute inset-0 animate-pulse rounded-lg bg-neutral-800" />
@@ -314,84 +317,26 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
             </div>
           )}
 
-          <motion.div
-            key={transitionKey}
-            initial={
-              shouldReduceMotion
-                ? {}
-                : {
-                    opacity: 0,
-                    scale: 0.98,
-                    filter: "blur(8px)",
-                  }
-            }
-            animate={
-              shouldReduceMotion
-                ? {}
-                : {
-                    opacity: 1,
-                    scale: 1,
-                    filter: "blur(0px)",
-                  }
-            }
-            transition={{
-              duration: 0.7,
-              ease: "easeOut",
-            }}
-            className="relative h-full w-full"
-          >
+          <div className="relative h-full w-full">
             <Image
               src={brand.src}
               alt={`${brand.name} brand showcase`}
               fill
               priority={isActive}
-              className={`rounded-lg object-contain transition-all duration-500 ${
-                isActive
-                  ? "opacity-100 drop-shadow-[0_30px_60px_rgba(0,0,0,0.2)]"
-                  : "opacity-100"
-              } ${isLoaded ? "" : "opacity-0"} `}
+              className="rounded-lg object-contain"
               sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
               onLoad={() => setIsLoaded(true)}
               onError={() => setHasError(true)}
               draggable={false}
             />
 
-            {!shouldReduceMotion && isActive && (
-              <motion.div
-                key={`flash-${transitionKey}`}
-                initial={{ opacity: 0.35 }}
-                animate={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-white/25 via-white/5 to-transparent"
-              />
-            )}
-          </motion.div>
+          </div>
         </div>
 
-        {/* Brand Label with Scramble Effect */}
-        <div className="relative mt-8 h-12 overflow-hidden text-center">
-          <AnimatePresence mode="wait">
-            {isActive && (
-              <motion.div
-                key={brand.id}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="flex flex-col items-center"
-              >
-                <h3 className="text-sm font-bold tracking-[0.3em] text-neutral-900 uppercase md:text-base">
-                  {scrambledName}
-                </h3>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "48px" }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                  className="mt-2 h-[2px] bg-gradient-to-r from-transparent via-neutral-400 to-transparent"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="relative text-center text-[#000] max-w-[160px]">
+          <h3 className="text-md font-normal font-cormorant uppercase md:text-[24px]">
+            {brand.name}
+          </h3>
         </div>
       </motion.div>
     </div>
@@ -420,19 +365,15 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     className={`group relative p-4 transition-colors ${disabled ? "cursor-not-allowed opacity-30" : "cursor-pointer hover:text-neutral-900"} text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/30`}
     aria-label={direction === "left" ? "Previous brand" : "Next brand"}
   >
-    <div className="relative">
+    <div className="relative w-full">
       {direction === "left" ? (
-        <ArrowLeft className="h-6 w-10 stroke-[1.5] transition-transform group-hover:-translate-x-1" />
+        <Image src="/Arrow 1.svg" alt="Arrow 1" width={279} height={8} className="w-full transition-transform group-hover:translate-x-1"/>
       ) : (
-        <ArrowRight className="h-6 w-10 stroke-[1.5] transition-transform group-hover:translate-x-1" />
+        <Image src="/Arrow 2.svg" alt="Arrow 2" width={279} height={8} className="w-full transition-transform group-hover:-translate-x-1"/>
       )}
     </div>
   </motion.button>
 );
-
-// ============================================================================
-// MAIN COMPONENT
-// ============================================================================
 
 const ProfessionalCarousel: React.FC<CarouselProps> = ({
   brands = DEFAULT_BRANDS,
@@ -524,12 +465,12 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
 
       <div className="relative z-20 container mx-auto px-4">
         {/* Header Navigation */}
-        <header className="mx-auto mb-20 flex max-w-6xl items-center justify-between border-b border-neutral-800/50 pb-8">
+        <header className="mx-auto mb-20 flex max-w-6xl items-center justify-between">
           <NavigationButton direction="left" onClick={() => navigate(-1)} />
 
           <div className="text-center">
-            <h2 className="mb-2 text-[11px] font-semibold tracking-[0.4em] text-neutral-700 uppercase">
-              Featured Collections
+            <h2 className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase">
+              BROWSE CAPSULE BRANDS
             </h2>
             <motion.p
               key={activeIndex}
@@ -586,11 +527,6 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
             })}
           </motion.div>
         </div>
-
-        {/* Instructions */}
-        <p className="mt-8 text-center text-[10px] tracking-widest text-neutral-600 uppercase">
-          Use arrow keys or swipe to navigate
-        </p>
       </div>
     </section>
   );

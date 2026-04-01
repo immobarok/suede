@@ -54,7 +54,7 @@ export function AnimatedSectionHeader({
             {/* Top Label - Darker Grotesque */}
             <motion.span 
                 variants={itemVariants}
-                className="text-[#C9A96E] text-center text-[14px] font-normal uppercase tracking-[2.24px] leading-normal"
+                className="text-[#000] text-center text-[16px] font-normal uppercase tracking-[2.24px] leading-normal"
                 style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
             >
                 {topText}
@@ -78,7 +78,7 @@ export function AnimatedSectionHeader({
             {/* Bottom Description - Darker Grotesque */}
             <motion.p 
                 variants={itemVariants}
-                className="text-[#8A8A82] text-center text-[18px] font-normal leading-normal max-w-xl"
+                className="text-[#000] text-center text-[20px] font-normal leading-normal max-w-lg"
                 style={{ fontFamily: '"Darker Grotesque", sans-serif' }}
             >
                 {bottomText}

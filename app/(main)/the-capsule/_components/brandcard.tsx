@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Star, ExternalLink, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Star, UserPlus } from "lucide-react";
 import Image from "next/image";
 
 interface BrandCardProps {
@@ -21,11 +19,7 @@ interface BrandCardProps {
 
 export function BrandCard({
   name,
-  category,
-  location,
   description,
-  rating,
-  ethics,
   reviews,
   followers,
   image,
@@ -41,100 +35,48 @@ export function BrandCard({
         delay: index * 0.15,
         ease: [0.25, 0.1, 0.25, 1],
       }}
+      className="relative"
     >
-      <Card className="group relative overflow-hidden bg-[#0a0a0a] border-0 rounded-none h-[500px]">
-        {/* Background Image */}
-        <div className="absolute inset-0">
+      <div className="relative isolate flex min-h-[420px] items-end gap-0 bg-transparent px-4 md:px-4 pt-0 pb-0 text-[#000]">
+        <div className="absolute inset-0 z-0 flex items-end">
           <Image
             src={image}
             alt={name}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-contain object-bottom mix-blend-multiply"
+            sizes="(max-width: 768px) 160px, 220px"
           />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/10" />
         </div>
 
-        {/* Subtle Follow Button - Top Right */}
-        <div className="absolute top-4 right-4 z-10">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 hover:border-white/20 backdrop-blur-sm text-[11px] tracking-wider uppercase font-normal px-3 py-1 h-auto transition-all duration-300 opacity-60 hover:opacity-100"
-          >
-            Follow
-            <Plus className="w-3 h-3 ml-1.5" />
-          </Button>
-        </div>
-
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-          {/* Brand Name & Category */}
-          <div className="mb-3">
-            <h3 className="font-cormorant text-2xl md:text-4xl text-white font-normal mb-1">
-              {name}
-            </h3>
-            <p className="font-darker text-[12px] text-[#C9A96E] uppercase tracking-[1.5px]">
-              {category} · {location}
-            </p>
-          </div>
-
-          {/* Description */}
-          <p className="font-darker text-[14px] text-white/60 leading-relaxed mb-6 line-clamp-2">
+        <div className="relative z-10 flex min-h-[420px] flex-1 flex-col items-end justify-end gap-4 pb-0 text-end">
+          <p className="max-w-[160px] text-[16px] leading-relaxed text-[#000] font-cormorant">
             {description}
           </p>
 
-          {/* Divider */}
-          <div className="h-px bg-white/10 mb-4" />
-
-          {/* Stats Row */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {/* Rating */}
-              <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 fill-[#C9A96E] text-[#C9A96E]" />
-                <span className="font-darker text-[12px] text-white/80">
-                  {rating}
-                </span>
-              </div>
-
-              {/* Ethics */}
-              <div className="flex items-center gap-1">
-                <span className="font-darker text-[12px] text-white/40">
-                  ethics
-                </span>
-                <span className="font-darker text-[12px] text-white/80">
-                  {ethics}
-                </span>
-              </div>
-
-              {/* Reviews */}
-              <div className="flex items-center gap-1">
-                <span className="font-darker text-[12px] text-white/40">
-                  {reviews} reviews
-                </span>
-              </div>
-
-              {/* Followers */}
-              <div className="flex items-center gap-1">
-                <span className="font-darker text-[12px] text-white/40">
-                  {followers} followers
-                </span>
-              </div>
-            </div>
-
-            {/* External Link */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-8 h-8 text-white/40 hover:text-white hover:bg-white/5 rounded-none"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </Button>
+          <div className="flex items-end justify-end gap-1 text-[#000]">
+            {[...Array(5)].map((_, i) => (
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+                <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="black"/>
+              </svg>
+            ))}
           </div>
+
+          <div className="text-[14px] text-[#000]">{reviews} Reviews</div>
+          <div className="text-[14px] text-[#000]">{followers} Followers</div>
+
+          <button
+            type="button"
+            className="w-fit bg-[#000] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-white hover:bg-neutral-800 cursor-pointer"
+          >
+            Explore
+          </button>
         </div>
-      </Card>
+
+        <div className="absolute left-10 md:left-20 bottom-0 flex items-center gap-1 text-[32px] font-cormorant text-[#000] [writing-mode:vertical-rl] [text-orientation:mixed]">
+          <span className="rotate-180">{name}</span>
+          <UserPlus className="h-5 w-5" />
+        </div>
+      </div>
     </motion.div>
   );
 }
