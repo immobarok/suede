@@ -5,18 +5,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { getSiteOrigin } from "@/lib/site-url";
 
 
-import { Cormorant_Garamond, Darker_Grotesque } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-cormorant",
-});
-
-const darkerGrotesque = Darker_Grotesque({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-darker-grotesque",
 });
 
 export async function generateMetadata({
@@ -84,8 +78,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${darkerGrotesque.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={`${cormorant.variable}`}>
+      <body className="font-sans antialiased">
 
         <TooltipProvider>
           {children}

@@ -5,10 +5,10 @@ import { toast } from "sonner";
 import {
   ChevronDown,
   User,
-  Ruler,
-  ShoppingBag,
+  Bell,
+  Star,
+  MessageSquare,
   LogOut,
-  Heart,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -107,49 +107,38 @@ export function AuthSection({
             <TooltipContent>{t.tooltipUser}</TooltipContent>
           </Tooltip>
 
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-darker uppercase">
-              <div className="flex flex-col space-y-1">
-                <p className="text-xs leading-none font-medium text-black">
-                  {user?.user_metadata?.full_name || t.user}
-                </p>
-                <p className="text-xs leading-none font-medium text-black">
-                  {user?.email}
-                </p>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
-              <Link href="/profile" className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
-                {t.profile}
+          <DropdownMenuContent className="w-56 rounded-none border-gray-200 bg-white p-0 text-black shadow-lg" align="end" forceMount>
+            <DropdownMenuItem asChild className="rounded-none px-4 py-3 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black">
+              <Link href="/profile" className="cursor-pointer flex items-center gap-3">
+                <User className="h-4 w-4" />
+                <span className="font-medium">{t.profile}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
-              <Link href="/profile/measurements" className="cursor-pointer">
-                <Ruler className="mr-2 h-4 w-4" />
-                {t.measurements}
+            <DropdownMenuItem asChild className="rounded-none px-4 py-3 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black">
+              <Link href="/notifications" className="cursor-pointer flex items-center gap-3">
+                <Bell className="h-4 w-4" />
+                <span className="font-medium">{t.notification}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
-              <Link href="/favorites" className="cursor-pointer">
-                <Heart className="mr-2 h-4 w-4" />
-                {t.favorites}
+            <DropdownMenuItem asChild className="rounded-none px-4 py-3 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black">
+              <Link href="/reviews" className="cursor-pointer flex items-center gap-3">
+                <Star className="h-4 w-4" />
+                <span className="font-medium">{t.leaveReview}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="hover:bg-primary hover:text-white focus:bg-primary focus:text-white">
-              <Link href="/my-listings" className="cursor-pointer">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                {t.listings}
+            <DropdownMenuItem asChild className="rounded-none px-4 py-3 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black">
+              <Link href="/inquiry" className="cursor-pointer flex items-center gap-3">
+                <MessageSquare className="h-4 w-4" />
+                <span className="font-medium">{t.writeInquiry}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <div className="h-px bg-gray-100 mx-0" />
             <DropdownMenuItem
-              className="cursor-pointer text-red-600 hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
+              className="rounded-none cursor-pointer px-4 py-3 text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700 flex items-center gap-3"
               onClick={handleSignOut}
             >
-              <LogOut className="mr-2 h-4 w-4" />
-              {t.signOut}
+              <LogOut className="h-4 w-4" />
+              <span className="font-medium">{t.signOut}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
