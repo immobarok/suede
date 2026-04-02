@@ -2,6 +2,7 @@ import { BrandCard } from "./brandcard";
 
 const brands = [
   {
+    slug: "nadi-by-dani",
     name: "Nadi by Dani",
     category: "Womenswear",
     location: "Brooklyn, NY",
@@ -15,6 +16,7 @@ const brands = [
       "https://i.ibb.co.com/6kg0xWX/1588ceeb46301bd3aee45e9f938f00d7c8cb966c.png",
   },
   {
+    slug: "hanifa",
     name: "Hanifa",
     category: "Womenswear",
     location: "Los Angeles, CA",
@@ -28,6 +30,7 @@ const brands = [
       "https://i.ibb.co.com/bj3Q0gYj/image-43.png",
   },
   {
+    slug: "bbx-brand",
     name: "BBX Brand",
     category: "Womenswear",
     location: "New York, NY",
@@ -40,6 +43,7 @@ const brands = [
     image: "https://i.ibb.co.com/RwFxkcQ/image-45.png",
   },
   {
+    slug: "cou-coo",
     name: "Cou Coo",
     category: "Womenswear",
     location: "Atlanta, GA",
@@ -52,6 +56,7 @@ const brands = [
     image: "https://i.ibb.co.com/XfYvFtXG/image-42.png",
   },
   {
+    slug: "cais-collective",
     name: "Cai’s Collective",
     category: "Womenswear",
     location: "Chicago, IL",
@@ -64,6 +69,7 @@ const brands = [
     image: "https://i.ibb.co.com/DgmCrjCv/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
   },
   {
+    slug: "cais-collective-2",
     name: "Cai’s Collective",
     category: "Womenswear",
     location: "Chicago, IL",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
 import { BrandCardGrid } from "./_components/BrandCardGrid";
 import Image from "next/image";
+import { ReviewModal } from "./_components/ReviewModal";
 
 export const metadata: Metadata = {
   title: "The Capsule",
@@ -30,6 +31,7 @@ const page = () => {
           />
         </section>
         <BrandCardGrid />
+        <ReviewModal slug="nadi-by-dani" />
       </div>
     </main>
   );

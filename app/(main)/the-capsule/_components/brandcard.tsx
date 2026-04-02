@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import { Star, UserPlus } from "lucide-react";
 import Image from "next/image";
+import { useQueryModal } from "@/hooks";
+import { Button } from "@/components/ui/button";
 
 interface BrandCardProps {
   name: string;
@@ -25,6 +27,8 @@ export function BrandCard({
   image,
   index = 0,
 }: BrandCardProps) {
+  const { open } = useQueryModal("view", "review");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
@@ -55,7 +59,14 @@ export function BrandCard({
 
           <div className="flex items-end justify-end gap-1 text-[#000]">
             {[...Array(5)].map((_, i) => (
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <svg
+                key={`star-${i}`}
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="22"
+                viewBox="0 0 23 22"
+                fill="none"
+              >
                 <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="black"/>
               </svg>
             ))}
@@ -63,9 +74,9 @@ export function BrandCard({
 
           <div className="text-[14px] text-[#000]">{reviews} Reviews</div>
           <div className="text-[14px] text-[#000]">{followers} Followers</div>
-
           <button
             type="button"
+            onClick={open}
             className="w-fit bg-[#000] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-white hover:bg-neutral-800 cursor-pointer"
           >
             Explore
