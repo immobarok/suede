@@ -85,17 +85,22 @@ export function AuthSection({
           <Tooltip>
             <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
-                <Button className="relative h-9 items-center gap-1 rounded-full bg-transparent px-2 outline-none hover:bg-transparent focus:ring-0 focus-visible:border-transparent focus-visible:ring-0 active:bg-transparent">
-                  <Avatar className="h-9 w-9">
+                <Button className="relative flex h-[39px] items-center gap-3 rounded-full bg-black border-[1px] border-white py-0 pl-0 pr-4 outline-none hover:bg-black/90 focus:ring-0 focus-visible:border-white focus-visible:ring-0 active:bg-black">
+                  <Avatar className="h-[38px] w-[38px] border-[1px] border-white">
                     <AvatarImage
                       src={user?.user_metadata?.avatar_url}
                       alt={user?.email || ""}
                     />
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-[#3E3E3E] text-white">
                       {user?.email?.[0].toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <ChevronDown className="text-muted-foreground h-3 w-3" />
+                  <span className="font-cormorant text-[20px] leading-none text-white pt-1">
+                    {user?.user_metadata?.full_name?.split(" ")[0] ||
+                      user?.email?.split("@")[0] ||
+                      t.user}
+                  </span>
+                  <ChevronDown className="h-5 w-5 text-white" />
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>

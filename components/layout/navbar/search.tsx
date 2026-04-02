@@ -67,37 +67,7 @@ export function SearchComponent({
 
   return (
     <div ref={searchContainerRef} className="flex items-center gap-8 text-sm">
-      {isAuthenticated && (
-        <DropdownMenu>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <DropdownMenuTrigger asChild>
-                <button
-                  type="button"
-                  className="bg-primary text-primary-foreground flex h-10 items-center gap-1 px-4 transition-colors hover:bg-[#3d0b13]"
-                  aria-label="Submit review or inquiry"
-                >
-                  <span className="text-[11px] tracking-[0.18em] uppercase">
-                    Submit
-                  </span>
-                  <span className="border-primary flex h-4 w-4 items-center justify-center border">
-                    <ChevronDown className="h-3 w-3" />
-                  </span>
-                </button>
-              </DropdownMenuTrigger>
-            </TooltipTrigger>
-            <TooltipContent>Submit review or inquiry</TooltipContent>
-          </Tooltip>
-          <DropdownMenuContent align="start" className="w-48">
-            <DropdownMenuItem className="hover:text-white focus:text-white">
-              Submit a review
-            </DropdownMenuItem>
-            <DropdownMenuItem className="hover:text-white focus:text-white">
-              Submit an inquiry
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+
       <div className="flex items-center gap-2">
         <button
           className={`h-8 w-8 rounded-full ${navTextColor} ${navHoverColor}`}

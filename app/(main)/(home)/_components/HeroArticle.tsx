@@ -1,41 +1,111 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, Variants } from "framer-motion";
+
+const fadeInUp:Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }
+  }
+};
+
+const staggerContainer:Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
+
+const scaleIn:Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { 
+    opacity: 0.8, 
+    scale: 1,
+    transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }
+  }
+};
 
 export default function HeroArticle() {
   return (
-    <div className="container mx-auto w-full px-4 md:px-0 text-white/90">
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer}
+      className="container mx-auto w-full px-4 md:px-0 text-white/90"
+    >
       <div className="flex w-full items-start justify-between gap-8">
-        <div className="flex max-w-[380px] flex-col gap-2">
-          <p className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase">
+        {/* Left Content */}
+        <motion.div 
+          variants={fadeInUp}
+          className="flex max-w-[380px] flex-col gap-2"
+        >
+          <motion.p 
+            variants={fadeInUp}
+            className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase"
+          >
             The Trust Layer For Fashion
-          </p>
-          <span className="text-sm md:text-[14px] text-white/70 text-end">
+          </motion.p>
+          <motion.span 
+            variants={fadeInUp}
+            className="text-sm md:text-[14px] text-white/70 text-end"
+          >
             EST2026
-          </span>
-        </div>
+          </motion.span>
+        </motion.div>
 
-        <div className="flex max-w-[380px] flex-col items-end gap-4 text-right">
-          <p className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase">
+        {/* Right Content */}
+        <motion.div 
+          variants={fadeInUp}
+          className="flex max-w-[380px] flex-col items-end gap-4 text-right"
+        >
+          <motion.p 
+            variants={fadeInUp}
+            className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase"
+          >
             Start your shopping journey with confidence
-          </p>
-          <div className="flex flex-col items-end gap-2">
-            <Link
-              href="/the-lookbook"
-              className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase underline underline-offset-4 hover:text-white"
-            >
-              Explore Reviews
-            </Link>
-            <Link
-              href="/the-collective"
-              className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase underline underline-offset-4 hover:text-white"
-            >
-              Discover Brands
-            </Link>
-          </div>
-        </div>
+          </motion.p>
+          
+          <motion.div 
+            variants={staggerContainer}
+            className="flex flex-col items-end gap-2"
+          >
+            <motion.div variants={fadeInUp}>
+              <Link
+                href="/the-lookbook"
+                className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase underline underline-offset-4 hover:text-white transition-colors duration-300"
+              >
+                Explore Reviews
+              </Link>
+            </motion.div>
+            
+            <motion.div variants={fadeInUp}>
+              <Link
+                href="/the-collective"
+                className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase underline underline-offset-4 hover:text-white transition-colors duration-300"
+              >
+                Discover Brands
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      <div className="absolute bottom-20 inset-x-0 flex justify-center">
+      {/* Bottom Logo */}
+      <motion.div 
+        variants={scaleIn}
+        initial="hidden"
+        animate="visible"
+        className="absolute bottom-6 inset-x-0 flex justify-center"
+      >
         <Image
           src="/vector-logo.svg"
           alt="Vector logo"
@@ -43,7 +113,7 @@ export default function HeroArticle() {
           height={40}
           className="opacity-80"
         />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

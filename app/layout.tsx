@@ -29,11 +29,24 @@ export async function generateMetadata({
     metadataBase: new URL(getSiteOrigin()),
     icons: {
       icon: [
-        { url: "/favicon.svg", type: "image/svg+xml" },
-        { url: "/icon", type: "image/png" },
+        {
+          url: "/favicon_16X16_W.svg",
+          type: "image/svg+xml",
+          sizes: "16x16",
+        },
+        {
+          url: "/favicon_32X32_W.svg",
+          type: "image/svg+xml",
+          sizes: "32x32",
+        },
+        {
+          url: "/favicon_48X48_W.svg",
+          type: "image/svg+xml",
+          sizes: "48x48",
+        },
       ],
-      shortcut: "/favicon.svg",
-      apple: [{ url: "/apple-icon", type: "image/png" }],
+      shortcut: "/favicon_32X32_W.svg",
+      apple: [{ url: "/apple.svg", type: "image/svg+xml" }],
     },
     title: {
       default: siteTitle,

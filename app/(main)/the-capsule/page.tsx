@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
 import { BrandCardGrid } from "./_components/BrandCardGrid";
 import Image from "next/image";
@@ -30,8 +31,12 @@ const page = () => {
             bottomText="A curated collection of minority-owned fashion brands, each vetted for quality, ethics, and design excellence."
           />
         </section>
-        <BrandCardGrid />
-        <ReviewModal slug="nadi-by-dani" />
+        <Suspense fallback={null}>
+          <BrandCardGrid />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ReviewModal slug="nadi-by-dani" />
+        </Suspense>
       </div>
     </main>
   );
