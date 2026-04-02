@@ -9,11 +9,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
-// ============================================
-// CORE TABLES
-// ============================================
-
-// Profiles table (extends auth.users)
 export const profiles = pgTable("profiles", {
   id: uuid("id").primaryKey(),
   email: text("email").unique().notNull(),
@@ -28,6 +23,7 @@ export const profiles = pgTable("profiles", {
   username: text("username").unique(),
   avatarUrl: text("avatar_url"),
   bio: text("bio"),
+  location: text("location"),
 
   // Body measurements
   heightCm: integer("height_cm"),
