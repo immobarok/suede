@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -213,11 +212,11 @@ export default function RegisterPage() {
                                 <Input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
-                                    placeholder="At least 12 characters"
+                                    placeholder="At least 8 characters"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    minLength={12}
+                                    minLength={8}
                                     disabled={loading}
                                     className="bg-[#f5f5f5] border-none h-10 focus-visible:ring-1 focus-visible:ring-[#4F0E19] px-3 font-darker text-sm pr-10 rounded-none"
                                 />

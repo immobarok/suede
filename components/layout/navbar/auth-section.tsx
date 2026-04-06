@@ -52,8 +52,9 @@ export function AuthSection({
   setSearchValue,
   translations: t,
 }: AuthSectionProps) {
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const { user, isLoading, isAuthenticated, profileAvatarUrl } = useAuth();
   const pathname = usePathname();
+  console.log(profileAvatarUrl);
   
   // Determine active tab from current pathname
   const activeTab = pathname === "/auth/register" ? "register" : "signin";
@@ -86,15 +87,17 @@ export function AuthSection({
             <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
                 <Button className="relative flex h-[39px] items-center gap-3 rounded-full bg-black border-[1px] border-white py-0 pl-0 pr-4 outline-none hover:bg-black/90 focus:ring-0 focus-visible:border-white focus-visible:ring-0 active:bg-black">
-                  <Avatar className="h-[38px] w-[38px] border-[1px] border-white">
-                    <AvatarImage
-                      src={user?.user_metadata?.avatar_url}
-                      alt={user?.email || ""}
-                    />
-                    <AvatarFallback className="bg-[#3E3E3E] text-white">
-                      {user?.email?.[0].toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="h-[38px] w-[38px] border-[1.5px] border-white rounded-full">
+                    <Avatar className="h-full w-full">
+                      <AvatarImage
+                        src={profileAvatarUrl || user?.user_metadata?.avatar_url}
+                        alt={user?.email || ""}
+                      />
+                      <AvatarFallback className="bg-[#3E3E3E] text-white">
+                        {user?.email?.[0].toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
                   <span className="font-cormorant text-[20px] leading-none text-white pt-1">
                     {user?.user_metadata?.full_name?.split(" ")[0] ||
                       user?.email?.split("@")[0] ||

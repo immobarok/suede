@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useQueryModal } from "@/hooks";
 import { toast } from "sonner";
-import { createClient } from "@/lib/supabase/client";
+import { changePassword } from "@/app/actions/change-password";
 
 export default function ChangePasswordModal() {
   const {
@@ -52,52 +52,26 @@ export default function ChangePasswordModal() {
   const handleSubmit = async () => {
     setError(null);
 
-    if (!passwords.currentPassword) {
-      setError("Please enter your current password.");
-      return;
-    }
     if (!passwords.newPassword || passwords.newPassword.length < 8) {
       setError("New password must be at least 8 characters.");
       return;
     }
+
     if (passwords.newPassword !== passwords.confirmPassword) {
-      setError("New password and confirmation do not match.");
+      setError("Passwords do not match.");
       return;
     }
 
     setIsSubmitting(true);
+
     try {
-      const supabase = createClient();
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError || !user?.email) {
-        throw new Error("Unable to verify your account. Please log in again.");
-      }
-
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: user.email,
-        password: passwords.currentPassword,
-      });
-
-      if (signInError) {
-        throw new Error("Current password is incorrect.");
-      }
-
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: passwords.newPassword,
-      });
-
-      if (updateError) {
-        throw new Error(updateError.message);
-      }
+      await changePassword(passwords.newPassword);
 
       toast.success("Password updated successfully");
       handleClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Password update failed";
+      const message =
+        err instanceof Error ? err.message : "Password update failed";
       setError(message);
       toast.error(message);
     } finally {

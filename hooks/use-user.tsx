@@ -1,112 +1,94 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useCallback } from "react"
-import type { User, Session } from "@supabase/supabase-js"
-import { createClient } from "@/lib/supabase/client"
+import { useEffect, useState } from "react";
+import type { User, Session } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 
 interface AuthState {
-    user: User | null
-    session: Session | null
-    isLoading: boolean
-    isAuthenticated: boolean
+  user: User | null;
+  session: Session | null;
+  isLoading: boolean;
+  isAuthenticated: boolean;
+  profileAvatarUrl: string | null;
 }
 
 export function useAuth() {
-    const [state, setState] = useState<AuthState>({
-        user: null,
-        session: null,
-        isLoading: true,
-        isAuthenticated: false,
-    })
+  const [state, setState] = useState<AuthState>({
+    user: null,
+    session: null,
+    isLoading: true,
+    isAuthenticated: false,
+    profileAvatarUrl: null,
+  });
 
-    const refreshUser = useCallback(async () => {
-        const supabase = createClient()
+  useEffect(() => {
+    const supabase = createClient();
 
-        try {
-            const { data: { user }, error: userError } = await supabase.auth.getUser()
+    const load = async (session: Session | null) => {
+      const user = session?.user ?? null;
 
-            if (userError) {
-                console.error("Error getting user:", userError)
-                setState(prev => ({ ...prev, isLoading: false, isAuthenticated: false }))
-                return
-            }
+      let profileAvatarUrl: string | null = null;
+      if (user) {
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("avatar_url")
+          .eq("id", user.id)
+          .maybeSingle();
 
-            const { data: { session } } = await supabase.auth.getSession()
-
-            setState({
-                user,
-                session,
-                isLoading: false,
-                isAuthenticated: !!user,
-            })
-        } catch (error) {
-            console.error("Auth error:", error)
-            setState({
-                user: null,
-                session: null,
-                isLoading: false,
-                isAuthenticated: false,
-            })
+        if (profileError) {
+          console.error("Error loading profile avatar:", profileError);
         }
-    }, [])
 
-    useEffect(() => {
-        const supabase = createClient()
+        profileAvatarUrl = profile?.avatar_url ?? null;
+      }
 
-        // Get initial auth state
-        refreshUser()
+      setState({
+        user,
+        session,
+        isLoading: false,
+        isAuthenticated: !!user,
+        profileAvatarUrl,
+      });
+    };
 
-        // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            async (event, session) => {
-                console.log("Auth event:", event)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      load(session);
+    });
 
-                setState({
-                    user: session?.user ?? null,
-                    session: session ?? null,
-                    isLoading: false,
-                    isAuthenticated: !!session?.user,
-                })
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      load(session);
+    });
 
-                // Handle specific events
-                if (event === "SIGNED_OUT") {
-                    // Clear any local state if needed
-                }
-            }
-        )
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
-        return () => {
-            subscription.unsubscribe()
-        }
-    }, [refreshUser])
-
-    return {
-        ...state,
-        refreshUser,
-    }
+  return {
+    ...state,
+  };
 }
 
-// Hook for protected routes
 export function useRequireAuth(redirectTo: string = "/login") {
-    const { user, isLoading, isAuthenticated } = useAuth()
-
-    return {
-        user,
-        isLoading,
-        isAuthenticated,
-        redirectTo,
-    }
+  const { user, isLoading, isAuthenticated } = useAuth();
+  return {
+    user,
+    isLoading,
+    isAuthenticated,
+    redirectTo,
+  };
 }
 
-// Hook for admin check
 export function useAdmin() {
-    const { user, isLoading, isAuthenticated } = useAuth()
+  const { user, isLoading, isAuthenticated } = useAuth();
 
-    const isAdmin = user?.user_metadata?.role === "admin" || false
+  const isAdmin = user?.user_metadata?.role === "admin" || false;
 
-    return {
-        isAdmin,
-        isLoading: isLoading || !isAuthenticated,
-        user,
-    }
+  return {
+    isAdmin,
+    isLoading: isLoading || !isAuthenticated,
+    user,
+  };
 }
