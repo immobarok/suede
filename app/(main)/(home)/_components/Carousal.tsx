@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, {
   useState,
   useCallback,
@@ -187,6 +188,16 @@ const useCarousel = (
     goTo,
     wrap,
   };
+};
+
+
+const scaleIn:Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { 
+    opacity: 0.8, 
+    scale: 1,
+    transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }
+  }
 };
 
 const cardVariants: Variants = {
@@ -465,30 +476,48 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
 
       <div className="relative z-20 container mx-auto px-4">
         {/* Header Navigation */}
-        <header className="mx-auto mb-20 flex max-w-6xl items-center justify-between">
-          <NavigationButton direction="left" onClick={() => navigate(-1)} />
+        <header className="mx-auto mb-20 flex flex-col items-center max-w-6xl">
+          {/* Top Logo */}
+          <motion.div 
+            variants={scaleIn}
+            initial="hidden"
+            animate="visible"
+            className="flex justify-center mb-6"
+          >
+            <Image
+              src="/vector-logo.svg"
+              alt="Vector logo"
+              width={120}
+              height={40}
+              className="opacity-80"
+            />
+          </motion.div>
 
-          <div className="text-center">
-            <h2 className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase">
-              BROWSE CAPSULE BRANDS
-            </h2>
-            <motion.p
-              key={activeIndex}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-mono text-xs text-neutral-600"
-            >
-              <span className="text-neutral-600">DROP 01</span>
-              <span className="mx-2">//</span>
-              <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-              <span className="mx-1 text-neutral-700">/</span>
-              <span className="text-neutral-700">
-                {String(brands.length).padStart(2, "0")}
-              </span>
-            </motion.p>
+          <div className="flex w-full items-center justify-between">
+            <NavigationButton direction="left" onClick={() => navigate(-1)} />
+
+            <div className="text-center">
+              <h2 className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase">
+                BROWSE CAPSULE BRANDS
+              </h2>
+              <motion.p
+                key={activeIndex}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-mono text-xs text-neutral-600 mt-1"
+              >
+                <span className="text-neutral-600">DROP 01</span>
+                <span className="mx-2">//</span>
+                <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+                <span className="mx-1 text-neutral-700">/</span>
+                <span className="text-neutral-700">
+                  {String(brands.length).padStart(2, "0")}
+                </span>
+              </motion.p>
+            </div>
+
+            <NavigationButton direction="right" onClick={() => navigate(1)} />
           </div>
-
-          <NavigationButton direction="right" onClick={() => navigate(1)} />
         </header>
 
         {/* Carousel Stage */}

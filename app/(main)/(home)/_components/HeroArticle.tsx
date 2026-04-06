@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
@@ -25,14 +24,6 @@ const staggerContainer:Variants = {
 };
 
 
-const scaleIn:Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 0.8, 
-    scale: 1,
-    transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }
-  }
-};
 
 export default function HeroArticle() {
   return (
@@ -98,22 +89,6 @@ export default function HeroArticle() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Bottom Logo */}
-      <motion.div 
-        variants={scaleIn}
-        initial="hidden"
-        animate="visible"
-        className="absolute bottom-6 inset-x-0 flex justify-center"
-      >
-        <Image
-          src="/vector-logo.svg"
-          alt="Vector logo"
-          width={120}
-          height={40}
-          className="opacity-80"
-        />
-      </motion.div>
     </motion.div>
   );
 }
