@@ -12,7 +12,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"", // Matching screenshot values
@@ -28,7 +28,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"",
@@ -44,7 +44,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"",
@@ -60,7 +60,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"",
@@ -76,7 +76,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"",
@@ -92,7 +92,7 @@ const members = [
   {
     name: "Amara K.",
     username: "@amara",
-    avatarUrl: "https://i.ibb.co.com/RpMwpMHM/Container-2.png",
+    avatarUrl: "https://i.ibb.co/RpMwpMHM/Container-2.png",
     stats: {
       height: "5'6\"",
       bust: "33\"",

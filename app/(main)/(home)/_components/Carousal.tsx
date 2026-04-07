@@ -37,28 +37,28 @@ const DEFAULT_BRANDS: Brand[] = [
   {
     id: 1,
     name: "MEJI MEJI",
-    src: "https://i.ibb.co.com/tpd2fMgh/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
+    src: "https://i.ibb.co/tpd2fMgh/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
   },
 
   {
     id: 2,
     name: "NADI",
-    src: "https://i.ibb.co.com/Q3phd8gR/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
+    src: "https://i.ibb.co/Q3phd8gR/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
   },
   {
     id: 3,
     name: "TOFECOL",
-    src: "https://i.ibb.co.com/hFT0mX6L/image-42.png",
+    src: "https://i.ibb.co/hFT0mX6L/image-42.png",
   },
   {
     id: 4,
     name: "STARFISH MRKT",
-    src: "https://i.ibb.co.com/t0FJFN2/image-45.png",
+    src: "https://i.ibb.co/t0FJFN2/image-45.png",
   },
   {
     id: 5,
     name: "BUBON",
-    src: "https://i.ibb.co.com/BKvLD7qR/image-43.png",
+    src: "https://i.ibb.co/BKvLD7qR/image-43.png",
   },
 
 ];

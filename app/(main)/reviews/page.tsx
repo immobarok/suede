@@ -25,7 +25,7 @@ export default function SubmitReviewPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#F5F5F0]">
       <Image
-        src="https://i.ibb.co.com/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
         alt="Background"
         fill
         className="object-cover opacity-20 grayscale"

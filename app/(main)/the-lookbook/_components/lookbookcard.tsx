@@ -92,7 +92,7 @@ export function LookBookCard({
                 alt={productName}
                 fill
                 placeholder="blur"
-                blurDataURL="https://i.ibb.co.com/m5HFcy47/Frame-103-1.png"
+                blurDataURL="https://i.ibb.co/m5HFcy47/Frame-103-1.png"
                 className="object-cover"
               />
             </motion.div>

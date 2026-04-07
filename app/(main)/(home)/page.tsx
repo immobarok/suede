@@ -3,6 +3,7 @@ import Hero from "./_components/Hero";
 import { NewsletterSection } from "./_components/Newsletter";
 import { PreLovedSection } from "./_components/TheConsign";
 import Carousel from "./_components/Carousal";
+import Howitworks from "./_components/Howitworks";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -16,6 +17,7 @@ const page = () => {
       <main>
         <Hero />
         <Carousel />
+        <Howitworks/>
         <PreLovedSection />
         <NewsletterSection />
       </main>

@@ -4,14 +4,14 @@ import { CommunityQuestionCard } from "./CommunityQuestionCard";
 
 const questions = [
   {
-    productImage: "https://i.ibb.co.com/FqqLN1H0/Image-With-Fallback-2.png",
+    productImage: "https://i.ibb.co/FqqLN1H0/Image-With-Fallback-2.png",
     brandName: "Maison Soleil",
     productName: "The Nyomi Maxi",
     lookingForSize: "6",
     responseCount: 2,
     questionUser: {
       name: "Kikilolaa",
-      avatar: "https://i.ibb.co.com/KjDJzzTD/Container.png",
+      avatar: "https://i.ibb.co/KjDJzzTD/Container.png",
       height: "5'6\"",
       date: "2/2/2026",
     },
@@ -20,7 +20,7 @@ const questions = [
       {
         id: "1",
         userName: "Kikilolaa",
-        userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
+        userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Goof coverage - test",
@@ -28,7 +28,7 @@ const questions = [
       {
         id: "2",
         userName: "CEO",
-        userAvatar: "https://i.ibb.co.com/KjDJzzTD/Container.png",
+        userAvatar: "https://i.ibb.co/KjDJzzTD/Container.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Pretty good coverage",
@@ -36,14 +36,14 @@ const questions = [
     ],
   },
   {
-    productImage: "https://i.ibb.co.com/tPcqZCHK/Image-With-Fallback-1.png",
+    productImage: "https://i.ibb.co/tPcqZCHK/Image-With-Fallback-1.png",
     brandName: "Maison Soleil",
     productName: "The Nyomi Maxi",
     lookingForSize: "6",
     responseCount: 2,
     questionUser: {
       name: "Kikilolaa",
-      avatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
+      avatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
       height: "5'6\"",
       date: "2/2/2026",
     },
@@ -52,7 +52,7 @@ const questions = [
       {
         id: "1",
         userName: "Kikilolaa",
-        userAvatar: "https://i.ibb.co.com/KjDJzzTD/Container.png",
+        userAvatar: "https://i.ibb.co/KjDJzzTD/Container.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Goof coverage - test",
@@ -60,7 +60,7 @@ const questions = [
       {
         id: "2",
         userName: "CEO",
-        userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
+        userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Pretty good coverage",
@@ -68,14 +68,14 @@ const questions = [
     ],
   },
   {
-    productImage: "https://i.ibb.co.com/LddnM1Lr/Image-With-Fallback.png",
+    productImage: "https://i.ibb.co/LddnM1Lr/Image-With-Fallback.png",
     brandName: "Maison Soleil",
     productName: "The Nyomi Maxi",
     lookingForSize: "6",
     responseCount: 2,
     questionUser: {
       name: "Kikilolaa",
-      avatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
+      avatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
       height: "5'6\"",
       date: "2/2/2026",
     },
@@ -84,7 +84,7 @@ const questions = [
       {
         id: "1",
         userName: "Kikilolaa",
-        userAvatar: "https://i.ibb.co.com/xS7wb96j/Container-1.png",
+        userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Goof coverage - test",
@@ -92,7 +92,7 @@ const questions = [
       {
         id: "2",
         userName: "CEO",
-        userAvatar: "https://i.ibb.co.com/KjDJzzTD/Container.png",
+        userAvatar: "https://i.ibb.co/KjDJzzTD/Container.png",
         height: "5'6\"",
         date: "2/2/2026",
         answer: "Pretty good coverage",

@@ -13,7 +13,7 @@ const brands = [
     reviews: 234,
     followers: "12.4k",
     image:
-      "https://i.ibb.co.com/6kg0xWX/1588ceeb46301bd3aee45e9f938f00d7c8cb966c.png",
+      "https://i.ibb.co/6kg0xWX/1588ceeb46301bd3aee45e9f938f00d7c8cb966c.png",
   },
   {
     slug: "hanifa",
@@ -27,7 +27,7 @@ const brands = [
     reviews: 234,
     followers: "12.4k",
     image:
-      "https://i.ibb.co.com/bj3Q0gYj/image-43.png",
+      "https://i.ibb.co/bj3Q0gYj/image-43.png",
   },
   {
     slug: "bbx-brand",
@@ -40,7 +40,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/RwFxkcQ/image-45.png",
+    image: "https://i.ibb.co/RwFxkcQ/image-45.png",
   },
   {
     slug: "cou-coo",
@@ -53,7 +53,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/XfYvFtXG/image-42.png",
+    image: "https://i.ibb.co/XfYvFtXG/image-42.png",
   },
   {
     slug: "cais-collective",
@@ -66,7 +66,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/DgmCrjCv/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
+    image: "https://i.ibb.co/DgmCrjCv/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
   },
   {
     slug: "cais-collective-2",
@@ -79,7 +79,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/vCBRyFQd/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
+    image: "https://i.ibb.co/vCBRyFQd/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
   },
 ];
 

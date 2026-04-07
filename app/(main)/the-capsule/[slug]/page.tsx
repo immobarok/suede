@@ -10,8 +10,8 @@ const reviews = [
     title: "Flowy Dress",
     size: "6",
     rating: 4.5,
-    avatar: "https://i.ibb.co.com/3mKz4rNX/Rectangle-13.png",
-    image: "https://i.ibb.co.com/3mKz4rNX/Rectangle-13.png",
+    avatar: "https://i.ibb.co/3mKz4rNX/Rectangle-13.png",
+    image: "https://i.ibb.co/3mKz4rNX/Rectangle-13.png",
     excerpt:
       "The perfect baby tee! Great quality. Does not lose form throughout the day. And the fit...",
   },
@@ -21,8 +21,8 @@ const reviews = [
     title: "Flowy Dress",
     size: "6",
     rating: 4.5,
-    avatar: "https://i.ibb.co.com/3mKz4rNX/Rectangle-13.png",
-    image: "https://i.ibb.co.com/3mKz4rNX/Rectangle-13.png",
+    avatar: "https://i.ibb.co/3mKz4rNX/Rectangle-13.png",
+    image: "https://i.ibb.co/3mKz4rNX/Rectangle-13.png",
     excerpt:
       "The perfect baby tee! Great quality. Does not lose form throughout the day. And the fit...",
   },
@@ -32,7 +32,7 @@ export default function CapsuleBrandPage() {
   return (
     <main className="relative overflow-hidden py-16">
       <Image
-        src="https://i.ibb.co.com/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
         alt="Background"
         fill
         className="object-cover opacity-25 grayscale"
@@ -49,7 +49,7 @@ export default function CapsuleBrandPage() {
           <div className="overflow-hidden border border-black/10 bg-black/20">
             <div className="relative aspect-[16/7] w-full">
               <Image
-                src="https://i.ibb.co.com/zhJPWP40/Frame-70-1.png"
+                src="https://i.ibb.co/zhJPWP40/Frame-70-1.png"
                 alt="Nadi"
                 fill
                 className="object-cover"

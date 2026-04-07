@@ -5,7 +5,7 @@ import FloatingCard, { type FloatingCardProps } from "./FloatingCard";
 const desktopCards: FloatingCardProps[] = [
   {
     image:
-      "https://i.ibb.co.com/LdK4tkBQ/28ccd6f21f4d286c43f5ad6ed615a967ff65afa6.jpg",
+      "https://i.ibb.co/LdK4tkBQ/28ccd6f21f4d286c43f5ad6ed615a967ff65afa6.jpg",
     brand: "Nodi",
     name: "Aya Studio Wide-Leg Trouser",
     price: 85,
@@ -17,7 +17,7 @@ const desktopCards: FloatingCardProps[] = [
   },
   {
     image:
-      "https://i.ibb.co.com/HLN5d8Yr/192c796b76e308a3fe99e5794ef1d1100661e354.jpg",
+      "https://i.ibb.co/HLN5d8Yr/192c796b76e308a3fe99e5794ef1d1100661e354.jpg",
     brand: "Nodi",
     name: "Aya Studio Wide-Leg Trouser",
     price: 85,
