@@ -1,4 +1,10 @@
+"use-client";
+"use client";
+
+import { RippleButton } from "@/components/ui/ripple-button";
 import { BrandCard } from "./brandcard";
+import { useAuth } from "@/hooks/use-user";
+import Link from "next/link";
 
 const brands = [
   {
@@ -12,8 +18,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image:
-      "https://i.ibb.co/6kg0xWX/1588ceeb46301bd3aee45e9f938f00d7c8cb966c.png",
+    image: "https://i.ibb.co.com/mPDsZwn/Tofe-BRR-1.png",
   },
   {
     slug: "hanifa",
@@ -26,8 +31,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image:
-      "https://i.ibb.co/bj3Q0gYj/image-43.png",
+    image: "https://i.ibb.co.com/LzpzHxcT/Starbfish-BRR-2.png",
   },
   {
     slug: "bbx-brand",
@@ -40,7 +44,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co/RwFxkcQ/image-45.png",
+    image: "https://i.ibb.co.com/N2Z0YbQL/Nysama-BRR-1.png",
   },
   {
     slug: "cou-coo",
@@ -53,7 +57,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co/XfYvFtXG/image-42.png",
+    image: "https://i.ibb.co.com/671jPdcx/Nadi-BRR-1.png",
   },
   {
     slug: "cais-collective",
@@ -66,7 +70,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co/DgmCrjCv/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
+    image: "https://i.ibb.co.com/mrFYv7NT/Meji-Meji-BRR-1.png",
   },
   {
     slug: "cais-collective-2",
@@ -79,47 +83,121 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co/vCBRyFQd/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
+    image: "https://i.ibb.co.com/s9HHDsKy/Kairos-BRR-1.png",
+  },
+  {
+    slug: "image-44",
+    name: "Brand 7",
+    category: "Womenswear",
+    location: "Unknown",
+    description: "Description for Brand 7.",
+    rating: 4.0,
+    ethics: 4,
+    reviews: 100,
+    followers: "5k",
+    image: "https://i.ibb.co.com/tpNxyM4t/image-44.png",
+  },
+  {
+    slug: "bupbes-brr-2",
+    name: "Bupbes",
+    category: "Womenswear",
+    location: "Unknown",
+    description: "Description for Bupbes.",
+    rating: 4.5,
+    ethics: 4,
+    reviews: 150,
+    followers: "8k",
+    image: "https://i.ibb.co.com/ymZBqS95/Bupbes-BRR-2.png",
+  },
+  {
+    slug: "image-50",
+    name: "Brand 9",
+    category: "Womenswear",
+    location: "Unknown",
+    description: "Description for Brand 9.",
+    rating: 4.2,
+    ethics: 4,
+    reviews: 80,
+    followers: "3k",
+    image: "https://i.ibb.co.com/C3Ng2Lxk/image-50.png",
   },
 ];
 
 export function BrandCardGrid() {
+  const { isAuthenticated, isLoading } = useAuth();
+
   return (
     <section className="px-4 py-24 md:px-0">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {brands.map((brand, index) => (
-            <BrandCard key={`${brand.name}-${index}`} {...brand} index={index} />
-          ))}
-        </div>
+      <div className="w-full">
+        {/* Full width gradient for unauthenticated users covering the bottom row */}
+        {!isLoading && !isAuthenticated && (
+          <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[28%] w-full bg-linear-to-b from-transparent via-70% via-[#F8F6F3]/99 to-[#F8F6F3]" />
+        )}
+        <div className="relative container mx-auto">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-24 md:grid-cols-3">
+            {brands.map((brand, index) => {
+              const isGuestRow = !isLoading && !isAuthenticated && index >= 6;
+              return (
+                <div
+                  key={`${brand.name}-${index}`}
+                  className={`relative ${isGuestRow ? "pointer-events-none" : ""}`}
+                >
+                  <BrandCard {...brand} index={index} />
+                </div>
+              );
+            })}
+          </div>
 
-        <div className="mt-16 flex items-center justify-center gap-4 text-sm text-neutral-700">
-          <button
-            className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
-            aria-label="Previous page"
-            type="button"
-          >
-            ←
-          </button>
-          <button
-            className="px-2 py-1 text-neutral-900 underline underline-offset-4"
-            type="button"
-          >
-            1
-          </button>
-          <button className="px-2 py-1 text-neutral-500 hover:text-neutral-900" type="button">
-            2
-          </button>
-          <button className="px-2 py-1 text-neutral-500 hover:text-neutral-900" type="button">
-            3
-          </button>
-          <button
-            className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
-            aria-label="Next page"
-            type="button"
-          >
-            →
-          </button>
+          {!isLoading && !isAuthenticated ? (
+            <div className="pointer-events-auto relative z-20 -mt-48 flex w-full flex-col items-center justify-center pt-24 pb-12">
+              <div className="pointer-events-none absolute inset-x-0 bottom-full" />
+              <p className="z-10 mb-6 text-[14px] font-medium tracking-[2.24px] text-black uppercase">
+                SIGN IN TO SEE MORE
+              </p>
+              <Link href="auth/login">
+                <RippleButton className="rounded-full border-none bg-black px-17.75 py-3.5 text-white">
+                  Sign In
+                </RippleButton>
+              </Link>
+            </div>
+          ) : null}
+
+          {!isLoading && isAuthenticated && (
+            <div className="mt-16 flex items-center justify-center gap-4 text-sm text-neutral-700">
+              <button
+                className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
+                aria-label="Previous page"
+                type="button"
+              >
+                ←
+              </button>
+              <button
+                className="px-2 py-1 text-neutral-900 underline underline-offset-4"
+                type="button"
+              >
+                1
+              </button>
+              <button
+                className="px-2 py-1 text-neutral-500 hover:text-neutral-900"
+                type="button"
+              >
+                2
+              </button>
+              <button
+                className="px-2 py-1 text-neutral-500 hover:text-neutral-900"
+                type="button"
+              >
+                3
+              </button>
+              <button
+                className="px-2 py-1 text-neutral-400 hover:text-neutral-900"
+                aria-label="Next page"
+                type="button"
+              >
+                →
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

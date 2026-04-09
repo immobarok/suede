@@ -315,7 +315,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
         }}
       >
         {/* Image Container */}
-        <div className="relative mt-6 aspect-[4/5] w-[280px] md:w-[380px] lg:w-[420px] py-12">
+        <div className="relative mt-6 aspect-4/5 w-70 md:w-95 lg:w-105 py-12">
           {/* Loading Skeleton */}
           {!isLoaded && !hasError && (
             <div className="absolute inset-0 animate-pulse rounded-lg bg-neutral-800" />
@@ -344,7 +344,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
           </div>
         </div>
 
-        <div className="relative text-center text-[#000] max-w-[160px]">
+        <div className="relative text-center text-black max-w-40">
           <h3 className="text-md font-normal font-cormorant uppercase md:text-[24px]">
             {brand.name}
           </h3>
@@ -506,13 +506,9 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 className="font-mono text-xs text-neutral-600 mt-1"
               >
-                <span className="text-neutral-600">DROP 01</span>
-                <span className="mx-2">//</span>
+                <span className="text-neutral-600">DROP {""}</span>
                 <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-                <span className="mx-1 text-neutral-700">/</span>
-                <span className="text-neutral-700">
-                  {String(brands.length).padStart(2, "0")}
-                </span>
+                
               </motion.p>
             </div>
 
@@ -521,7 +517,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
         </header>
 
         {/* Carousel Stage */}
-        <div className="relative flex min-h-[550px] flex-1 touch-pan-y items-center justify-center">
+        <div className="relative flex min-h-137.5 flex-1 touch-pan-y items-center justify-center">
           <motion.div
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}

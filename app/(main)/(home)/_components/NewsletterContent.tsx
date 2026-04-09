@@ -53,10 +53,11 @@ const lineVariants: Variants = {
 
 export function NewsletterContent() {
   const copy = {
-    line1: "Your body. Your fit.",
+    line1: "Measurement Consultation",
     line2: "Your confidence.",
-    description: "Join the community redefining how we shop for fashion online.",
-    button: "Get Started",
+    description:
+      "Our AI stylist will walk you through taking your body measurements step by step. No guesswork — just accurate numbers in about 5 minutes.",
+    button: "Measurement Guide",
   };
 
   return (
@@ -86,7 +87,7 @@ export function NewsletterContent() {
       </motion.h2>
 
       <motion.p 
-        className="text-muted-foreground text-md md:text-sm max-w-md mx-auto mb-10 font-light tracking-widest"
+        className="text-primary-foreground text-md md:text-sm max-w-xl mx-auto mb-10 font-light tracking-widest"
         variants={itemVariants}
       >
         {copy.description}
@@ -104,10 +105,9 @@ export function NewsletterContent() {
         /> */}
         <Button 
           type="submit"
-          className="bg-primary mx-auto hover:bg-[#3d0b13] text-white px-8 py-6 text-sm tracking-[0.15em] uppercase font-medium rounded-none group transition-all duration-300 cursor-pointer"
+          className="bg-white mx-auto text-black hover:bg-white/90 rounded-full px-8 py-6 text-sm tracking-[0.15em] uppercase font-medium group transition-all duration-300 cursor-pointer"
         >
           {copy.button}
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </motion.form>
     </motion.div>

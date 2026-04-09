@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Star, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import Image from "next/image";
 import { useQueryModal } from "@/hooks";
-import { Button } from "@/components/ui/button";
+import { RippleButton } from "@/components/ui/ripple-button";
 
 interface BrandCardProps {
   name: string;
@@ -41,23 +41,23 @@ export function BrandCard({
       }}
       className="relative"
     >
-      <div className="relative isolate flex min-h-[420px] items-end gap-0 bg-transparent px-4 md:px-4 pt-0 pb-0 text-[#000]">
+      <div className="group relative isolate flex min-h-105 items-end gap-0 bg-transparent px-4 pt-0 pb-0 text-black md:px-4">
         <div className="absolute inset-0 z-0 flex items-end">
           <Image
             src={image}
             alt={name}
             fill
-            className="object-contain object-bottom mix-blend-multiply"
+            className="object-contain object-bottom mix-blend-multiply transition-all duration-700 ease-in-out group-hover:scale-110"
             sizes="(max-width: 768px) 160px, 220px"
           />
         </div>
 
-        <div className="relative z-10 flex min-h-[420px] flex-1 flex-col items-end justify-end gap-4 pb-0 text-end">
-          <p className="max-w-[160px] text-[16px] leading-relaxed text-[#000] font-cormorant">
+        <div className="relative z-10 flex min-h-105 flex-1 flex-col items-end justify-end gap-4 pb-0 text-end">
+          <p className="font-cormorant max-w-40 text-[16px] leading-relaxed text-black">
             {description}
           </p>
 
-          <div className="flex items-end justify-end gap-1 text-[#000]">
+          <div className="flex items-end justify-end gap-1 text-black">
             {[...Array(5)].map((_, i) => (
               <svg
                 key={`star-${i}`}
@@ -67,23 +67,25 @@ export function BrandCard({
                 viewBox="0 0 23 22"
                 fill="none"
               >
-                <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="black"/>
+                <path
+                  d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z"
+                  fill="black"
+                />
               </svg>
             ))}
           </div>
 
-          <div className="text-[14px] text-[#000]">{reviews} Reviews</div>
-          <div className="text-[14px] text-[#000]">{followers} Followers</div>
-          <button
-            type="button"
+          <div className="text-[14px] text-black">{reviews} Reviews</div>
+          <div className="text-[14px] text-black">{followers} Followers</div>
+          <RippleButton
             onClick={open}
-            className="w-fit bg-[#000] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-white hover:bg-neutral-800 cursor-pointer"
+            className="w-fit cursor-pointer bg-black px-4 py-2 text-[11px] tracking-[0.25em] text-white uppercase border-none rounded-none"
           >
             Explore
-          </button>
+          </RippleButton>
         </div>
 
-        <div className="absolute left-10 md:left-20 bottom-0 flex items-center gap-1 text-[32px] font-cormorant text-[#000] [writing-mode:vertical-rl] [text-orientation:mixed]">
+        <div className="font-cormorant absolute bottom-0 left-10 flex items-center gap-1 text-[32px] text-black [text-orientation:mixed] [writing-mode:vertical-rl] md:left-20">
           <span className="rotate-180">{name}</span>
           <UserPlus className="h-5 w-5" />
         </div>
