@@ -21,9 +21,9 @@ import { createClient } from "@/lib/supabase/client";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Logo } from "@/components/layout/navbar/Logo";
 import { RippleButton } from "@/components/ui/ripple-button";
 import Image from "next/image";
+import { LogoSmall } from "@/components/layout/navbar/LogoSmall";
 
 export default function RegisterPage() {
   const supabase = createClient();
@@ -137,7 +137,7 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#f8f6f3] px-4 py-16">
       <div className="mb-4 flex flex-col items-center gap-2">
-        <Logo />
+        <LogoSmall />
         <p className="font-darker text-center text-sm text-[#a8a29e]">
           Join the community of informed luxury shoppers
         </p>
