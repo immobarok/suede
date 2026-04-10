@@ -14,7 +14,11 @@ import { useQueryModal } from "@/hooks";
 const SortItem = ({ label, value }: { label: string; value: string }) => {
   const { open } = useQueryModal("sort", value);
   return (
-    <DropdownMenuRadioItem value={value} onClick={open}>
+    <DropdownMenuRadioItem
+      value={value}
+      onClick={open}
+      className="cursor-pointer rounded-none px-6 py-3 font-medium text-[#8A8A82] hover:text-black focus:text-black"
+    >
       {label}
     </DropdownMenuRadioItem>
   );
