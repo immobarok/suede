@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { AnimatedSectionHeader } from "@/components/ui/section-header";
 import { LookBookGrid } from "./_components/LookbookGrid";
 import LookbookSearchBar from "./_components/LookbookSearchBar";
@@ -28,17 +29,28 @@ const page = async (props: { searchParams: SearchParams }) => {
   const isOpenInquiries = view === "open-inquiries";
 
   return (
-    <main className="bg-[#F5F5F0]">
-      <section className="px-4">
-        <AnimatedSectionHeader
-          topText="Discovery feed"
-          middleText="The Lookbook"
-          bottomText="Real reviews from real bodies. Ranked by your measurement match."
-        />
-      </section>
-      <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
-      <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
-      {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+    <main className="relative overflow-hidden">
+      <Image
+        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+        alt="Background"
+        fill
+        className="object-cover opacity-25 grayscale"
+        priority
+      />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/20 to-white/10" />
+
+      <div className="relative z-10">
+        <section className="px-4 py-24">
+          <AnimatedSectionHeader
+            topText="Discovery feed"
+            middleText="The Lookbook"
+            bottomText="Real reviews from real bodies. Ranked by your measurement match."
+          />
+        </section>
+        <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
+        <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
+        {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+      </div>
     </main>
   );
 };

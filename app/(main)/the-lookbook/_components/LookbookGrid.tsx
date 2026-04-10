@@ -126,79 +126,19 @@ const reviews = [
     likes: 72,
     comments: 33,
   },
-  {
-    productImage: "https://i.ibb.co/99dFgFQL/Frame-103-3.png",
-    imageCount: 8,
-    videoCount: 3,
-    userName: "Ari P.",
-    userHandle: "@arip",
-    userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
-    brandName: "Sable",
-    productName: "Structured Coat",
-    rating: 4.9,
-    size: "M",
-    reviewText:
-      "Warm without feeling heavy. The shoulders sit exactly where they should, and the length works well with both trousers and dresses.",
-    height: "5'9\"",
-    weight: "158 lbs",
-    waist: '30"',
-    hips: '42"',
-    likes: 57,
-    comments: 19,
-  },
-  {
-    productImage: "https://i.ibb.co/5gxxrrxt/Frame-103-2.png",
-    imageCount: 3,
-    videoCount: 1,
-    userName: "Rhea M.",
-    userHandle: "@rheam",
-    userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
-    brandName: "Nodi",
-    productName: "Silk Midi Skirt",
-    rating: 4.7,
-    size: "S",
-    reviewText:
-      "The movement of this skirt is beautiful. It catches the light nicely and feels breathable even during long wear.",
-    height: "5'4\"",
-    weight: "126 lbs",
-    waist: '26"',
-    hips: '37"',
-    likes: 44,
-    comments: 17,
-  },
-  {
-    productImage: "https://i.ibb.co/DH2d8GH2/Frame-103.png",
-    imageCount: 5,
-    videoCount: 2,
-    userName: "Joya N.",
-    userHandle: "@joyan",
-    userAvatar: "https://i.ibb.co/xS7wb96j/Container-1.png",
-    brandName: "Kora",
-    productName: "Wide-Leg Jumpsuit",
-    rating: 4.8,
-    size: "L",
-    reviewText:
-      "Very flattering from waist to hem. The fabric has just enough structure and the fit stayed comfortable all evening.",
-    height: "5'10\"",
-    weight: "168 lbs",
-    waist: '32"',
-    hips: '44"',
-    likes: 66,
-    comments: 26,
-  },
 ];
 
 export function LookBookGrid() {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <section className="relative bg-[#f5f5f0] px-4 pt-5 pb-24 md:px-8 lg:px-16">
+    <section className="relative  px-4 pt-5 pb-24 md:px-8 lg:px-16">
       {!isLoading && !isAuthenticated && (
         <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[32%] w-full bg-linear-to-b from-transparent via-[#f5f5f0]/98 via-70% to-[#f5f5f0]" />
       )}
 
       <div className="relative container mx-auto">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {reviews.map((review, index) => {
             const isGuestRow = !isLoading && !isAuthenticated && index >= 3;
 

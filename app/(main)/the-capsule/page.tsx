@@ -21,7 +21,7 @@ const page = () => {
         className="object-cover opacity-25 grayscale"
         priority
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/20 to-white/10" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/20 to-white/10" />
 
       <div className="relative z-10">
         <section className="px-4 py-24">

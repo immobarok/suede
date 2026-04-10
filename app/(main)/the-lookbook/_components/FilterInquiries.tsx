@@ -15,7 +15,11 @@ const SortItem = ({ label, value }: { label: string; value: string }) => {
   const { open } = useQueryModal("sort", value);
 
   return (
-    <DropdownMenuRadioItem value={value} onClick={open}>
+    <DropdownMenuRadioItem
+      value={value}
+      onClick={open}
+      className="cursor-pointer rounded-none px-6 py-3 font-medium text-[#8A8A82] hover:text-black focus:text-black"
+    >
       {label}
     </DropdownMenuRadioItem>
   );
@@ -26,7 +30,7 @@ const FilterInquiries = () => {
   const currentSort = searchParams.get("sort") || "date_added";
 
   const sortOptions = [
-    { label: "DATE ADDED (DEFAULT)", value: "date_added" },
+    { label: "DATE ADDED ", value: "date_added" },
     { label: "MOST HELPFUL", value: "most_helpful" },
   ];
 
