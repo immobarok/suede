@@ -1,12 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "./navbar/Logo";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 // Data for navigation links
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/consultation")) {
+    return null;
+  }
+
   const copy = {
     tagline:
       "The fashion trust platform. See how clothes really fit on bodies like yours.",
