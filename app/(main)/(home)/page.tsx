@@ -18,7 +18,7 @@ const page = () => {
         <Hero />
         <Carousel />
         <Howitworks/>
-        <PreLovedSection />
+        {/* <PreLovedSection /> */}
         <NewsletterSection />
       </main>
     </>

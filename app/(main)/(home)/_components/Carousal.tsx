@@ -71,27 +71,27 @@ const DEFAULT_BRANDS: Brand[] = [
   {
     id: 1,
     name: "MEJI MEJI",
-    src: "https://i.ibb.co/tpd2fMgh/c46b97c48bbaecc3dbdaabe604d42fd16ca7f99a.png",
+    src: "https://i.ibb.co.com/TMgp0zV8/image-44-1.png",
   },
   {
     id: 2,
     name: "NADI",
-    src: "https://i.ibb.co/Q3phd8gR/630dcef786cdfbe83bd6b096aea91afcdadf271a.png",
+    src: "https://i.ibb.co.com/WpyZSSBM/Kairos-BRR-2.png",
   },
   {
     id: 3,
     name: "TOFECOL",
-    src: "https://i.ibb.co/hFT0mX6L/image-42.png",
+    src: "https://i.ibb.co.com/ndCp44G/Bupbes-BRR-2-1.png",
   },
   {
     id: 4,
     name: "STARFISH",
-    src: "https://i.ibb.co/t0FJFN2/image-45.png",
+    src: "https://i.ibb.co.com/PvYc8bq0/Nadi-BRR-1-1.png",
   },
   {
     id: 5,
     name: "BUBON",
-    src: "https://i.ibb.co/BKvLD7qR/image-43.png",
+    src: "https://i.ibb.co.com/Rp6tYm1S/image-50-1.png",
   },
 ];
 
@@ -269,7 +269,6 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   variants,
 }) => {
   const shouldReduceMotion = useReducedMotion();
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   const getVariant = () => {
@@ -310,17 +309,6 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
       >
         {/* Clean Image Container - No background, no shadow, no floating */}
         <div className="relative mt-6 aspect-4/5 w-70 md:w-90 lg:w-105">
-          {/* Shimmer Loading Effect */}
-          {!isLoaded && !hasError && (
-            <div className="absolute inset-0 overflow-hidden bg-neutral-800">
-              <motion.div
-                className="absolute inset-0 bg-linear-to-r from-transparent via-neutral-700 to-transparent"
-                animate={{ x: ["-100%", "100%"] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-              />
-            </div>
-          )}
-
           {/* Error State */}
           {hasError && (
             <div className="absolute inset-0 flex items-center justify-center bg-neutral-100">
@@ -338,7 +326,6 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
               priority={isActive}
               className="object-contain"
               sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 420px"
-              onLoad={() => setIsLoaded(true)}
               onError={() => setHasError(true)}
               draggable={false}
             />
@@ -662,6 +649,34 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
             >
               BROWSE CAPSULE BRANDS
             </motion.h2>
+          </div>
+
+          <div className="flex items-center justify-between gap-6 md:hidden">
+            <button
+              onClick={() => navigate(-1)}
+              aria-label="Previous brand"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/30"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+
+            <motion.p
+              key={activeIndex}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="font-mono text-xs tracking-widest text-neutral-500"
+            >
+              DROP {String(activeIndex + 1).padStart(2, "0")} /{" "}
+              {String(brands.length).padStart(2, "0")}
+            </motion.p>
+
+            <button
+              onClick={() => navigate(1)}
+              aria-label="Next brand"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 transition hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/30"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         </motion.header>
 

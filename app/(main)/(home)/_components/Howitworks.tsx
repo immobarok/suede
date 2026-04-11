@@ -3,7 +3,7 @@ import HowitworksCarousal from "./HowitworksCarousal";
 
 const Howitworks = () => {
   return (
-    <main className="bg-[#f9f8f6]">
+    <main className="bg-[#f9f8f6] pb-8 md:pb-16 lg:pb-32">
       <section className="flex h-30.75 items-center overflow-hidden bg-[#000000] text-white">
         <div className="container mx-auto">
           <Marquee className="[--duration:20s]">
