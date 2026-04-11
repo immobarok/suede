@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LogoTiny from "@/public/icons/logo_small.svg";
+import LogoTiny from "@/public/icons/logo_small.png";
 
 export function LogoSmall() {
 

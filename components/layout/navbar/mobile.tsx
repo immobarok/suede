@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MotionDrawer from "@/components/shared/motion-drawer";
+import { LogoSmall } from "./LogoSmall";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface MobileMenuProps {
   isAuthenticated: boolean;
   translations: Record<string, string>;
   showOnDesktop?: boolean;
+  iconClassName?: string;
 }
 
 export function MobileMenu({
@@ -19,6 +21,7 @@ export function MobileMenu({
   isAuthenticated,
   translations: t,
   showOnDesktop = false,
+  iconClassName = "text-black",
 }: MobileMenuProps) {
   const navItems = [
     { href: "/the-capsule", label: t.capsule },
@@ -34,7 +37,7 @@ export function MobileMenu({
         className={`${showOnDesktop ? "flex" : "md:hidden"} bg-transparent hover:bg-transparent active:bg-transparent shadow-none`}
         onClick={() => setIsOpen(true)}
       >
-        <Menu className="h-6! w-6! text-black" />
+        <Menu className={`h-6! w-6! ${iconClassName}`} />
       </Button>
 
       <MotionDrawer
@@ -42,12 +45,15 @@ export function MobileMenu({
         onToggle={setIsOpen}
         direction="right"
         showToggleButton={false}
-        showCloseButton={true}
+        showCloseButton={false}
         width={300}
         backgroundColor="white"
         contentClassName="border-l border-border"
         className={showOnDesktop ? "" : "md:hidden"}
       >
+        <div className="mb-10 flex items-center">
+          <LogoSmall />
+        </div>
         <nav className="flex flex-col gap-6">
           {navItems.map((item) => (
             <Link

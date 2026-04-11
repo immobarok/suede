@@ -112,16 +112,15 @@ export function NavbarClient({ logoSlot }: NavbarClientProps) {
             translations={translations}
           />
 
-          {/* Mobile Menu: Hide on Home, show on all other pages and devices */}
-          {!isHome && (
-            <MobileMenu
-              isOpen={isDrawerOpen}
-              setIsOpen={setIsDrawerOpen}
-              isAuthenticated={isAuthenticated}
-              translations={translations}
-              showOnDesktop={true}
-            />
-          )}
+          {/* Mobile Menu: Show on Home (mobile only) and on all other pages (all sizes) */}
+          <MobileMenu
+            isOpen={isDrawerOpen}
+            setIsOpen={setIsDrawerOpen}
+            isAuthenticated={isAuthenticated}
+            translations={translations}
+            showOnDesktop={!isHome}
+            iconClassName={isHome ? "text-white" : "text-black"}
+          />
         </div>
       </div>
     </header>

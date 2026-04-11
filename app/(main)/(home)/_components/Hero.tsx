@@ -41,18 +41,20 @@ const Hero = () => {
         <HeroArticle />
       </div>
       {/* Bottom Navigation Links */}
-      <div className="absolute bottom-16 inset-x-0 flex justify-between items-center px-0 z-20 container mx-auto">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.href}
-            href={item.href}
-            label={item.label}
-            tooltip={item.tooltip}
-            navTextColor="text-white/70"
-            navActiveColor="text-white"
-            navHoverColor="hover:text-white"
-          />
-        ))}
+      <div className="absolute bottom-16 inset-x-0 z-20 container mx-auto">
+        <div className="hidden items-center justify-between px-0 md:flex">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              tooltip={item.tooltip}
+              navTextColor="text-white/70"
+              navActiveColor="text-white"
+              navHoverColor="hover:text-white"
+            />
+          ))}
+        </div>
       </div>
     </section>
   )
