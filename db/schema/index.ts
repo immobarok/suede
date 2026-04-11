@@ -34,6 +34,13 @@ export { consultationSessions } from "./consultation";
 // About Page (Admin Content Uploads)
 export { aboutContentUploads } from "./about";
 
+// Admin Dashboard
+export {
+  brandSuggestions,
+  platformFeedback,
+  brandContactRequests,
+} from "./admin";
+
 // Affiliate Tracking
 export {
   affiliates,

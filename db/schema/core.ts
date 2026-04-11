@@ -59,6 +59,7 @@ export const profiles = pgTable("profiles", {
   isActive: boolean("is_active").default(true),
   emailVerified: boolean("email_verified").default(false),
   measurementCompleted: boolean("measurement_completed").default(false),
+  measurementsCompletedAt: timestamp("measurements_completed_at", { withTimezone: true }),
 
   // Timestamps
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
@@ -83,6 +84,8 @@ export const brands = pgTable("brands", {
   // Brand info
   brandName: text("brand_name").notNull(),
   brandSlug: text("brand_slug").unique(),
+  instagramHandle: text("instagram_handle"),
+  dropAssignment: text("drop_assignment"),
   tagline: text("tagline"),
   description: text("description"),
   website: text("website"),
@@ -120,6 +123,10 @@ export const brands = pgTable("brands", {
   // Capsule evaluation
   capsuleScore: integer("capsule_score"),
   watchlistCriteria: jsonb("watchlist_criteria").default(sql`'{}'`),
+
+  // Admin flags
+  isFlagged: boolean("is_flagged").default(false),
+  flaggedReason: text("flagged_reason"),
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });

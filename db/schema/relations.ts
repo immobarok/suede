@@ -22,6 +22,11 @@ import {
   affiliateClicks,
   affiliateConversions,
 } from "./affiliates";
+import {
+  brandSuggestions,
+  platformFeedback,
+  brandContactRequests,
+} from "./admin";
 
 // ============================================
 // RELATIONS
@@ -46,6 +51,8 @@ export const profilesRelations = relations(profiles, ({ one, many }) => ({
   notifications: many(notifications),
   savedItems: many(savedItems),
   consultationSessions: many(consultationSessions),
+  brandSuggestions: many(brandSuggestions),
+  platformFeedback: many(platformFeedback),
 }));
 
 export const brandsRelations = relations(brands, ({ one, many }) => ({
@@ -60,6 +67,7 @@ export const brandsRelations = relations(brands, ({ one, many }) => ({
   analytics: many(brandAnalytics),
   applications: many(brandApplications),
   claims: many(brandClaims),
+  contactRequests: many(brandContactRequests),
 }));
 
 export const adminsRelations = relations(admins, ({ one, many }) => ({
@@ -378,6 +386,36 @@ export const aboutContentUploadsRelations = relations(
     uploader: one(admins, {
       fields: [aboutContentUploads.uploadedBy],
       references: [admins.id],
+    }),
+  }),
+);
+
+export const brandSuggestionsRelations = relations(
+  brandSuggestions,
+  ({ one }) => ({
+    user: one(profiles, {
+      fields: [brandSuggestions.userId],
+      references: [profiles.id],
+    }),
+  }),
+);
+
+export const platformFeedbackRelations = relations(
+  platformFeedback,
+  ({ one }) => ({
+    user: one(profiles, {
+      fields: [platformFeedback.userId],
+      references: [profiles.id],
+    }),
+  }),
+);
+
+export const brandContactRequestsRelations = relations(
+  brandContactRequests,
+  ({ one }) => ({
+    brand: one(brands, {
+      fields: [brandContactRequests.brandId],
+      references: [brands.id],
     }),
   }),
 );

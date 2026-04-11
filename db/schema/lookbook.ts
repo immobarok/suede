@@ -70,6 +70,7 @@ export const reviews = pgTable("reviews", {
   isPublished: boolean("is_published").default(true),
   isFeatured: boolean("is_featured").default(false),
 
+  reviewStartedAt: timestamp("review_started_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });
@@ -101,6 +102,7 @@ export const reviewRequests = pgTable("review_requests", {
   }).default("open"),
   responsesCount: integer("responses_count").default(0),
 
+  inquiryStartedAt: timestamp("inquiry_started_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });
