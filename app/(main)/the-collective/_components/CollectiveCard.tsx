@@ -38,97 +38,67 @@ export const CollectiveCard = ({
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card className="overflow-hidden rounded-none border-none bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
-        <div className="p-6">
-          {/* Header: Avatar and Name */}
-          <div className="mb-6 flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full">
-              <Image src={avatarUrl} alt={name} fill className="object-cover" />
-            </div>
+        <div className="p-8">
+          {/* Header: Name/Username Left, Measurements Right */}
+          <div className="mb-8 flex items-start justify-between">
             <div>
-              <h3 className="font-darker text-[15px] leading-none font-medium text-[#1A1A1A]">
-                {name}{" "}
-                <span className="ml-1 font-normal text-[#8A8A82] italic">
-                  {stats.height}/{stats.bust}/{stats.waist}/{stats.hips}
-                </span>
+              <h3 className="font-cormorant text-[22px] font-medium tracking-wide text-[#1A1A1A]">
+                {name}
               </h3>
-              <p className="font-darker text-[13px] text-[#8A8A82] lowercase">
+              <p className="font-darker mt-1 text-[13px] text-[#8A8A82]">
                 {username}
               </p>
             </div>
+            <p className="font-darker text-[14px] tracking-wide text-[#1A1A1A]">
+              H: {stats.height} / B:{stats.bust} / W: {stats.waist} / H:{" "}
+              {stats.hips}
+            </p>
           </div>
 
-          {/* Stats Row */}
-          <div className="mb-6 grid grid-cols-3 gap-4 border-b border-[#F0EFEA] pb-6">
+          {/* Main Content: Large Centered Image with Side Actions */}
+          <div className="mb-8 flex items-start justify-center gap-8">
+            {/* Large Profile Image */}
+            <div className="relative aspect-square w-[280px] overflow-hidden bg-[#f5f5f5]">
+              <Image src={avatarUrl} alt={name} fill className="object-cover" />
+            </div>
+
+            {/* Right Side Actions */}
+            <div className="flex flex-col gap-4 pt-4">
+              <button className="font-darker text-[14px] text-[#1A1A1A] underline decoration-[#999] underline-offset-4 transition-all hover:decoration-[#1A1A1A]">
+                Follow+
+              </button>
+              <button className="font-darker text-[14px] text-[#1A1A1A] underline decoration-[#999] underline-offset-4 transition-all hover:decoration-[#1A1A1A]">
+                View Profile
+              </button>
+            </div>
+          </div>
+
+          {/* Stats Row: Reviews, Inquiries, Capsule Brands */}
+          <div className="grid grid-cols-3 gap-8 border-t border-[#F0EFEA] pt-6">
             <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.15em] text-[#8A8A82] uppercase">
+              <p className="font-darker mb-2 text-[11px] tracking-[0.2em] text-[#1A1A1A] uppercase">
                 Reviews
               </p>
-              <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+              <p className="font-darker text-[16px] font-medium text-[#8A8A82]">
                 {counts.reviews}
               </p>
             </div>
             <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.15em] text-[#8A8A82] uppercase">
+              <p className="font-darker mb-2 text-[11px] tracking-[0.2em] text-[#1A1A1A] uppercase">
                 Inquiries
               </p>
-              <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+              <p className="font-darker text-[16px] font-medium text-[#8A8A82]">
                 {counts.inquiries}
               </p>
             </div>
             <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.15em] text-[#8A8A82] uppercase">
+              <p className="font-darker mb-2 text-[11px] tracking-[0.2em] text-[#1A1A1A] uppercase">
                 Capsule Brands
               </p>
-              <p className="font-darker text-[16px] font-medium text-[#1A1A1A]">
+              <p className="font-darker text-[16px] font-medium text-[#8A8A82]">
                 {counts.capsuleBrands}
               </p>
             </div>
-          </div>
-
-          {/* Measurement Row */}
-          <div className="mb-8 grid grid-cols-4 gap-2">
-            <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.1em] text-[#8A8A82] uppercase">
-                Height
-              </p>
-              <p className="font-darker text-[14px] font-medium text-[#1A1A1A]">
-                {stats.height}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.1em] text-[#8A8A82] uppercase">
-                Bust
-              </p>
-              <p className="font-darker text-[14px] font-medium text-[#1A1A1A]">
-                {stats.bust}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.1em] text-[#8A8A82] uppercase">
-                Waist
-              </p>
-              <p className="font-darker text-[14px] font-medium text-[#1A1A1A]">
-                {stats.waist}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="font-darker mb-1 text-[10px] tracking-[0.1em] text-[#8A8A82] uppercase">
-                Hips
-              </p>
-              <p className="font-darker text-[14px] font-medium text-[#1A1A1A]">
-                {stats.hips}
-              </p>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="space-y-3">
-            <button className="bg-primary font-darker w-full cursor-pointer rounded-none py-3 text-[14px] font-medium text-white transition-opacity hover:bg-[#3d0b13] ">
-              Follow
-            </button>
-            <button className="font-darker w-full cursor-pointer rounded-none border border-[#E7E4DF] py-3 text-[14px] font-medium text-[#1A1A1A] transition-colors hover:bg-[#F9F8F6]">
-              View Profile
-            </button>
           </div>
         </div>
       </Card>

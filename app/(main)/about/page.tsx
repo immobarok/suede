@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { LoadingSpinner } from "@/components/shared/loading-spinner";
+import { HeroSection } from "./_component/HeroSection";
+import { MissionSection } from "./_component/MissionSection";
+import { StorySection } from "./_component/StorySection";
+import { ValuesSection } from "./_component/ValuesSection";
+import { QuoteSection } from "./_component/QuoteSection";
 
 export const metadata: Metadata = {
   title: "About",
@@ -7,12 +11,17 @@ export const metadata: Metadata = {
     "Learn about SUEDE, our mission, and how we curate fashion for a better fit experience.",
 };
 
-export default function AboutPage() {
+const page = () => {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <LoadingSpinner className="mb-6" />
-      <h1 className="text-3xl font-bold tracking-tight">About</h1>
-      <p className="text-muted-foreground mt-4">Learn more about SUEDE.</p>
+    <main className="min-h-screen bg-[#F5F5F0]">
+      {/* Hero Section */}
+      <HeroSection />
+      <MissionSection />
+      <StorySection />
+      <ValuesSection />
+      <QuoteSection />
     </main>
   );
-}
+};
+
+export default page;

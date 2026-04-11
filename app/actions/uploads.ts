@@ -2,7 +2,7 @@
 
 import sharp from "sharp";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { createClient as createServerClient } from "@/lib/supabase/server";
+import { assertAdminUser } from "@/lib/auth/assert-admin";
 
 const DEFAULT_MAX_WIDTH = 1600;
 const DEFAULT_QUALITY = 80;
@@ -18,14 +18,7 @@ export async function uploadImage(
     format?: string;
   },
 ) {
-  const supabase = await createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    throw new Error("Unauthorized");
-  }
+  await assertAdminUser();
 
   const bucket = options?.bucket ?? "images";
   const folder = options?.folder ?? "uploads";
@@ -78,14 +71,7 @@ export async function uploadImage(
 }
 
 export async function createMuxUpload() {
-  const supabase = await createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    throw new Error("Unauthorized");
-  }
+  await assertAdminUser();
 
   const tokenId = process.env.MUX_TOKEN_ID;
   const tokenSecret = process.env.MUX_TOKEN_SECRET;

@@ -13,12 +13,9 @@ import { follows, matchScores } from "./collective";
 import { listings, offers, orders } from "./consign";
 import { conversations, messageRequests, messages } from "./messaging";
 import { activityFeed, notifications } from "./notifications";
-import {
-  brandAnalytics,
-  brandApplications,
-  brandClaims,
-} from "./brand-portal";
+import { brandAnalytics, brandApplications, brandClaims } from "./brand-portal";
 import { consultationSessions } from "./consultation";
+import { aboutContentUploads } from "./about";
 import {
   affiliates,
   affiliateLinks,
@@ -65,6 +62,14 @@ export const brandsRelations = relations(brands, ({ one, many }) => ({
   claims: many(brandClaims),
 }));
 
+export const adminsRelations = relations(admins, ({ one, many }) => ({
+  profile: one(profiles, {
+    fields: [admins.id],
+    references: [profiles.id],
+  }),
+  aboutContentUploads: many(aboutContentUploads),
+}));
+
 export const reviewsRelations = relations(reviews, ({ one, many }) => ({
   user: one(profiles, {
     fields: [reviews.userId],
@@ -90,7 +95,7 @@ export const reviewRequestsRelations = relations(
       references: [brands.id],
     }),
     responses: many(inquiryResponses),
-  })
+  }),
 );
 
 export const inquiryResponsesRelations = relations(
@@ -108,7 +113,7 @@ export const inquiryResponsesRelations = relations(
       fields: [inquiryResponses.linkedReviewId],
       references: [reviews.id],
     }),
-  })
+  }),
 );
 
 export const listingsRelations = relations(listings, ({ one, many }) => ({
@@ -167,7 +172,7 @@ export const conversationsRelations = relations(
       references: [profiles.id],
     }),
     messages: many(messages),
-  })
+  }),
 );
 
 export const messagesRelations = relations(messages, ({ one }) => ({
@@ -210,18 +215,15 @@ export const brandEvaluationsRelations = relations(
       fields: [brandEvaluations.evaluatorId],
       references: [profiles.id],
     }),
-  })
+  }),
 );
 
-export const brandAnalyticsRelations = relations(
-  brandAnalytics,
-  ({ one }) => ({
-    brand: one(brands, {
-      fields: [brandAnalytics.brandId],
-      references: [brands.id],
-    }),
-  })
-);
+export const brandAnalyticsRelations = relations(brandAnalytics, ({ one }) => ({
+  brand: one(brands, {
+    fields: [brandAnalytics.brandId],
+    references: [brands.id],
+  }),
+}));
 
 export const brandApplicationsRelations = relations(
   brandApplications,
@@ -238,7 +240,7 @@ export const brandApplicationsRelations = relations(
       fields: [brandApplications.applicantId],
       references: [brands.id],
     }),
-  })
+  }),
 );
 
 export const brandClaimsRelations = relations(brandClaims, ({ one }) => ({
@@ -263,7 +265,7 @@ export const reviewReactionsRelations = relations(
       fields: [reviewReactions.userId],
       references: [profiles.id],
     }),
-  })
+  }),
 );
 
 export const savedItemsRelations = relations(savedItems, ({ one }) => ({
@@ -310,7 +312,7 @@ export const messageRequestsRelations = relations(
       fields: [messageRequests.contextId],
       references: [reviews.id],
     }),
-  })
+  }),
 );
 
 export const consultationSessionsRelations = relations(
@@ -320,7 +322,7 @@ export const consultationSessionsRelations = relations(
       fields: [consultationSessions.userId],
       references: [profiles.id],
     }),
-  })
+  }),
 );
 
 export const activityFeedRelations = relations(activityFeed, ({ one }) => ({
@@ -338,21 +340,27 @@ export const affiliatesRelations = relations(affiliates, ({ many }) => ({
   links: many(affiliateLinks),
 }));
 
-export const affiliateLinksRelations = relations(affiliateLinks, ({ one, many }) => ({
-  affiliate: one(affiliates, {
-    fields: [affiliateLinks.affiliateId],
-    references: [affiliates.id],
+export const affiliateLinksRelations = relations(
+  affiliateLinks,
+  ({ one, many }) => ({
+    affiliate: one(affiliates, {
+      fields: [affiliateLinks.affiliateId],
+      references: [affiliates.id],
+    }),
+    clicks: many(affiliateClicks),
   }),
-  clicks: many(affiliateClicks),
-}));
+);
 
-export const affiliateClicksRelations = relations(affiliateClicks, ({ one, many }) => ({
-  link: one(affiliateLinks, {
-    fields: [affiliateClicks.affiliateLinkId],
-    references: [affiliateLinks.id],
+export const affiliateClicksRelations = relations(
+  affiliateClicks,
+  ({ one, many }) => ({
+    link: one(affiliateLinks, {
+      fields: [affiliateClicks.affiliateLinkId],
+      references: [affiliateLinks.id],
+    }),
+    conversions: many(affiliateConversions),
   }),
-  conversions: many(affiliateConversions),
-}));
+);
 
 export const affiliateConversionsRelations = relations(
   affiliateConversions,
@@ -361,5 +369,15 @@ export const affiliateConversionsRelations = relations(
       fields: [affiliateConversions.suedeRedirectId],
       references: [affiliateClicks.suedeRedirectId],
     }),
-  })
+  }),
+);
+
+export const aboutContentUploadsRelations = relations(
+  aboutContentUploads,
+  ({ one }) => ({
+    uploader: one(admins, {
+      fields: [aboutContentUploads.uploadedBy],
+      references: [admins.id],
+    }),
+  }),
 );

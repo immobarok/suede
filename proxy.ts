@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { updateSession } from "./lib/supabase/middleware";
 
 // Route configurations
-const PUBLIC_ROUTES = ["/", "/about", "/brands", "/collections", "/reviews"];
 const AUTH_ROUTES = [
   "/auth/login",
   "/auth/register",
@@ -19,7 +19,12 @@ const ADMIN_ROUTES = ["/admin"];
 
 // Guest limit configuration
 const GUEST_LIMIT = 5;
-const GUEST_TRACKED_ROUTES = ["/reviews/", "/brands/", "/profile/", "/products/"];
+const GUEST_TRACKED_ROUTES = [
+  "/reviews/",
+  "/brands/",
+  "/profile/",
+  "/products/",
+];
 
 export default async function proxy(request: NextRequest) {
   // First, update the session (from official docs)
@@ -50,7 +55,7 @@ export default async function proxy(request: NextRequest) {
           });
         },
       },
-    }
+    },
   );
 
   // IMPORTANT: Do NOT remove this - refreshes session
@@ -65,13 +70,13 @@ export default async function proxy(request: NextRequest) {
 
   const isApiRoute = pathname.startsWith("/api/");
   const isAuthRoute = AUTH_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
   const isProtectedRoute = PROTECTED_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
   const isAdminRoute = ADMIN_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
 
   // 1. API Routes (No locale rewriting)
@@ -82,7 +87,8 @@ export default async function proxy(request: NextRequest) {
   // 2. Auth Routes - Redirect logged in users away
   if (isAuthRoute) {
     if (user) {
-      const redirectTo = request.nextUrl.searchParams.get("redirectedFrom") || "/";
+      const redirectTo =
+        request.nextUrl.searchParams.get("redirectedFrom") || "/";
       return NextResponse.redirect(new URL(redirectTo, request.url));
     }
     return response;
@@ -95,21 +101,19 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // 4. Admin Routes - Must be admin
+  // 4. Admin Routes are protected by the admin layout session cookie.
+  // Keep middleware neutral here so /admin/login remains accessible.
   if (isAdminRoute) {
-    if (!user) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
-    }
-
-    const isAdmin = await checkIsAdmin(supabase, user.id);
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+    return response;
   }
 
   // 5. Guest Limit Tracking
   if (!user && shouldTrackGuestView(pathname)) {
-    const canProceed = await checkGuestLimit(supabase, guestSessionId, pathname);
+    const canProceed = await checkGuestLimit(
+      supabase,
+      guestSessionId,
+      pathname,
+    );
 
     if (!canProceed) {
       const loginUrl = new URL("/auth/login", request.url);
@@ -118,7 +122,10 @@ export default async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    const remainingViews = await getRemainingGuestViews(supabase, guestSessionId);
+    const remainingViews = await getRemainingGuestViews(
+      supabase,
+      guestSessionId,
+    );
     response.headers.set("X-Guest-Views-Remaining", String(remainingViews));
   }
 
@@ -128,7 +135,7 @@ export default async function proxy(request: NextRequest) {
 // Helper functions
 async function handleGuestSession(
   request: NextRequest,
-  response: NextResponse
+  response: NextResponse,
 ): Promise<string> {
   let sessionId = request.cookies.get("guest_session_id")?.value;
 
@@ -164,9 +171,9 @@ function shouldTrackGuestView(pathname: string): boolean {
 }
 
 async function checkGuestLimit(
-  supabase: any,
+  supabase: SupabaseClient,
   sessionId: string,
-  pathname: string
+  pathname: string,
 ): Promise<boolean> {
   try {
     const cutoffTime = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
@@ -183,16 +190,13 @@ async function checkGuestLimit(
     if (currentCount >= GUEST_LIMIT) return false;
 
     // Log view asynchronously
-    supabase
-      .from("guest_activity")
-      .insert({
-        session_id: sessionId,
-        activity_type: "page_view",
-        item_type: "page",
-        item_path: pathname,
-        created_at: new Date().toISOString(),
-      })
-      .catch(console.error);
+    void supabase.from("guest_activity").insert({
+      session_id: sessionId,
+      activity_type: "page_view",
+      item_type: "page",
+      item_path: pathname,
+      created_at: new Date().toISOString(),
+    });
 
     return true;
   } catch {
@@ -201,8 +205,8 @@ async function checkGuestLimit(
 }
 
 async function getRemainingGuestViews(
-  supabase: any,
-  sessionId: string
+  supabase: SupabaseClient,
+  sessionId: string,
 ): Promise<number> {
   const cutoffTime = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
@@ -213,16 +217,6 @@ async function getRemainingGuestViews(
     .gte("created_at", cutoffTime);
 
   return Math.max(0, GUEST_LIMIT - (count || 0));
-}
-
-async function checkIsAdmin(supabase: any, userId: string): Promise<boolean> {
-  const { data } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", userId)
-    .single();
-
-  return data?.is_admin === true;
 }
 
 export const config = {

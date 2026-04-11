@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { assertAdminUser } from "@/lib/auth/assert-admin";
+import { hasValidAdminSession } from "@/lib/auth/admin-session";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -11,15 +13,6 @@ const DEFAULT_FORMAT = "webp";
 
 export async function POST(request: Request) {
   try {
-    const supabase = await createServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const formData = await request.formData();
     const file = formData.get("file");
 
@@ -29,6 +22,29 @@ export async function POST(request: Request) {
 
     const bucket = String(formData.get("bucket") ?? "images");
     const folder = String(formData.get("folder") ?? "uploads");
+
+    const isAvatarUpload = folder === "avatars";
+
+    const supabase = await createServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (isAvatarUpload && bucket !== "images") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    if (isAvatarUpload) {
+      if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+    } else {
+      const hasDashboardSession = await hasValidAdminSession();
+      if (!hasDashboardSession) {
+        await assertAdminUser();
+      }
+    }
+
     const maxWidth = Number(formData.get("maxWidth") ?? DEFAULT_MAX_WIDTH);
     const quality = Number(formData.get("quality") ?? DEFAULT_QUALITY);
     const format = String(
@@ -79,6 +95,8 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    const status =
+      message === "Unauthorized" ? 401 : message === "Forbidden" ? 403 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }

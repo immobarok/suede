@@ -1,6 +1,20 @@
+# suede
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+
+### Admin Dashboard Seed Password
+
+Add these variables to your `.env.local` to enable the admin dashboard login:
+
+```bash
+ADMIN_DASHBOARD_PASSWORD=change_me_to_a_strong_password
+ADMIN_DASHBOARD_SESSION_SECRET=change_me_to_a_long_random_secret
+ADMIN_SEEDED_EMAIL=admin@local.suede
+```
+
+Then open `/admin/login` and sign in with `ADMIN_DASHBOARD_PASSWORD`.
 
 First, run the development server:
 
@@ -34,4 +48,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# suede

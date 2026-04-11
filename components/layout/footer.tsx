@@ -46,7 +46,7 @@ export function Footer() {
   ];
 
   const companyLinks = [
-    { label: copy.about, href: "#" },
+    { label: copy.about, href: "/about" },
     { label: copy.brandPartner, href: "#" },
     { label: copy.privacy, href: "#" },
   ];

@@ -1,16 +1,8 @@
 // Core tables
-export {
-  profiles,
-  admins,
-  brands,
-  reviewerStats,
-} from "./core";
+export { profiles, admins, brands, reviewerStats } from "./core";
 
 // Capsule (Brand Directory)
-export {
-  featuredBrands,
-  brandEvaluations,
-} from "./capsule";
+export { featuredBrands, brandEvaluations } from "./capsule";
 
 // Lookbook (Reviews & Inquiries)
 export {
@@ -22,42 +14,25 @@ export {
 } from "./lookbook";
 
 // Collective (Social)
-export {
-  follows,
-  matchScores,
-} from "./collective";
+export { follows, matchScores } from "./collective";
 
 // Consign (Marketplace)
-export {
-  listings,
-  offers,
-  orders,
-} from "./consign";
+export { listings, offers, orders } from "./consign";
 
 // Messaging
-export {
-  conversations,
-  messages,
-  messageRequests,
-} from "./messaging";
+export { conversations, messages, messageRequests } from "./messaging";
 
 // Notifications
-export {
-  notifications,
-  activityFeed,
-} from "./notifications";
+export { notifications, activityFeed } from "./notifications";
 
 // Brand Portal
-export {
-  brandApplications,
-  brandClaims,
-  brandAnalytics,
-} from "./brand-portal";
+export { brandApplications, brandClaims, brandAnalytics } from "./brand-portal";
 
 // Consultation
-export {
-  consultationSessions,
-} from "./consultation";
+export { consultationSessions } from "./consultation";
+
+// About Page (Admin Content Uploads)
+export { aboutContentUploads } from "./about";
 
 // Affiliate Tracking
 export {
