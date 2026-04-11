@@ -17,6 +17,42 @@ import {
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+const useResponsiveConfig = () => {
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 1024,
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 768;
+  const isTablet = windowWidth >= 768 && windowWidth < 1024;
+
+  return useMemo(
+    () => ({
+      visibleCards: isMobile ? 3 : 5,
+      centerScale: 1,
+      sideScale: isMobile ? 0.6 : 0.85,
+      farScale: isMobile ? 0.4 : 0.7,
+      centerOffset: 0,
+      sideOffset: isMobile ? 180 : isTablet ? 260 : 340,
+      farOffset: isMobile ? 320 : isTablet ? 480 : 620,
+      centerYOffset: isMobile ? -40 : -80,
+      sideYOffset: 0,
+      farYOffset: isMobile ? 30 : 60,
+      centerAnchor: "50%",
+      springStiffness: 180,
+      springDamping: 25,
+      swipeThreshold: 50,
+      autoPlayInterval: 5000,
+    }),
+    [windowWidth, isMobile, isTablet],
+  );
+};
+
 interface Brand {
   id: number;
   name: string;
@@ -58,24 +94,6 @@ const DEFAULT_BRANDS: Brand[] = [
     src: "https://i.ibb.co/BKvLD7qR/image-43.png",
   },
 ];
-
-const CONFIG = {
-  visibleCards: 5,
-  centerScale: 1,
-  sideScale: 0.85,
-  farScale: 0.7,
-  centerOffset: 0,
-  sideOffset: 340,
-  farOffset: 620,
-  centerYOffset: -80,
-  sideYOffset: 0,
-  farYOffset: 60,
-  centerAnchor: "50%",
-  springStiffness: 180,
-  springDamping: 25,
-  swipeThreshold: 50,
-  autoPlayInterval: 5000,
-} as const;
 
 const useMagneticButton = (ref: React.RefObject<HTMLButtonElement | null>) => {
   const x = useMotionValue(0);
@@ -120,7 +138,7 @@ const useMagneticButton = (ref: React.RefObject<HTMLButtonElement | null>) => {
 const useCarousel = (
   itemCount: number,
   autoPlay: boolean = false,
-  interval: number = CONFIG.autoPlayInterval,
+  interval: number = 5000,
 ) => {
   const [activeIndex, setActiveIndex] = useState(0); // Active index of the carousel
   const [direction, setDirection] = useState(0); // Direction of the carousel movement
@@ -235,69 +253,12 @@ const AnimatedLetters = ({
   );
 };
 
-const cardVariants: Variants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? CONFIG.sideOffset * 2 : -CONFIG.sideOffset * 2,
-    opacity: 0,
-    scale: CONFIG.sideScale * 0.6,
-    rotateY: direction > 0 ? 60 : -60,
-    z: -200,
-  }),
-  center: {
-    x: CONFIG.centerOffset,
-    y: CONFIG.centerYOffset,
-    opacity: 1,
-    scale: CONFIG.centerScale,
-    rotateY: 0,
-    z: 0,
-    transition: {
-      type: "spring",
-      stiffness: CONFIG.springStiffness,
-      damping: CONFIG.springDamping,
-      mass: 1.2,
-    },
-  },
-  side: (position: "left" | "right") => ({
-    x: position === "left" ? -CONFIG.sideOffset : CONFIG.sideOffset,
-    y: CONFIG.sideYOffset,
-    opacity: 0.9,
-    scale: CONFIG.sideScale,
-    rotateY: position === "left" ? 25 : -25,
-    z: -100,
-    transition: {
-      type: "spring",
-      stiffness: CONFIG.springStiffness,
-      damping: CONFIG.springDamping,
-    },
-  }),
-  far: (position: "left" | "right") => ({
-    x: position === "left" ? -CONFIG.farOffset : CONFIG.farOffset,
-    y: CONFIG.farYOffset,
-    opacity: 0.6,
-    scale: CONFIG.farScale,
-    rotateY: position === "left" ? 35 : -35,
-    z: -200,
-    transition: {
-      type: "spring",
-      stiffness: CONFIG.springStiffness,
-      damping: CONFIG.springDamping,
-    },
-  }),
-  exit: (direction: number) => ({
-    x: direction > 0 ? -CONFIG.sideOffset * 2 : CONFIG.sideOffset * 2,
-    opacity: 0,
-    scale: CONFIG.sideScale * 0.6,
-    rotateY: direction > 0 ? -60 : 60,
-    z: -200,
-    transition: { duration: 0.4, ease: [0.32, 0.72, 0, 1] },
-  }),
-};
-
 interface CarouselCardProps {
   brand: Brand;
   position: "farLeft" | "left" | "center" | "right" | "farRight";
   direction: number;
   isActive: boolean;
+  variants: Variants;
 }
 
 const CarouselCard: React.FC<CarouselCardProps> = ({
@@ -305,6 +266,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   position,
   direction,
   isActive,
+  variants,
 }) => {
   const shouldReduceMotion = useReducedMotion();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -331,12 +293,12 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   return (
     <div
       className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: CONFIG.centerAnchor, top: "50%" }}
+      style={{ left: "50%", top: "50%" }}
     >
       <motion.div
         layout
         custom={getCustom()}
-        variants={cardVariants}
+        variants={variants}
         initial={false}
         animate={getVariant()}
         className="flex flex-col items-center"
@@ -495,7 +457,7 @@ const ProgressIndicator = ({
 const ProfessionalCarousel: React.FC<CarouselProps> = ({
   brands = DEFAULT_BRANDS,
   autoPlay = true,
-  autoPlayInterval = CONFIG.autoPlayInterval,
+  autoPlayInterval = 5000,
   className = "",
 }) => {
   const { activeIndex, direction, navigate, goTo, wrap } = useCarousel(
@@ -505,8 +467,71 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
   );
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const CONFIG = useResponsiveConfig();
+
+  const cardVariants: Variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? CONFIG.sideOffset * 2 : -CONFIG.sideOffset * 2,
+      opacity: 0,
+      scale: CONFIG.sideScale * 0.6,
+      rotateY: direction > 0 ? 60 : -60,
+      z: -200,
+    }),
+    center: {
+      x: CONFIG.centerOffset,
+      y: CONFIG.centerYOffset,
+      opacity: 1,
+      scale: CONFIG.centerScale,
+      rotateY: 0,
+      z: 0,
+      transition: {
+        type: "spring",
+        stiffness: CONFIG.springStiffness,
+        damping: CONFIG.springDamping,
+        mass: 1.2,
+      },
+    },
+    side: (position: "left" | "right") => ({
+      x: position === "left" ? -CONFIG.sideOffset : CONFIG.sideOffset,
+      y: CONFIG.sideYOffset,
+      opacity: 1,
+      scale: CONFIG.sideScale,
+      rotateY: position === "left" ? 25 : -25,
+      z: -100,
+      transition: {
+        type: "spring",
+        stiffness: CONFIG.springStiffness,
+        damping: CONFIG.springDamping,
+      },
+    }),
+    far: (position: "left" | "right") => ({
+      x: position === "left" ? -CONFIG.farOffset : CONFIG.farOffset,
+      y: CONFIG.farYOffset,
+      opacity: 1,
+      scale: CONFIG.farScale,
+      rotateY: position === "left" ? 35 : -35,
+      z: -200,
+      transition: {
+        type: "spring",
+        stiffness: CONFIG.springStiffness,
+        damping: CONFIG.springDamping,
+      },
+    }),
+    exit: (direction: number) => ({
+      x: direction > 0 ? -CONFIG.sideOffset * 2 : CONFIG.sideOffset * 2,
+      opacity: 0,
+      scale: CONFIG.sideScale * 0.6,
+      rotateY: direction > 0 ? -60 : 60,
+      z: -200,
+      transition: { duration: 0.4, ease: [0.32, 0.72, 0, 1] },
+    }),
+  };
 
   const visibleIndices = useMemo(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    if (isMobile) {
+      return [wrap(activeIndex - 1), activeIndex, wrap(activeIndex + 1)];
+    }
     return [
       wrap(activeIndex - 2),
       wrap(activeIndex - 1),
@@ -537,7 +562,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
   return (
     <section
       ref={containerRef}
-      className={`relative flex min-h-225 flex-col overflow-hidden py-24 select-none ${className}`}
+      className={`relative flex min-h-180 flex-col overflow-hidden py-16 select-none md:min-h-225 md:py-24 ${className}`}
       aria-roledescription="carousel"
       aria-label="Brand showcase carousel"
     >
@@ -570,7 +595,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
 
       <div className="relative z-20 container mx-auto px-4">
         <motion.header
-          className="mx-auto mb-24 flex max-w-6xl flex-col items-center"
+          className="mx-auto mb-12 flex max-w-6xl flex-col items-center md:mb-24"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -592,7 +617,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
             </div>
           </motion.div>
 
-          <div className="flex w-full items-center justify-between gap-8">
+          <div className="hidden w-full items-center justify-between gap-8 md:flex">
             <NavigationButton direction="left" onClick={() => navigate(-1)} />
 
             <div className="flex-1 text-center">
@@ -627,25 +652,50 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
 
             <NavigationButton direction="right" onClick={() => navigate(1)} />
           </div>
+
+          <div className="mb-8 flex justify-center md:hidden">
+            <motion.h2
+              className="font-cormorant text-lg leading-tight font-light tracking-[0.2em] text-neutral-900 uppercase"
+              initial={{ opacity: 0, letterSpacing: "0.1em" }}
+              animate={{ opacity: 1, letterSpacing: "0.2em" }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              BROWSE CAPSULE BRANDS
+            </motion.h2>
+          </div>
         </motion.header>
 
-        <div className="relative flex min-h-150 flex-1 touch-pan-y items-center justify-center perspective-[1500px]">
+        <div className="relative flex min-h-120 flex-1 touch-pan-y items-center justify-center perspective-[1500px] md:min-h-150">
           <motion.div
             className="relative h-full w-full"
             style={{ perspective: 1500 }}
           >
             {visibleIndices.map((brandIndex, position) => {
               const brand = brands[brandIndex];
-              const positionType =
-                position === 0
-                  ? "farLeft"
-                  : position === 1
-                    ? "left"
-                    : position === 2
-                      ? "center"
-                      : position === 3
-                        ? "right"
-                        : "farRight";
+              const isMobile =
+                typeof window !== "undefined" && window.innerWidth < 768;
+              let positionType:
+                | "farLeft"
+                | "left"
+                | "center"
+                | "right"
+                | "farRight";
+
+              if (isMobile) {
+                positionType =
+                  position === 0 ? "left" : position === 1 ? "center" : "right";
+              } else {
+                positionType =
+                  position === 0
+                    ? "farLeft"
+                    : position === 1
+                      ? "left"
+                      : position === 2
+                        ? "center"
+                        : position === 3
+                          ? "right"
+                          : "farRight";
+              }
 
               return (
                 <CarouselCard
@@ -653,7 +703,8 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
                   brand={brand}
                   position={positionType}
                   direction={direction}
-                  isActive={position === 2}
+                  isActive={isMobile ? position === 1 : position === 2}
+                  variants={cardVariants}
                 />
               );
             })}
