@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { toast } from "sonner";
-import { User, Bell, Star, MessageSquare, LogOut, Plus } from "lucide-react";
+import { User, Bell, Star, MessageSquare, LogOut } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,8 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -51,7 +49,7 @@ export function AuthSection({
   console.log(profileAvatarUrl);
 
   // Determine active tab from current pathname
-  const activeTab = pathname === "/auth/register" ? "register" : "signin";
+  const activeTab = pathname === "auth/register" ? "register" : "signin";
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -82,7 +80,10 @@ export function AuthSection({
               <TooltipTrigger asChild>
                 <DropdownMenuTrigger asChild>
                   <Button className="group flex h-10 w-10 items-center justify-center rounded-full bg-black transition-all duration-300 hover:scale-105 hover:bg-black/90">
-                  <Icon src="/icons/plus.svg" className=" text-white transition-transform duration-300 group-hover:rotate-90" />
+                    <Icon
+                      src="/icons/plus.svg"
+                      className="text-white transition-transform duration-300 group-hover:rotate-90"
+                    />
                     {/* <Plus className="h-5 w-5 text-white transition-transform duration-300 group-hover:rotate-90" /> */}
                   </Button>
                 </DropdownMenuTrigger>
@@ -189,7 +190,7 @@ export function AuthSection({
         <div className="relative flex h-9.75 items-center rounded-full border-2 border-white bg-black">
           {/* Sign In tab */}
           <Link
-            href="/auth/login"
+            href="login"
             className="relative flex h-full items-center px-7 text-[15px] font-medium text-white transition-colors duration-200"
           >
             {activeTab === "signin" && (
@@ -204,7 +205,7 @@ export function AuthSection({
 
           {/* Create Account tab */}
           <Link
-            href="/auth/register"
+            href="register"
             className="relative flex h-full items-center px-4 text-[15px] font-medium whitespace-nowrap text-white transition-colors duration-200"
           >
             {activeTab === "register" && (
