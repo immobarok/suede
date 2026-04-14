@@ -276,7 +276,7 @@ export default function AdminShell({ children }: AdminShellProps) {
         <header className="border-border bg-background/95 flex items-center gap-3 border-b px-4 py-3 backdrop-blur md:px-6">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
-            <p className="text-muted-foreground text-xs tracking-[0.2em] uppercase">
+            <p className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
               {headerKicker}
             </p>
             <h1 className="font-cormorant text-2xl md:text-3xl">

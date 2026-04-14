@@ -33,7 +33,7 @@ export default async function AdminLoginPage({
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F5F5F0] px-4">
       <div className="w-full max-w-md border border-black/10 bg-white p-8 shadow-sm">
-        <h1 className="font-cormorant text-4xl text-[#1A1A1A]">
+        <h1 className="font-cormorant text-3xl text-[#1A1A1A]">
           Admin Sign In
         </h1>
         <p className="font-darker mt-2 text-sm text-black/60">
@@ -60,7 +60,7 @@ export default async function AdminLoginPage({
 
           <button
             type="submit"
-            className="font-darker w-full cursor-pointer bg-black px-4 py-2 text-xs tracking-[0.15em] text-white uppercase hover:bg-black/90"
+            className="font-darker w-full cursor-pointer bg-black px-4 py-2 text-xs tracking-wider text-white uppercase hover:bg-black/90"
           >
             Sign In
           </button>
