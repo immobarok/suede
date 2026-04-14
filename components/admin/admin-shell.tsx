@@ -9,7 +9,6 @@ import {
   LayoutDashboard,
   LifeBuoy,
   Settings,
-  Sparkles,
   BarChart3,
   ClipboardList,
   MessageSquare,
@@ -84,10 +83,11 @@ const primaryNav = [
     href: "/admin/exports",
     icon: FileDown,
   },
+
   {
-    label: "Banner Control",
-    href: "/admin/banner",
-    icon: Sparkles,
+    label: "Content Management",
+    href: "/admin/about",
+    icon: BookOpen,
   },
 ];
 
@@ -119,49 +119,49 @@ type AdminShellProps = {
 export default function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname();
   const headerTitle =
-    pathname === "/admin/banner"
-      ? "Banner Control"
-      : pathname === "/admin/growth"
-        ? "Growth Panel"
-        : pathname === "/admin/reviews"
-          ? "Review Activity"
-          : pathname === "/admin/inquiries"
-            ? "Inquiry Activity"
-            : pathname === "/admin/brands"
-              ? "Brand Management"
-              : pathname === "/admin/brand-contacts"
-                ? "Brand Contact Requests"
-                : pathname === "/admin/feedback"
-                  ? "Platform Feedback"
-                  : pathname === "/admin/members"
-                    ? "Member Directory"
-                    : pathname === "/admin/exports"
-                      ? "Data Export"
-      : pathname === "/admin/spec"
-        ? "Admin Spec"
-        : "Overview";
+    pathname === "/admin/growth"
+      ? "Growth Panel"
+      : pathname === "/admin/reviews"
+        ? "Review Activity"
+        : pathname === "/admin/inquiries"
+          ? "Inquiry Activity"
+          : pathname === "/admin/brands"
+            ? "Brand Management"
+            : pathname === "/admin/brand-contacts"
+              ? "Brand Contact Requests"
+              : pathname === "/admin/feedback"
+                ? "Platform Feedback"
+                : pathname === "/admin/members"
+                  ? "Member Directory"
+                  : pathname === "/admin/exports"
+                    ? "Data Export"
+                    : pathname === "/admin/spec"
+                      ? "Admin Spec"
+                      : pathname === "/admin/about"
+                        ? "Content Management"
+                        : "Overview";
   const headerKicker =
-    pathname === "/admin/banner"
-      ? "Content Management"
-      : pathname === "/admin/growth"
-        ? "Insights"
-        : pathname === "/admin/reviews"
+    pathname === "/admin/growth"
+      ? "Insights"
+      : pathname === "/admin/reviews"
+        ? "Activity"
+        : pathname === "/admin/inquiries"
           ? "Activity"
-          : pathname === "/admin/inquiries"
-            ? "Activity"
-            : pathname === "/admin/brands"
-              ? "Directory"
-              : pathname === "/admin/brand-contacts"
-                ? "Inbound"
-                : pathname === "/admin/feedback"
-                  ? "Suggestions"
-                  : pathname === "/admin/members"
-                    ? "Directory"
-                    : pathname === "/admin/exports"
-                      ? "Downloads"
-      : pathname === "/admin/spec"
-        ? "Documentation"
-        : "Admin Dashboard";
+          : pathname === "/admin/brands"
+            ? "Directory"
+            : pathname === "/admin/brand-contacts"
+              ? "Inbound"
+              : pathname === "/admin/feedback"
+                ? "Suggestions"
+                : pathname === "/admin/members"
+                  ? "Directory"
+                  : pathname === "/admin/exports"
+                    ? "Downloads"
+                    : pathname === "/admin/spec"
+                      ? "Documentation"
+                      : pathname === "/admin/about"
+                        ? "Content Management"
+                        : "Admin Dashboard";
 
   return (
     <SidebarProvider defaultOpen>
@@ -172,12 +172,12 @@ export default function AdminShell({ children }: AdminShellProps) {
       >
         <SidebarHeader className="gap-3">
           <div className="flex items-center gap-3 px-2 py-1">
-            <div className="flex size-9 items-center justify-center rounded-full bg-sidebar-primary text-sidebar-primary-foreground">
+            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex size-9 items-center justify-center rounded-full">
               <span className="font-cormorant text-lg">S</span>
             </div>
             <div className="group-data-[collapsible=icon]:hidden">
               <p className="text-sm font-semibold tracking-wide">SUEDE</p>
-              <p className="text-xs text-sidebar-foreground/60">
+              <p className="text-sidebar-foreground/60 text-xs">
                 Admin Console
               </p>
             </div>
@@ -219,7 +219,7 @@ export default function AdminShell({ children }: AdminShellProps) {
                     tooltip={item.label}
                     className={cn(
                       item.disabled &&
-                        "pointer-events-none opacity-60 hover:bg-transparent hover:text-sidebar-foreground/60 ",
+                        "hover:text-sidebar-foreground/60 pointer-events-none opacity-60 hover:bg-transparent",
                     )}
                   >
                     <Link
@@ -240,13 +240,13 @@ export default function AdminShell({ children }: AdminShellProps) {
 
         <SidebarFooter className="gap-3">
           <SidebarSeparator />
-          <div className="flex items-center gap-3 px-2 pb-2 pt-1">
-            <div className="flex size-9 items-center justify-center rounded-full bg-sidebar-accent text-sidebar-accent-foreground">
+          <div className="flex items-center gap-3 px-2 pt-1 pb-2">
+            <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-9 items-center justify-center rounded-full">
               <CircleUser className="size-4" />
             </div>
             <div className="group-data-[collapsible=icon]:hidden">
               <p className="text-sm font-medium">Seeded Admin</p>
-              <p className="text-xs text-sidebar-foreground/60">
+              <p className="text-sidebar-foreground/60 text-xs">
                 admin@local.suede
               </p>
             </div>
@@ -272,11 +272,11 @@ export default function AdminShell({ children }: AdminShellProps) {
         </SidebarFooter>
       </Sidebar>
       <SidebarRail />
-      <SidebarInset className="min-h-svh bg-background">
-        <header className="flex items-center gap-3 border-b border-border bg-background/95 px-4 py-3 backdrop-blur md:px-6">
+      <SidebarInset className="bg-background min-h-svh">
+        <header className="border-border bg-background/95 flex items-center gap-3 border-b px-4 py-3 backdrop-blur md:px-6">
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-muted-foreground text-xs tracking-[0.2em] uppercase">
               {headerKicker}
             </p>
             <h1 className="font-cormorant text-2xl md:text-3xl">

@@ -20,7 +20,7 @@ export const aboutContentUploads = pgTable("about_content_uploads", {
     .default(sql`gen_random_uuid()`),
 
   section: text("section", {
-    enum: ["hero", "mission", "story", "values", "quote"],
+    enum: ["landing_hero", "about_hero", "mission", "story", "values", "quote"],
   }).notNull(),
 
   contentType: text("content_type", {

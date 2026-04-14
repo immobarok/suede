@@ -13,10 +13,10 @@ export default function LoadingScreen({
       <div className="flex flex-col items-center gap-6">
         {/* Logo Animation */}
         <div className="relative h-16 w-32">
-          <div className="border-primary/30 absolute -inset-4 animate-[spin_8s_linear_infinite] rounded-full border-2 border-dashed" />
-          <div className="border-t-primary/60 border-b-primary/60 absolute -inset-2 animate-[spin_3s_linear_infinite] rounded-full border-2 border-r-transparent border-l-transparent" />
+          <div className="border-primary/30 absolute -inset-4 animate-[spin_8s_linear_infinite] rounded-full" />
+          <div className="border-t-primary/60 border-b-primary/60 absolute -inset-2 animate-[spin_3s_linear_infinite] rounded-full" />
 
-          <div className="relative h-full w-full animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]">
+          <div className="relative h-full w-full animate-pulse">
             <Image
               src={LogoTiny}
               alt="Loading"

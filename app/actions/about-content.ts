@@ -6,7 +6,13 @@ import { aboutContentUploads } from "@/db/schema/about";
 import { admins, profiles } from "@/db/schema/core";
 import { hasValidAdminSession } from "@/lib/auth/admin-session";
 
-type AboutSection = "hero" | "mission" | "story" | "values" | "quote";
+type AboutSection =
+  | "landing_hero"
+  | "about_hero"
+  | "mission"
+  | "story"
+  | "values"
+  | "quote";
 type AboutContentType = "image" | "video" | "text" | "json";
 type AboutStatus = "draft" | "published" | "archived";
 

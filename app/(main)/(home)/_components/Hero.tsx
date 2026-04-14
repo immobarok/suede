@@ -1,7 +1,7 @@
-import Image from "next/image"
-import HeroArticle from "./HeroArticle"
-import { NavLink } from "@/components/layout/navbar/nav-link"
-import { listPublishedAboutContent } from "@/app/actions/about-content"
+import Image from "next/image";
+import HeroArticle from "./HeroArticle";
+import { NavLink } from "@/components/layout/navbar/nav-link";
+import { listPublishedAboutContent } from "@/app/actions/about-content";
 
 const navItems = [
   {
@@ -24,18 +24,20 @@ const navItems = [
     label: "The Consign",
     tooltip: "The Consign",
   },
-]
+];
 
 const Hero = async () => {
-  const publishedBanners = await listPublishedAboutContent("hero")
-  const banner = publishedBanners[0]
+  const publishedBanners = await listPublishedAboutContent("landing_hero");
+  const banner = publishedBanners[0];
 
-  const imageUrl = banner?.publicUrl || "https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
-  const title = banner?.title || undefined
-  const subtext = banner?.body || undefined
+  const imageUrl =
+    banner?.publicUrl ||
+    "https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg";
+  const title = banner?.title || undefined;
+  const subtext = banner?.body || undefined;
 
   return (
-    <section className="relative w-full h-screen bg-primary text-primary-foreground overflow-hidden">
+    <section className="bg-primary text-primary-foreground relative h-screen w-full overflow-hidden">
       <Image
         src={imageUrl}
         alt={title || "Hero Image"}
@@ -45,11 +47,11 @@ const Hero = async () => {
       />
       {/* Optional overlay to make text in navbar readable over image */}
       <div className="absolute inset-0 bg-linear-to-b from-black/15 via-black/40 to-black/70" />
-      <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
         <HeroArticle title={title} subtext={subtext} />
       </div>
       {/* Bottom Navigation Links */}
-      <div className="absolute bottom-16 inset-x-0 z-20 container mx-auto">
+      <div className="absolute inset-x-0 bottom-16 z-20 container mx-auto">
         <div className="hidden items-center justify-between px-0 md:flex">
           {navItems.map((item) => (
             <NavLink
@@ -65,7 +67,7 @@ const Hero = async () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

@@ -3,13 +3,22 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export function HeroSection() {
+type HeroContent = {
+  title?: string;
+  body?: string;
+  publicUrl?: string;
+};
+
+export function HeroSection({ content }: { content?: HeroContent }) {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="https://i.ibb.co.com/C3MSFKSx/fc48437d3e8dfcfa1e04d6065f21d53ce4f6ecc7.jpg"
-          alt="Luxury fashion closet"
+          src={
+            content?.publicUrl ||
+            "https://i.ibb.co.com/C3MSFKSx/fc48437d3e8dfcfa1e04d6065f21d53ce4f6ecc7.jpg"
+          }
+          alt={content?.title || "Luxury fashion closet"}
           fill
           className="object-cover"
           priority
@@ -40,9 +49,7 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="font-cormorant ] mb-8 leading-[70.4px] font-normal tracking-wide text-white md:text-[32px]"
             >
-              FASHION. BUILT ON
-              <br />
-              THE TRUTH OF FIT.
+              {content?.title || "FASHION. BUILT ON\nTHE TRUTH OF FIT."}
             </motion.h1>
 
             <motion.p
@@ -51,8 +58,8 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="font-darker max-w-lg text-[16px] leading-relaxed tracking-wide text-white/60"
             >
-              Suede is a luxury fashion trust platform that matches you with
-              real reviews from people who share your exact body measurements.
+              {content?.body ||
+                "Suede is a luxury fashion trust platform that matches you with real reviews from people who share your exact body measurements."}
             </motion.p>
 
             <motion.div

@@ -1,6 +1,6 @@
-import { PageLoader } from '@/components/shared/loading-spinner'
+import LoadingScreen from '@/app/admin/components/LoadingScreen';
 
 export default function Loading() {
-  return <PageLoader />
+  return <LoadingScreen />;
 }
 

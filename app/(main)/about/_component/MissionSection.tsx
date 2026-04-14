@@ -33,11 +33,24 @@ function AnimatedCounter({
   return <span ref={ref}>{count}</span>;
 }
 
-export function MissionSection() {
+type MissionContent = {
+  title?: string;
+  body?: string;
+  metadata?: {
+    problemPercentage?: number;
+    problemDescription?: string;
+    solutionPercentage?: number;
+    solutionTitle?: string;
+    solutionDescription?: string;
+    matchScoreDescription?: string;
+  };
+};
+
+export function MissionSection({ content }: { content?: MissionContent }) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
-  const containerVariants:Variants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -48,7 +61,7 @@ export function MissionSection() {
     },
   };
 
-  const fadeUpVariants:Variants = {
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -60,7 +73,7 @@ export function MissionSection() {
     },
   };
 
-  const lineRevealVariants:Variants = {
+  const lineRevealVariants: Variants = {
     hidden: { scaleX: 0 },
     visible: {
       scaleX: 1,
@@ -71,7 +84,7 @@ export function MissionSection() {
     },
   };
 
-  const solutionCardVariants:Variants = {
+  const solutionCardVariants: Variants = {
     hidden: { opacity: 0, x: 60 },
     visible: {
       opacity: 1,
@@ -108,8 +121,8 @@ export function MissionSection() {
             variants={fadeUpVariants}
             className="font-cormorant mx-auto max-w-4xl text-2xl leading-[1.4] font-normal tracking-[0.02em] text-[#1A1A1A] uppercase md:text-3xl lg:text-4xl"
           >
-            To make every fashion purchase feel like it was made for you —
-            because the reviews came from someone exactly like you.
+            {content?.title ||
+              "To make every fashion purchase feel like it was made for you — because the reviews came from someone exactly like you."}
           </motion.h2>
 
           {/* Decorative Line */}
@@ -140,7 +153,10 @@ export function MissionSection() {
               className="font-cormorant mb-6 text-4xl leading-[1.15] font-normal text-[#1A1A1A] md:text-5xl lg:text-[56px]"
             >
               <span className="inline-block">
-                <AnimatedCounter value={70} />%
+                <AnimatedCounter
+                  value={content?.metadata?.problemPercentage || 70}
+                />
+                %
               </span>{" "}
               of online clothing returns are due to poor fit
             </motion.h3>
@@ -149,9 +165,8 @@ export function MissionSection() {
               variants={fadeUpVariants}
               className="font-darker max-w-md text-[15px] leading-relaxed tracking-wide text-[#8A8A8A]"
             >
-              Size charts lie. Model photos mislead. Traditional reviews tell
-              you nothing about how a garment will look and feel on your
-              specific body. Until now.
+              {content?.metadata?.problemDescription ||
+                "Size charts lie. Model photos mislead. Traditional reviews tell you nothing about how a garment will look and feel on your specific body. Until now."}
             </motion.p>
           </motion.div>
 
@@ -168,13 +183,12 @@ export function MissionSection() {
               </p>
 
               <h4 className="font-cormorant mb-4 text-2xl font-normal text-[#1A1A1A] md:text-3xl">
-                Measurement Match Score
+                {content?.metadata?.solutionTitle || "Measurement Match Score"}
               </h4>
 
               <p className="font-darker mb-8 text-[14px] leading-relaxed tracking-wide text-black/70">
-                SUEDE compares your measurements with real reviewers to generate
-                a Match Score, telling you exactly how relevant each review is
-                to your body. No more guessing if a 4-star review is helpful or not — you can see at a glance if the reviewer’s body is similar to yours, and prioritize reviews from people who are your true fit twins.
+                {content?.metadata?.solutionDescription ||
+                  "SUEDE compares your measurements with real reviewers to generate a Match Score, telling you exactly how relevant each review is to your body. No more guessing if a 4-star review is helpful or not — you can see at a glance if the reviewer's body is similar to yours, and prioritize reviews from people who are your true fit twins."}
               </p>
 
               {/* Match Score Visual */}
@@ -212,7 +226,10 @@ export function MissionSection() {
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="font-darker text-lg font-medium text-[#1A1A1A]">
-                      <AnimatedCounter value={92} />%
+                      <AnimatedCounter
+                        value={content?.metadata?.solutionPercentage || 92}
+                      />
+                      %
                     </span>
                   </div>
                 </div>
@@ -222,7 +239,8 @@ export function MissionSection() {
                     Match Score
                   </p>
                   <p className="font-darker text-[12px] leading-tight text-[#8A8A8A]">
-                    Reviewer has nearly identical body measurements
+                    {content?.metadata?.matchScoreDescription ||
+                      "Reviewer has nearly identical body measurements"}
                   </p>
                 </div>
               </motion.div>

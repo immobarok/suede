@@ -4,7 +4,14 @@ import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
 import { Heart, Leaf, ShieldCheck, Sparkles } from "lucide-react";
 
-const values = [
+const iconMap = {
+  ShieldCheck,
+  Heart,
+  Leaf,
+  Sparkles,
+};
+
+const defaultValues = [
   {
     icon: ShieldCheck,
     title: "Trust First",
@@ -31,7 +38,40 @@ const values = [
   },
 ];
 
-export function ValuesSection() {
+type ValuesMetadata = {
+  header?: {
+    subtitle?: string;
+    title?: string;
+  };
+  values?: Array<{
+    title?: string;
+    icon?: string;
+    description?: string;
+  }>;
+};
+
+type ValueItem = {
+  title?: string;
+  body?: string;
+  metadata?: ValuesMetadata;
+};
+
+type ValuesContent = ValueItem[];
+
+export function ValuesSection({ content }: { content?: ValuesContent }) {
+  // Get metadata from the first content item
+  const metadata = content?.[0]?.metadata as ValuesMetadata;
+
+  const values = metadata?.values?.length
+    ? metadata.values.map((item) => ({
+        icon:
+          item.icon && iconMap[item.icon as keyof typeof iconMap]
+            ? iconMap[item.icon as keyof typeof iconMap]
+            : ShieldCheck,
+        title: item.title || "Value",
+        description: item.description || "",
+      }))
+    : defaultValues;
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
@@ -99,13 +139,13 @@ export function ValuesSection() {
             variants={headerVariants}
             className="font-darker mb-6 text-[11px] tracking-[0.3em] text-[#8A8A8A] uppercase"
           >
-            What We Stand For
+            {metadata?.header?.subtitle || "What We Stand For"}
           </motion.p>
           <motion.h2
             variants={headerVariants}
             className="font-cormorant text-3xl font-normal tracking-[0.02em] text-[#1A1A1A] md:text-4xl"
           >
-            Our Values
+            {metadata?.header?.title || "Our Values"}
           </motion.h2>
         </motion.div>
 

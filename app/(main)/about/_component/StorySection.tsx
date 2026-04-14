@@ -4,7 +4,13 @@ import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
-export function StorySection() {
+type StoryContent = {
+  title?: string;
+  body?: string;
+  publicUrl?: string;
+};
+
+export function StorySection({ content }: { content?: StoryContent }) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
@@ -90,8 +96,11 @@ export function StorySection() {
               className="absolute inset-0"
             >
               <Image
-                src="https://i.ibb.co.com/BHBQ9B8H/Image-With-Fallback-3.png"
-                alt="Fashion designer working in studio"
+                src={
+                  content?.publicUrl ||
+                  "https://i.ibb.co.com/BHBQ9B8H/Image-With-Fallback-3.png"
+                }
+                alt={content?.title || "Fashion designer working in studio"}
                 fill
                 className="object-cover"
                 quality={90}
@@ -119,40 +128,24 @@ export function StorySection() {
               variants={textRevealVariants}
               className="font-cormorant mb-10 text-3xl leading-[1.2] font-normal text-[#1A1A1A] md:text-4xl lg:text-[42px]"
             >
-              Born from a Fitting Room Frustration
+              {content?.title || "Born from a Fitting Room Frustration"}
             </motion.h2>
 
             <div className="space-y-6">
-              <motion.p
-                variants={paragraphVariants}
-                className="font-darker text-[15px] leading-[1.8] tracking-wide text-black/50"
-              >
-                In 2023, SUEDE co-founder Kikiola Akanbi — a former luxury buyer
-                — tracked her online returns for a year. The result:{" "}
-                <span className="font-medium text-[#1A1A1A]">58%</span> of
-                everything she bought came back. Not because the clothes were
-                poor quality. Because they didn&apos;t fit.
-              </motion.p>
-
-              <motion.p
-                variants={paragraphVariants}
-                className="font-darker text-[15px] leading-[1.8] tracking-wide text-black/50"
-              >
-                She called her old colleague Kai Tanaka, who had spent a decade
-                building recommendation systems at major tech firms. Together
-                they asked a simple question: what if the reviewer was built
-                like you?
-              </motion.p>
-
-              <motion.p
-                variants={paragraphVariants}
-                className="font-darker text-[15px] leading-[1.8] tracking-wide text-black/50"
-              >
-                SUEDE launched in January 2025 with 200 beta members, a
-                measurement-matching algorithm, and a single conviction — that
-                honest fit information, from real bodies, is the future of
-                fashion retail.
-              </motion.p>
+              {(
+                content?.body ||
+                "In 2023, SUEDE co-founder Kikiola Akanbi — a former luxury buyer — tracked her online returns for a year. The result: 58% of everything she bought came back. Not because the clothes were poor quality. Because they didn't fit.\n\nShe called her old colleague Kai Tanaka, who had spent a decade building recommendation systems at major tech firms. Together they asked a simple question: what if the reviewer was built like you?\n\nSUEDE launched in January 2025 with 200 beta members, a measurement-matching algorithm, and a single conviction — that honest fit information, from real bodies, is the future of fashion retail."
+              )
+                .split("\n\n")
+                .map((paragraph, index) => (
+                  <motion.p
+                    key={index}
+                    variants={paragraphVariants}
+                    className="font-darker text-[15px] leading-[1.8] tracking-wide text-black/50"
+                  >
+                    {paragraph}
+                  </motion.p>
+                ))}
             </div>
           </motion.div>
         </div>

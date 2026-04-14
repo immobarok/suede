@@ -4,7 +4,12 @@ import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
-export function QuoteSection() {
+type QuoteContent = {
+  title?: string;
+  publicUrl?: string;
+};
+
+export function QuoteSection({ content }: { content?: QuoteContent }) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -14,7 +19,7 @@ export function QuoteSection() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
-  const textVariants:Variants = {
+  const textVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -49,8 +54,10 @@ export function QuoteSection() {
         className="absolute inset-0 -top-[10%] h-[120%] w-full"
       >
         <Image
-          src="https://i.ibb.co.com/JfXZ5K3/Section-2x.png"
-          alt="Diverse women in fashion"
+          src={
+            content?.publicUrl || "https://i.ibb.co.com/JfXZ5K3/Section-2x.png"
+          }
+          alt={content?.title || "Diverse women in fashion"}
           fill
           className="object-cover"
           quality={90}
@@ -86,8 +93,10 @@ export function QuoteSection() {
             variants={textVariants}
             className="font-cormorant text-2xl leading-normal font-normal tracking-wide text-white italic md:text-3xl lg:text-4xl"
           >
-            &ldquo;Fashion should feel effortless. Fit is where effortless
-            begins.&rdquo;
+            &ldquo;
+            {content?.title ||
+              "Fashion should feel effortless. Fit is where effortless begins."}
+            &rdquo;
           </motion.h2>
 
           {/* Decorative line below */}
