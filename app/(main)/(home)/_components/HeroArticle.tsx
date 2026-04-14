@@ -23,9 +23,12 @@ const staggerContainer:Variants = {
   }
 };
 
+type HeroArticleProps = {
+  title?: string;
+  subtext?: string;
+};
 
-
-export default function HeroArticle() {
+export default function HeroArticle({ title, subtext }: HeroArticleProps) {
   return (
     <motion.div 
       initial="hidden"
@@ -43,7 +46,7 @@ export default function HeroArticle() {
             variants={fadeInUp}
             className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase"
           >
-            The Trust Layer For Fashion
+            {title || "The Trust Layer For Fashion"}
           </motion.p>
           <motion.span 
             variants={fadeInUp}
@@ -62,7 +65,7 @@ export default function HeroArticle() {
             variants={fadeInUp}
             className="text-md md:text-[24px] font-normal font-cormorant leading-[28.8px] uppercase"
           >
-            Start your shopping journey with confidence
+            {subtext || "Start your shopping journey with confidence"}
           </motion.p>
           
           <motion.div 

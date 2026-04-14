@@ -1,6 +1,7 @@
 import Image from "next/image"
 import HeroArticle from "./HeroArticle"
 import { NavLink } from "@/components/layout/navbar/nav-link"
+import { listPublishedAboutContent } from "@/app/actions/about-content"
 
 const navItems = [
   {
@@ -25,12 +26,19 @@ const navItems = [
   },
 ]
 
-const Hero = () => {
+const Hero = async () => {
+  const publishedBanners = await listPublishedAboutContent("hero")
+  const banner = publishedBanners[0]
+
+  const imageUrl = banner?.publicUrl || "https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+  const title = banner?.title || undefined
+  const subtext = banner?.body || undefined
+
   return (
     <section className="relative w-full h-screen bg-primary text-primary-foreground overflow-hidden">
       <Image
-        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
-        alt="Hero Image"
+        src={imageUrl}
+        alt={title || "Hero Image"}
         fill
         className="object-cover"
         priority
@@ -38,7 +46,7 @@ const Hero = () => {
       {/* Optional overlay to make text in navbar readable over image */}
       <div className="absolute inset-0 bg-linear-to-b from-black/15 via-black/40 to-black/70" />
       <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
-        <HeroArticle />
+        <HeroArticle title={title} subtext={subtext} />
       </div>
       {/* Bottom Navigation Links */}
       <div className="absolute bottom-16 inset-x-0 z-20 container mx-auto">

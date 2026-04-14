@@ -85,14 +85,9 @@ const primaryNav = [
     icon: FileDown,
   },
   {
-    label: "About Control",
-    href: "/admin/about",
+    label: "Banner Control",
+    href: "/admin/banner",
     icon: Sparkles,
-  },
-  {
-    label: "Admin Spec",
-    href: "/admin/spec",
-    icon: BookOpen,
   },
 ];
 
@@ -124,8 +119,8 @@ type AdminShellProps = {
 export default function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname();
   const headerTitle =
-    pathname === "/admin/about"
-      ? "About Control"
+    pathname === "/admin/banner"
+      ? "Banner Control"
       : pathname === "/admin/growth"
         ? "Growth Panel"
         : pathname === "/admin/reviews"
@@ -146,7 +141,7 @@ export default function AdminShell({ children }: AdminShellProps) {
         ? "Admin Spec"
         : "Overview";
   const headerKicker =
-    pathname === "/admin/about"
+    pathname === "/admin/banner"
       ? "Content Management"
       : pathname === "/admin/growth"
         ? "Insights"
