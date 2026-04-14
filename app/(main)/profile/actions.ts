@@ -31,6 +31,14 @@ export async function updateProfile(data: any) {
     styleVibes,
   } = data;
 
+  // Check if measurements are completed for the first time
+  const currentProfile = await db.query.profiles.findFirst({
+    where: eq(profiles.id, user.id),
+  });
+
+  const allMeasurementsPresent = bustCm && waistCm && hipsCm;
+  const isFirstTimeCompletion = allMeasurementsPresent && !currentProfile?.measurementsCompletedAt;
+
   const profileValues = {
     id: user.id,
     email: user.email ?? "",
@@ -45,6 +53,8 @@ export async function updateProfile(data: any) {
     waistCm,
     hipsCm,
     styleVibes,
+    measurementCompleted: allMeasurementsPresent ? true : currentProfile?.measurementCompleted,
+    measurementsCompletedAt: isFirstTimeCompletion ? new Date() : currentProfile?.measurementsCompletedAt,
     updatedAt: new Date(),
   };
 
@@ -58,6 +68,7 @@ export async function updateProfile(data: any) {
 
   revalidatePath("/profile");
   revalidatePath("/profile/edit");
+  revalidatePath("/admin");
 
   return { success: true };
 }
