@@ -50,7 +50,7 @@ export default function HeroArticle({ title, subtext }: HeroArticleProps) {
           </motion.p>
           <motion.span 
             variants={fadeInUp}
-            className="text-sm md:text-[14px] text-white/70 text-end"
+            className="text-sm md:text-[14px] text-white/70 text-start md:text-end"
           >
             EST2026
           </motion.span>

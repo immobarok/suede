@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Edit } from "lucide-react";
-import { LookBookGrid } from "../the-lookbook/_components/LookbookGrid";
-import { Suspense } from "react";
 import ProfileTabs from "./_components/ProfileTabs";
 import { getProfile } from "./actions";
-import UserInquiries from "./_components/UserInquiries";
+
 
 export const metadata: Metadata = {
   title: "Profile | SUEDE",
@@ -53,9 +51,10 @@ export default async function ProfilePage({
     },
     stylePreferences: profile.styleVibes ?? [],
     stats: [
-      { label: "Followers", value: profile.followersCount ?? 0 },
       { label: "Reviews", value: profile.reviewsCount ?? 0 },
+      {label:"Inquiries", value:profile.inquiriesCount ?? 0},
       { label: "Brands Followed", value: profile.followingCount ?? 0 },
+      { label: "Followers", value: profile.followersCount ?? 0 },
     ],
   };
 
@@ -116,7 +115,7 @@ export default async function ProfilePage({
               {userData.username}
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-6 mb-6 md:mb-10">
               <div>
                 <h3 className="font-darker text-[12px] uppercase tracking-[0.2em] text-black/60 mb-3">
                   Body Measurements
@@ -164,29 +163,21 @@ export default async function ProfilePage({
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12 py-8 border-t border-black/10">
-          {userData.stats.map((stat) => (
-            <div key={stat.label}>
-              <div className="text-[32px] font-light text-black mb-1">
-                {stat.value}
-              </div>
-              <div className="text-[12px] uppercase tracking-widest text-black/40">
-                {stat.label}
-              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-0 py-0 border-t border-black/10">
+              {userData.stats.map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-[32px] font-light text-black mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-[12px] uppercase tracking-widest text-black/40">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-
-        <ProfileTabs activeView={view} />
-
-        <div className="mt-8">
-          <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading...</div>}>
-            {view === "reviews" ? <LookBookGrid /> : <UserInquiries profile={profile} />}
-          </Suspense>
-        </div>
+          </div>
+          </div>
+        <ProfileTabs activeView={view} profile={profile} />
       </div>
     </main>
   );

@@ -128,17 +128,25 @@ const reviews = [
   },
 ];
 
-export function LookBookGrid() {
+export function LookBookGrid({ 
+  hideUserStats = false 
+}: { 
+  hideUserStats?: boolean;
+}) {
+
+
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <section className="relative  px-4 pt-5 pb-24 md:px-8 lg:px-16">
+    <section className="relative px-0 pt-5 pb-24">
       {!isLoading && !isAuthenticated && (
         <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[32%] w-full bg-linear-to-b from-transparent via-[#f5f5f0]/98 via-70% to-[#f5f5f0]" />
       )}
 
       <div className="relative container mx-auto">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+
           {reviews.map((review, index) => {
             const isGuestRow = !isLoading && !isAuthenticated && index >= 3;
 
@@ -147,7 +155,8 @@ export function LookBookGrid() {
                 key={`${review.userHandle}-${index}`}
                 className={`relative ${isGuestRow ? "pointer-events-none" : ""}`}
               >
-                <LookBookCard {...review} index={index} />
+                <LookBookCard {...review} index={index} hideUserStats={hideUserStats} />
+
               </div>
             );
           })}

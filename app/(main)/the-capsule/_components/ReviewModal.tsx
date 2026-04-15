@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, ExternalLink, Lock, Mail, Star, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useQueryModal } from "@/hooks"; // Ensure your query-based hook is setup
+import { useAuth } from "@/hooks/use-user";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
@@ -41,6 +42,7 @@ const itemVariants:Variants = {
 
 export function ReviewModal({ slug = "nadi-by-dani" }: { slug?: string }) {
   const { isOpen, open, close } = useQueryModal("view", "review");
+  const { isAuthenticated } = useAuth();
 
   return (
     <Dialog open={isOpen} onOpenChange={(next) => (next ? open() : close())}>
@@ -92,7 +94,7 @@ export function ReviewModal({ slug = "nadi-by-dani" }: { slug?: string }) {
                   <motion.div whileTap={{ scale: 0.97 }} whileHover={{ x: 8 }}>
                     <Link
                       href={`/the-capsule/${slug}`}
-                      className="flex h-16 w-full items-center justify-center gap-3 bg-black text-[14px] font-bold tracking-[0.3em] uppercase text-white transition-all hover:bg-neutral-800"
+                      className="flex h-14 w-full items-center justify-center gap-3 bg-black text-[14px] font-normal text-white transition-all hover:bg-black/90"
                     >
                       Visit Brand <ChevronRight className="h-4 w-4" />
                     </Link>
@@ -110,14 +112,22 @@ export function ReviewModal({ slug = "nadi-by-dani" }: { slug?: string }) {
                       <p className="text-[14px] text-neutral-400">Share your experience with this brand</p>
                     </div>
                   </div>
-                  <motion.div whileTap={{ scale: 0.97 }}>
-                    <Button
-                      variant="outline"
-                      className="flex h-16 w-full items-center justify-center gap-3 rounded-none border-neutral-200 text-[14px] font-bold tracking-[0.3em] uppercase text-black transition-colors hover:bg-neutral-50"
+                  <motion.div whileTap={{ scale: 0.97 }} whileHover={{ x: 8 }}>
+                    <Link
+                      href={isAuthenticated ? "/reviews" : "/auth/login"}
+                      className="flex h-14 w-full items-center justify-center gap-3 bg-black text-[14px] font-normal text-white transition-all hover:bg-black/90"
                     >
-                      <Lock className="h-4 w-4 text-neutral-300" />
-                      Sign in to Review
-                    </Button>
+                      {isAuthenticated ? (
+                        <>
+                          Leave a Review <ChevronRight className="h-4 w-4" />
+                        </>
+                      ) : (
+                        <>
+                          <Lock className="h-4 w-4 text-neutral-300" />
+                          Sign in to Review
+                        </>
+                      )}
+                    </Link>
                   </motion.div>
                 </motion.div>
 
@@ -132,14 +142,22 @@ export function ReviewModal({ slug = "nadi-by-dani" }: { slug?: string }) {
                       <p className="text-[14px] text-neutral-400">Ask a specific question about services</p>
                     </div>
                   </div>
-                  <motion.div whileTap={{ scale: 0.97 }}>
-                    <Button
-                      variant="outline"
-                      className="flex h-16 w-full items-center justify-center gap-3 rounded-none border-neutral-200 text-[14px] font-bold tracking-[0.3em] uppercase text-black transition-colors hover:bg-neutral-50"
+                  <motion.div whileTap={{ scale: 0.97 }} whileHover={{ x: 8 }}>
+                    <Link
+                      href={isAuthenticated ? "/inquiry" : "/auth/login"}
+                      className="flex h-14 w-full items-center justify-center gap-3 bg-black text-[14px] font-normal text-white transition-all hover:bg-black/90"
                     >
-                      <Lock className="h-4 w-4 text-neutral-300" />
-                      Sign in to Inquire
-                    </Button>
+                      {isAuthenticated ? (
+                        <>
+                          Leave an Inquiry <ChevronRight className="h-4 w-4" />
+                        </>
+                      ) : (
+                        <>
+                          <Lock className="h-4 w-4 text-neutral-300" />
+                          Sign in to Inquire
+                        </>
+                      )}
+                    </Link>
                   </motion.div>
                 </motion.div>
               </div>

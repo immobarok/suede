@@ -47,21 +47,23 @@ export default function CapsuleBrandPage() {
           </div>
 
           <div className="overflow-hidden border border-black/10 bg-black/20">
-            <div className="relative aspect-[16/7] w-full">
-              <Image
-                src="https://i.ibb.co/zhJPWP40/Frame-70-1.png"
-                alt="Nadi"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              <div className="absolute left-10 bottom-10 text-white">
-                <div className="text-[30px]">NADI</div>
-                <div className="text-[12px] text-[#C6C5C2]">Womenswear Brooklyn, NY</div>
-                 <div className="text-[14px] text-[#C6C5C2] pt-3.5">
-                Founded by Aya Okonkwo, blending West African textiles with modern silhouettes.
+            <div 
+              className="relative aspect-[16/7] w-full overflow-hidden"
+              style={{ 
+                background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.00) 54.99%, #000 95.68%), url(https://i.ibb.co.com/jZgx4HML/Chat-GPT-Image-Apr-16-2026-12-53-48-AM.png) lightgray 0px -24.822px / 100% 282.157% no-repeat"
+              }}
+            >
+              {/* Centered Brand Name */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-[42px] font-normal tracking-[0.05em] leading-none text-white uppercase">NADI</div>
               </div>
+
+              {/* Bottom-left Info */}
+              <div className="absolute left-10 bottom-10 text-white max-w-2xl">
+                <div className="text-[12px] text-[#C6C5C2] uppercase tracking-[0.2em]">Womenswear Brooklyn, NY</div>
+                <div className="text-[14px] text-[#C6C5C2] pt-3.5 leading-relaxed">
+                  Founded by Aya Okonkwo, blending West African textiles with modern silhouettes.
+                </div>
               </div>
             </div>
           </div>

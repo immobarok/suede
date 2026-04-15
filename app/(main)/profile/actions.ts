@@ -2,7 +2,9 @@
 
 import { profiles } from "@/db/schema/core";
 import { createClient } from "@/lib/supabase/server";
-import { eq } from "drizzle-orm";
+import { eq, count } from "drizzle-orm";
+import { reviewRequests } from "@/db/schema/lookbook";
+
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";
 
@@ -122,22 +124,38 @@ export async function getProfile() {
     followersCount: 0,
     followingCount: 0,
     reviewsCount: 0,
+    inquiriesCount: 0,
     isActive: true,
+
     emailVerified: false,
     measurementCompleted: false,
     createdAt: null,
     updatedAt: null,
   };
 
+  const inquiryCountResult = await db
+    .select({ total: count() })
+    .from(reviewRequests)
+    .where(eq(reviewRequests.userId, user.id));
+
+  const enquiriesCount = inquiryCountResult[0]?.total ?? 0;
+
   if (!profile) {
-    return authFallback;
+
+    return {
+      ...authFallback,
+      inquiriesCount: enquiriesCount,
+    };
   }
 
   return {
     ...authFallback,
     ...profile,
+    inquiriesCount: enquiriesCount,
     displayName: profile.displayName ?? authFallback.displayName,
     username: profile.username ?? authFallback.username,
     avatarUrl: profile.avatarUrl ?? authFallback.avatarUrl,
   };
 }
+
+

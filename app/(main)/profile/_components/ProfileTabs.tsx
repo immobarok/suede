@@ -1,15 +1,32 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContents,
+  TabsContent,
+  TabsHighlight,
+  TabsHighlightItem,
+} from "@/components/animate-ui/primitives/animate/tabs";
+import { LookBookGrid } from "../../the-lookbook/_components/LookbookGrid";
+import UserInquiries from "./UserInquiries";
 
-const ProfileTabs = ({ activeView }: { activeView: string }) => {
+
+const ProfileTabs = ({
+  activeView,
+  profile,
+}: {
+  activeView: string;
+  profile: any;
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleTabClick = useCallback(
+  const handleTabChange = useCallback(
     (view: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set("view", view);
@@ -18,35 +35,60 @@ const ProfileTabs = ({ activeView }: { activeView: string }) => {
     [pathname, router, searchParams]
   );
 
-  const tabs = [
-    { label: "Reviews", value: "reviews" },
-    { label: "Inquiries", value: "inquiries" },
-  ];
-
   return (
-    <div className="flex w-full mb-8 border-b border-black/10">
-      {tabs.map((tab) => (
-        <button
-          key={tab.value}
-          onClick={() => handleTabClick(tab.value)}
-          className={`relative flex-1 py-4 text-[14px] uppercase tracking-[0.2em] transition-colors ${
-            activeView === tab.value
-              ? "text-black font-medium"
-              : "text-black/40 hover:text-black/60"
-          }`}
+    <Tabs
+      value={activeView}
+      onValueChange={handleTabChange}
+      className="w-full"
+    >
+
+      <div className="relative mt-[29px] mb-6">
+
+
+        <TabsHighlight
+          mode="parent"
+          className="absolute inset-1 bg-white z-0"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          {tab.label}
-          {activeView === tab.value && (
-            <motion.div
-              layoutId="profileTabUnderline"
-              className="absolute bottom-0 left-0 right-0 h-[2px] bg-black"
-              transition={{ type: "spring", stiffness: 380, damping: 30 }}
-            />
-          )}
-        </button>
-      ))}
-    </div>
+          <TabsList className="relative flex w-full bg-black/5 p-1">
+
+
+            <TabsHighlightItem value="reviews" className="flex-1">
+              <TabsTrigger
+                value="reviews"
+                className="relative z-10 w-full py-2.5 text-[13px] uppercase tracking-[0.15em] transition-colors data-[state=active]:text-black data-[state=active]:bg-white! text-black/40 hover:text-black/60 font-darker font-medium"
+              >
+                Reviews
+              </TabsTrigger>
+            </TabsHighlightItem>
+            <TabsHighlightItem value="inquiries" className="flex-1">
+              <TabsTrigger
+                value="inquiries"
+                className="relative z-10 w-full py-2.5 text-[13px] uppercase tracking-[0.15em] transition-colors data-[state=active]:text-black data-[state=active]:bg-white! text-black/40 hover:text-black/60 font-darker font-medium"
+              >
+                Inquiries
+              </TabsTrigger>
+            </TabsHighlightItem>
+          </TabsList>
+        </TabsHighlight>
+      </div>
+
+      <div className="mt-8">
+        <TabsContents>
+          <TabsContent value="reviews">
+            <LookBookGrid hideUserStats={true} />
+          </TabsContent>
+
+
+
+          <TabsContent value="inquiries">
+            <UserInquiries profile={profile} />
+          </TabsContent>
+        </TabsContents>
+      </div>
+    </Tabs>
   );
 };
 
 export default ProfileTabs;
+

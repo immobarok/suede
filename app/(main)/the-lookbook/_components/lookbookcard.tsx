@@ -30,7 +30,9 @@ interface ReviewCardProps {
   likes: number;
   comments: number;
   index?: number;
+  hideUserStats?: boolean;
 }
+
 
 export function LookBookCard({
   productImage,
@@ -50,7 +52,9 @@ export function LookBookCard({
   likes,
   comments,
   index = 0,
+  hideUserStats = false,
 }: ReviewCardProps) {
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
@@ -82,39 +86,45 @@ export function LookBookCard({
         <Card className="flex h-full flex-col overflow-hidden rounded-none bg-white shadow-md ring-0">
           {/* Header: User Info & Measurements */}
           <div className="flex items-start justify-between px-8 pt-8 pb-6">
-            {/* User Profile - Left */}
-            <div className="flex items-center gap-4">
-              <Avatar className="h-16 w-16 rounded-full border-2 border-[#f8e8e8]">
-                <AvatarImage src={userAvatar} alt={userName} />
-                <AvatarFallback className="font-cormorant bg-[#fdf2f2] text-xl text-[#1a1a1a]">
-                  {userName.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <h3 className="font-cormorant text-xl font-medium tracking-wide text-[#1a1a1a]">
-                  {userName}
-                </h3>
-                <p className="font-darker mt-0.5 text-sm text-[#8a8a8a]">
-                  {userHandle}
-                </p>
-              </div>
-            </div>
+            {!hideUserStats && (
+              <>
+                {/* User Profile - Left */}
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-16 w-16 rounded-full border-2 border-[#f8e8e8]">
+                    <AvatarImage src={userAvatar} alt={userName} />
+                    <AvatarFallback className="font-cormorant bg-[#fdf2f2] text-xl text-[#1a1a1a]">
+                      {userName.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <h3 className="font-cormorant text-xl font-medium tracking-wide text-[#1a1a1a]">
+                      {userName}
+                    </h3>
+                    <p className="font-darker mt-0.5 text-sm text-[#8a8a8a]">
+                      {userHandle}
+                    </p>
+                  </div>
+                </div>
 
-            {/* Measurements - Right */}
-            <div className="text-right">
-              <p className="font-darker text-sm font-normal tracking-wide text-[#1a1a1a]">
-                H: {height} / B:{weight} / W: {waist} / H: {hips}
-              </p>
-            </div>
+                {/* Measurements - Right */}
+                <div className="text-right">
+                  <p className="font-darker text-sm font-normal tracking-wide text-[#1a1a1a]">
+                    H: {height} / B:{weight} / W: {waist} / H: {hips}
+                  </p>
+                </div>
+              </>
+            )}
+
+
           </div>
 
           {/* Main Content: Product Details & Image */}
           <div className="grid grid-cols-2 gap-8 px-8 pb-6">
             {/* Left: Product Info */}
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-center gap-6">
               <div>
                 {/* Product Name & Size */}
-                <div className="mb-4 flex items-baseline justify-between">
+                <div className="flex items-baseline justify-between">
                   <h2 className="font-cormorant text-[20px] font-normal text-black">
                     {productName}
                   </h2>
@@ -124,7 +134,7 @@ export function LookBookCard({
                 </div>
 
                 {/* Review Text */}
-                <p className="font-darker mb-6 text-[15px] leading-relaxed text-black/70">
+                <p className="font-darker mt-4 text-[15px] leading-relaxed text-black/70">
                   {reviewText.split(" ").length > 15
                     ? reviewText.split(" ").slice(0, 15).join(" ") + "..."
                     : reviewText}
@@ -132,7 +142,7 @@ export function LookBookCard({
               </div>
 
               {/* See Full Review Link */}
-              <div className="mt-auto flex justify-end">
+              <div className="flex justify-end">
                 <button className="font-darker cursor-pointer text-sm text-black/70 underline decoration-[#8a8a8a] underline-offset-4 transition-all hover:decoration-[#1a1a1a]">
                   See Full Review
                 </button>
