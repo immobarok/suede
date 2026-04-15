@@ -7,10 +7,14 @@ import { Separator } from "@/components/ui/separator";
 import { Logo } from "./navbar/Logo";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 // Data for navigation links
 export function Footer() {
   const pathname = usePathname();
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (pathname.startsWith("/consultation")) {
     return null;
@@ -118,18 +122,43 @@ export function Footer() {
             <p className="text-primary-foreground/70 mb-2 leading-relaxed">
               {copy.newsletterTagline}
             </p>
-            <form className="flex w-full max-w-sm items-center">
+            <form 
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                try {
+                  const { subscribeToNewsletter } = await import("@/app/actions/newsletter");
+                  const result = await subscribeToNewsletter(email);
+                  if (result.success) {
+                    toast.success(result.message);
+                    setEmail("");
+                  } else {
+                    toast.error(result.error);
+                  }
+                } catch (err) {
+                  toast.error("Something went wrong. Please try again.");
+                } finally {
+                  setIsLoading(false);
+                }
+              }}
+              className="flex w-full max-w-sm items-center"
+            >
               <div className="relative flex w-full">
                 <Input
                   type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder={copy.emailPlaceholder}
                   className="h-12 rounded-none border-none bg-[#222222] text-white placeholder:text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  disabled={isLoading}
                 />
                 <Button
                   type="submit"
+                  disabled={isLoading}
                   className="h-12 cursor-pointer rounded-none bg-[#F8F7F2] px-6 text-xs font-semibold tracking-wider whitespace-nowrap text-black uppercase hover:bg-[#ffffff]"
                 >
-                  {copy.joinWaitlist}
+                  {isLoading ? "Joining..." : copy.joinWaitlist}
                 </Button>
               </div>
             </form>

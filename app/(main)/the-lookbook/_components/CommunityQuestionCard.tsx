@@ -149,6 +149,7 @@ export function CommunityQuestionCard({
                   alt={productName}
                   fill
                   className="object-cover"
+                  unoptimized
                 />
               </motion.div>
             </div>

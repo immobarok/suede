@@ -49,7 +49,7 @@ export function AuthSection({
   console.log(profileAvatarUrl);
 
   // Determine active tab from current pathname
-  const activeTab = pathname === "auth/register" ? "register" : "signin";
+  const activeTab = pathname === "/auth/register" ? "register" : "signin";
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -190,7 +190,7 @@ export function AuthSection({
         <div className="relative flex h-9.75 items-center rounded-full border-2 border-white bg-black">
           {/* Sign In tab */}
           <Link
-            href="login"
+            href="/auth/login"
             className="relative flex h-full items-center px-7 text-[15px] font-medium text-white transition-colors duration-200"
           >
             {activeTab === "signin" && (
@@ -205,7 +205,7 @@ export function AuthSection({
 
           {/* Create Account tab */}
           <Link
-            href="register"
+            href="/auth/register"
             className="relative flex h-full items-center px-4 text-[15px] font-medium whitespace-nowrap text-white transition-colors duration-200"
           >
             {activeTab === "register" && (

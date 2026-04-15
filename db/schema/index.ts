@@ -1,5 +1,5 @@
 // Core tables
-export { profiles, admins, brands, reviewerStats } from "./core";
+export { profiles, admins, brands, reviewerStats, newsletterSubscriptions } from "./core";
 
 // Capsule (Brand Directory)
 export { featuredBrands, brandEvaluations } from "./capsule";

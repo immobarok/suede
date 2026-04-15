@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Edit } from "lucide-react";
 import { LookBookGrid } from "../the-lookbook/_components/LookbookGrid";
-import Inqueries from "../the-lookbook/_components/inqueries";
 import { Suspense } from "react";
 import ProfileTabs from "./_components/ProfileTabs";
 import { getProfile } from "./actions";
+import UserInquiries from "./_components/UserInquiries";
 
 export const metadata: Metadata = {
   title: "Profile | SUEDE",
@@ -36,7 +36,7 @@ export default async function ProfilePage({
     );
   }
 
-  // Map backend data to UI fields (no dummy data)
+  // Map backend data to UI fields
   const userData = {
     name: profile.displayName || "—",
     username: profile.username ? `@${profile.username.replace(/^@/, "")}` : "—",
@@ -61,7 +61,6 @@ export default async function ProfilePage({
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* Background Image - same as capsule page */}
       <Image
         src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
         alt="Background"
@@ -72,7 +71,6 @@ export default async function ProfilePage({
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/20 to-white/10" />
 
       <div className="relative z-10 container mx-auto px-4 md:px-0 pt-24 pb-12">
-        {/* Back link */}
         <Link
           href="/the-collective"
           className="mb-8 inline-flex items-center gap-2 text-[12px] uppercase tracking-wider text-black/60 hover:text-black"
@@ -80,9 +78,7 @@ export default async function ProfilePage({
           ← Back to The Collective
         </Link>
 
-        {/* Profile Header */}
         <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-          {/* Avatar */}
           <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-white/50 shadow-lg bg-neutral-100 flex items-center justify-center">
             {userData.avatar ? (
               <Image
@@ -104,7 +100,6 @@ export default async function ProfilePage({
             )}
           </div>
 
-          {/* Profile Info */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-2">
               <h1 className="font-cormorant text-[42px] leading-tight text-black">
@@ -123,9 +118,9 @@ export default async function ProfilePage({
 
             <div className="space-y-6">
               <div>
-              <h3 className="font-darker text-[12px] uppercase tracking-[0.2em] text-black/60 mb-3">
-                Body Measurements
-              </h3>
+                <h3 className="font-darker text-[12px] uppercase tracking-[0.2em] text-black/60 mb-3">
+                  Body Measurements
+                </h3>
                 <div className="flex flex-wrap gap-x-8 gap-y-2">
                   {Object.entries(userData.measurements)
                     .filter(([, val]) => !!val)
@@ -172,7 +167,6 @@ export default async function ProfilePage({
           </div>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12 py-8 border-t border-black/10">
           {userData.stats.map((stat) => (
             <div key={stat.label}>
@@ -186,12 +180,11 @@ export default async function ProfilePage({
           ))}
         </div>
 
-        {/* Tabs and Content */}
         <ProfileTabs activeView={view} />
 
         <div className="mt-8">
           <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading...</div>}>
-            {view === "reviews" ? <LookBookGrid /> : <Inqueries />}
+            {view === "reviews" ? <LookBookGrid /> : <UserInquiries profile={profile} />}
           </Suspense>
         </div>
       </div>

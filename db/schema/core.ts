@@ -146,3 +146,14 @@ export const reviewerStats = pgTable("reviewer_stats", {
   earningsTotal: text("earnings_total").default("0"),
   responseRate: integer("response_rate").default(0),
 });
+
+// Newsletter Subscriptions
+export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  email: text("email").notNull().unique(),
+  status: text("status", { enum: ["active", "unsubscribed"] }).default("active"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});
