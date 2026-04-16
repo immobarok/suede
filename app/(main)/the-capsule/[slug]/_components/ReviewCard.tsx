@@ -1,27 +1,10 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ThumbsUp, MessageCircle } from "lucide-react";
-
-interface ReviewCardProps {
-  name: string;
-  handle: string;
-  title: string;
-  size: string;
-  rating: number;
-  image: string;
-  excerpt: string;
-  avatar?: string;
-  height?: string;
-  bust?: string;
-  waist?: string;
-  hips?: string;
-  likes?: number;
-  comments?: number;
-  photoCount?: number;
-  index?: number;
-}
+import { ReviewCardProps } from "@/types";
 
 export function ReviewCard({
   name,
@@ -66,11 +49,11 @@ export function ReviewCard({
           </div>
           <div>
             <div className="text-[20px] font-medium text-black">{name}</div>
-            <div className="text-[11px] text-[#000]/50">{handle}</div>
+            <div className="text-[11px] text-black/50">{handle}</div>
           </div>
         </div>
-        <div className="text-[16px] text-[#000]">
-          H: {height}/ B:{bust}/ W: {waist}/ H: {hips}'
+        <div className="text-[16px] text-black">
+          H: {height}/ B:{bust}/ W: {waist}/ H: {hips}&apos;
         </div>
       </div>
 
@@ -81,21 +64,28 @@ export function ReviewCard({
             <span className="text-[20px] text-black">{title}</span>
             <span className="text-[20px] text-black">Size: {size}</span>
           </div>
-          
-          <p className="text-[16px] leading-[1.6] text-black/70 mt-1">
+
+          <p className="mt-1 text-[16px] leading-[1.6] text-black/70">
             {excerpt}
           </p>
-          
-          <button className="mt-auto pt-4 text-[16px] text-accent-foreground/70 underline underline-offset-2 hover:text-black text-end cursor-pointer">
+
+          <button className="text-accent-foreground/70 mt-auto cursor-pointer pt-4 text-end text-[16px] underline underline-offset-2 hover:text-black">
             See Full Review
           </button>
         </div>
 
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
+        <div className="relative aspect-4/5 w-full overflow-hidden bg-neutral-100">
           <Image src={image} alt={title} fill className="object-cover" />
           {photoCount > 1 && (
-            <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded bg-white/90 px-2 py-1 text-[10px] font-medium text-black shadow-sm">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="absolute right-2 bottom-2 flex items-center gap-1 rounded bg-white/90 px-2 py-1 text-[10px] font-medium text-black shadow-sm">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
@@ -122,8 +112,17 @@ export function ReviewCard({
           NADI
         </div>
         <div className="flex items-center gap-1.5 text-[12px] text-black">
-          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
-            <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="black"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="22"
+            viewBox="0 0 23 22"
+            fill="none"
+          >
+            <path
+              d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z"
+              fill="black"
+            />
           </svg>
           <span>{rating}</span>
         </div>
