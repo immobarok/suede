@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ThumbsUp, MessageCircle } from "lucide-react";
 import { ReviewCardProps } from "@/types";
 
-export function ReviewCard({
+const ReviewCard = React.memo(function ReviewCard({
   name,
   handle,
   title,
@@ -42,7 +42,13 @@ export function ReviewCard({
         <div className="flex items-center gap-3">
           <div className="relative h-10 w-10 overflow-hidden rounded-full bg-neutral-200">
             {avatar ? (
-              <Image src={avatar} alt={name} fill className="object-cover" />
+              <Image
+                src={avatar}
+                alt={name}
+                fill
+                className="object-cover"
+                loading="lazy"
+              />
             ) : (
               <div className="h-full w-full bg-neutral-300" />
             )}
@@ -75,7 +81,13 @@ export function ReviewCard({
         </div>
 
         <div className="relative aspect-4/5 w-full overflow-hidden bg-neutral-100">
-          <Image src={image} alt={title} fill className="object-cover" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            loading="lazy"
+          />
           {photoCount > 1 && (
             <div className="absolute right-2 bottom-2 flex items-center gap-1 rounded bg-white/90 px-2 py-1 text-[10px] font-medium text-black shadow-sm">
               <svg
@@ -129,4 +141,6 @@ export function ReviewCard({
       </div>
     </motion.div>
   );
-}
+});
+
+export default ReviewCard;
