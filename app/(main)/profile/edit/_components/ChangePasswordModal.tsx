@@ -84,7 +84,7 @@ export default function ChangePasswordModal() {
       open={isPasswordOpen}
       onOpenChange={(next) => (next ? openPassword() : handleClose())}
     >
-      <DialogContent className="w-[95vw] max-w-[520px] rounded-none border-none bg-white p-0 shadow-[0_40px_80px_rgba(0,0,0,0.2)]">
+      <DialogContent className="w-[95vw] max-w-130 rounded-none border-none bg-white p-0 shadow-[0_40px_80px_rgba(0,0,0,0.2)]">
         <div className="border-b border-black/10 px-8 py-6">
           <DialogTitle className="font-cormorant text-[24px]">
             Change Password

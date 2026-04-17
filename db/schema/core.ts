@@ -59,7 +59,9 @@ export const profiles = pgTable("profiles", {
   isActive: boolean("is_active").default(true),
   emailVerified: boolean("email_verified").default(false),
   measurementCompleted: boolean("measurement_completed").default(false),
-  measurementsCompletedAt: timestamp("measurements_completed_at", { withTimezone: true }),
+  measurementsCompletedAt: timestamp("measurements_completed_at", {
+    withTimezone: true,
+  }),
 
   // Timestamps
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
@@ -153,7 +155,9 @@ export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   email: text("email").notNull().unique(),
-  status: text("status", { enum: ["active", "unsubscribed"] }).default("active"),
+  status: text("status", { enum: ["active", "unsubscribed"] }).default(
+    "active",
+  ),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });

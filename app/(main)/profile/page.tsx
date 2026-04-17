@@ -5,7 +5,6 @@ import { Edit } from "lucide-react";
 import ProfileTabs from "./_components/ProfileTabs";
 import { getProfile } from "./actions";
 
-
 export const metadata: Metadata = {
   title: "Profile | SUEDE",
   description: "User profile on SUEDE",
@@ -22,7 +21,7 @@ export default async function ProfilePage({
   if (!profile) {
     return (
       <main className="relative min-h-screen overflow-hidden">
-        <div className="relative z-10 container mx-auto px-4 md:px-0 pt-24 pb-12">
+        <div className="relative z-10 container mx-auto px-4 pt-24 pb-12 md:px-0">
           <h1 className="font-cormorant text-[42px] leading-tight text-black">
             Please sign in
           </h1>
@@ -42,17 +41,18 @@ export default async function ProfilePage({
     measurements: {
       height: profile.heightCm
         ? `${Math.floor(profile.heightCm / 30.48)}'${Math.round(
-            (profile.heightCm % 30.48) / 2.54
+            (profile.heightCm % 30.48) / 2.54,
           )}"`
         : null,
       bust: profile.bustCm ? `${profile.bustCm}"` : null,
       waist: profile.waistCm ? `${profile.waistCm}"` : null,
       hips: profile.hipsCm ? `${profile.hipsCm}"` : null,
     },
+    bodyType: profile.bodyType || null,
     stylePreferences: profile.styleVibes ?? [],
     stats: [
       { label: "Reviews", value: profile.reviewsCount ?? 0 },
-      {label:"Inquiries", value:profile.inquiriesCount ?? 0},
+      { label: "Inquiries", value: profile.inquiriesCount ?? 0 },
       { label: "Brands Followed", value: profile.followingCount ?? 0 },
       { label: "Followers", value: profile.followersCount ?? 0 },
     ],
@@ -67,18 +67,18 @@ export default async function ProfilePage({
         className="object-cover opacity-25 grayscale"
         priority
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/20 to-white/10" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/20 to-white/10" />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-0 pt-24 pb-12">
+      <div className="relative z-10 container mx-auto px-4 pt-24 pb-12 md:px-0">
         <Link
           href="/the-collective"
-          className="mb-8 inline-flex items-center gap-2 text-[12px] uppercase tracking-wider text-black/60 hover:text-black"
+          className="mb-8 inline-flex items-center gap-2 text-[12px] tracking-wider text-black/60 uppercase hover:text-black"
         >
           ← Back to The Collective
         </Link>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-          <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-white/50 shadow-lg bg-neutral-100 flex items-center justify-center">
+        <div className="mb-12 flex flex-col items-start gap-8 md:flex-row">
+          <div className="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white/50 bg-neutral-100 shadow-lg">
             {userData.avatar ? (
               <Image
                 src={userData.avatar}
@@ -100,24 +100,24 @@ export default async function ProfilePage({
           </div>
 
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
+            <div className="mb-2 flex items-center justify-between">
               <h1 className="font-cormorant text-[42px] leading-tight text-black">
                 {userData.name}
               </h1>
               <Link
                 href="/profile/edit"
-                className="p-2 hover:bg-black/5 rounded-full transition-colors"
+                className="rounded-full p-2 transition-colors hover:bg-black/5"
               >
                 <Edit className="h-5 w-5 text-black" />
               </Link>
             </div>
-            <p className="font-darker text-[16px] text-black/40 mb-6">
+            <p className="font-darker mb-6 text-[16px] text-black/40">
               {userData.username}
             </p>
 
-            <div className="space-y-6 mb-6 md:mb-10">
+            <div className="mb-6 space-y-6 md:mb-10">
               <div>
-                <h3 className="font-darker text-[12px] uppercase tracking-[0.2em] text-black/60 mb-3">
+                <h3 className="font-darker mb-3 text-[12px] tracking-[0.2em] text-black/60 uppercase">
                   Body Measurements
                 </h3>
                 <div className="flex flex-wrap gap-x-8 gap-y-2">
@@ -133,7 +133,9 @@ export default async function ProfilePage({
                         </span>
                       </div>
                     ))}
-                  {Object.values(userData.measurements).every((val) => !val) && (
+                  {Object.values(userData.measurements).every(
+                    (val) => !val,
+                  ) && (
                     <span className="font-darker text-[14px] text-black/40">
                       No measurements yet
                     </span>
@@ -141,8 +143,19 @@ export default async function ProfilePage({
                 </div>
               </div>
 
+              {userData.bodyType && (
+                <div>
+                  <h3 className="font-darker mb-3 text-[12px] tracking-[0.2em] text-black/60 uppercase">
+                    Body Type
+                  </h3>
+                  <span className="font-darker bg-black/5 px-3 py-1 text-[12px] text-black/60">
+                    {userData.bodyType}
+                  </span>
+                </div>
+              )}
+
               <div>
-                <h3 className="font-darker text-[12px] uppercase tracking-[0.2em] text-black/60 mb-3">
+                <h3 className="font-darker mb-3 text-[12px] tracking-[0.2em] text-black/60 uppercase">
                   Style Preferences
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -150,33 +163,33 @@ export default async function ProfilePage({
                     userData.stylePreferences.map((style) => (
                       <span
                         key={style}
-                        className="bg-black/5 px-3 py-1 text-[12px] text-black/60 font-darker"
+                        className="font-darker bg-black/5 px-3 py-1 text-[12px] text-black/60"
                       >
                         {style}
                       </span>
                     ))
                   ) : (
-                    <span className="text-[12px] text-black/40 font-darker">
+                    <span className="font-darker text-[12px] text-black/40">
                       No style preferences yet
                     </span>
                   )}
                 </div>
               </div>
             </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-0 py-0 border-t border-black/10">
+            <div className="mb-0 grid grid-cols-2 gap-8 border-t border-black/10 py-0 md:grid-cols-4">
               {userData.stats.map((stat) => (
                 <div key={stat.label}>
-                  <div className="text-[32px] font-light text-black mb-1">
+                  <div className="mb-1 text-[32px] font-light text-black">
                     {stat.value}
                   </div>
-                  <div className="text-[12px] uppercase tracking-widest text-black/40">
+                  <div className="text-[12px] tracking-widest text-black/40 uppercase">
                     {stat.label}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          </div>
+        </div>
         <ProfileTabs activeView={view} profile={profile} />
       </div>
     </main>

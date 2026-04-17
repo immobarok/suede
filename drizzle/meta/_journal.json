@@ -29,6 +29,13 @@
       "when": 1775939234407,
       "tag": "0003_numerous_genesis",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1776362236346,
+      "tag": "0004_lean_flatman",
+      "breakpoints": true
     }
   ]
 }

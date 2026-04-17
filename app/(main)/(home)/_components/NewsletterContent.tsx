@@ -112,7 +112,7 @@ export function NewsletterContent() {
           type="submit"
           rippleColor="#000000"
           duration="700ms"
-          className="group mx-auto cursor-pointer rounded-full border-0 bg-white px-8 py-4 text-sm font-medium tracking-[0.15em] text-black uppercase transition-all duration-300 hover:bg-white/90"
+          className="group mx-auto cursor-pointer rounded-full border-0 bg-white px-8 py-4 text-sm font-medium  text-black uppercase transition-all duration-300 hover:bg-white/90 text-nowrap"
         >
           {copy.button}
         </RippleButton>

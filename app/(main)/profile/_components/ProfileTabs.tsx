@@ -42,7 +42,7 @@ const ProfileTabs = ({
       className="w-full"
     >
 
-      <div className="relative mt-[29px] mb-6">
+      <div className="relative mt-7.25 mb-6">
 
 
         <TabsHighlight
