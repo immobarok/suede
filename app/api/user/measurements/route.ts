@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/db";
 import { profiles } from "@/db/schema/core";
 import { eq } from "drizzle-orm";
+import { buildDisplayMeasurements } from "@/lib/measurement-display";
 
 export async function GET() {
   try {
@@ -19,9 +20,13 @@ export async function GET() {
       where: eq(profiles.id, user.id),
       columns: {
         heightCm: true,
+        weightKg: true,
         bustCm: true,
         waistCm: true,
         hipsCm: true,
+        inseamCm: true,
+        shoulderWidthCm: true,
+        armLengthCm: true,
       },
     });
 
@@ -29,35 +34,9 @@ export async function GET() {
       return NextResponse.json({ error: "Profile not found" }, { status: 404 });
     }
 
-    // Convert cm to inches for display
-    const convertCmToInches = (cm: number | null): string => {
-      if (!cm) return "N/A";
-      const inches = cm / 2.54;
-      const feet = Math.floor(inches / 12);
-      const remainingInches = Math.round(inches % 12);
-      return `${feet}'${remainingInches}"`;
-    };
-
-    const measurements = [
-      {
-        label: "Height",
-        value: convertCmToInches(profile.heightCm),
-      },
-      {
-        label: "Bust",
-        value: profile.bustCm ? `${Math.round(profile.bustCm / 2.54)}"` : "N/A",
-      },
-      {
-        label: "Waist",
-        value: profile.waistCm
-          ? `${Math.round(profile.waistCm / 2.54)}"`
-          : "N/A",
-      },
-      {
-        label: "Hips",
-        value: profile.hipsCm ? `${Math.round(profile.hipsCm / 2.54)}"` : "N/A",
-      },
-    ];
+    const measurements = buildDisplayMeasurements(profile).filter(
+      (item) => item.value,
+    );
 
     return NextResponse.json(measurements);
   } catch (error) {

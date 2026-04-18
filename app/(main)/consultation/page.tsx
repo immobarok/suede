@@ -289,14 +289,17 @@ export default function ConsultationPage() {
 
   const buildSummary = () => {
     const lines: string[] = [];
+    const inchesToCm = (value: number) => Math.round(value * 2.54);
+
     if (measurements.height_feet)
       lines.push(
         `Height: ${measurements.height_feet}'${measurements.height_inches || 0}"`,
       );
     if (measurements.weight) lines.push(`Weight: ${measurements.weight} lbs`);
-    if (measurements.bust) lines.push(`Bust: ${measurements.bust}"`);
-    if (measurements.waist) lines.push(`Waist: ${measurements.waist}"`);
-    if (measurements.hips) lines.push(`Hips: ${measurements.hips}"`);
+    if (measurements.bust) lines.push(`Bust: ${inchesToCm(measurements.bust)}"`);
+    if (measurements.waist)
+      lines.push(`Waist: ${inchesToCm(measurements.waist)}"`);
+    if (measurements.hips) lines.push(`Hips: ${inchesToCm(measurements.hips)}"`);
     if (measurements.inseam) lines.push(`Inseam: ${measurements.inseam}"`);
     if (measurements.shoulder_width)
       lines.push(`Shoulder Width: ${measurements.shoulder_width}"`);

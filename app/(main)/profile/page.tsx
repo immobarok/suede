@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Edit } from "lucide-react";
 import ProfileTabs from "./_components/ProfileTabs";
 import { getProfile } from "./actions";
+import { buildDisplayMeasurements } from "@/lib/measurement-display";
 
 export const metadata: Metadata = {
   title: "Profile | SUEDE",
@@ -33,21 +34,23 @@ export default async function ProfilePage({
     );
   }
 
+  const displayMeasurements = buildDisplayMeasurements({
+    heightCm: profile.heightCm,
+    weightKg: profile.weightKg,
+    bustCm: profile.bustCm,
+    waistCm: profile.waistCm,
+    hipsCm: profile.hipsCm,
+    inseamCm: profile.inseamCm,
+    shoulderWidthCm: profile.shoulderWidthCm,
+    armLengthCm: profile.armLengthCm,
+  }).filter((item) => item.value);
+
   // Map backend data to UI fields
   const userData = {
     name: profile.displayName || "—",
     username: profile.username ? `@${profile.username.replace(/^@/, "")}` : "—",
     avatar: profile.avatarUrl || null,
-    measurements: {
-      height: profile.heightCm
-        ? `${Math.floor(profile.heightCm / 30.48)}'${Math.round(
-            (profile.heightCm % 30.48) / 2.54,
-          )}"`
-        : null,
-      bust: profile.bustCm ? `${profile.bustCm}"` : null,
-      waist: profile.waistCm ? `${profile.waistCm}"` : null,
-      hips: profile.hipsCm ? `${profile.hipsCm}"` : null,
-    },
+    measurements: displayMeasurements,
     bodyType: profile.bodyType || null,
     stylePreferences: profile.styleVibes ?? [],
     stats: [
@@ -121,21 +124,17 @@ export default async function ProfilePage({
                   Body Measurements
                 </h3>
                 <div className="flex flex-wrap gap-x-8 gap-y-2">
-                  {Object.entries(userData.measurements)
-                    .filter(([, val]) => !!val)
-                    .map(([key, val]) => (
-                      <div key={key} className="flex gap-2">
-                        <span className="font-darker text-[14px] text-black/40 capitalize">
-                          {key}:
-                        </span>
-                        <span className="font-darker text-[14px] font-medium text-black">
-                          {val}
-                        </span>
-                      </div>
-                    ))}
-                  {Object.values(userData.measurements).every(
-                    (val) => !val,
-                  ) && (
+                  {userData.measurements.map((item) => (
+                    <div key={item.label} className="flex gap-2">
+                      <span className="font-darker text-[14px] text-black/40 capitalize">
+                        {item.label}:
+                      </span>
+                      <span className="font-darker text-[14px] font-medium text-black">
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                  {userData.measurements.length === 0 && (
                     <span className="font-darker text-[14px] text-black/40">
                       No measurements yet
                     </span>
