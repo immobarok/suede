@@ -1,152 +1,105 @@
 "use client";
 
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
 
 type StoryContent = {
   title?: string;
   body?: string;
-  publicUrl?: string;
 };
 
 export function StorySection({ content }: { content?: StoryContent }) {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const textRevealVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.9,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
-
-  const imageRevealVariants: Variants = {
-    hidden: {
-      clipPath: "inset(0 100% 0 0)",
-      opacity: 0,
-    },
-    visible: {
-      clipPath: "inset(0 0% 0 0)",
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.3,
-      },
-    },
-  };
-
-  const imageScaleVariants: Variants = {
-    hidden: { scale: 1.2 },
-    visible: {
-      scale: 1,
-      transition: {
-        duration: 1.4,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.3,
-      },
-    },
-  };
-
-  const paragraphVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-120px" });
 
   return (
-    <section
-      ref={containerRef}
-      className="overflow-hidden bg-[#FAFAF9] py-8 md:py-16"
-    >
-      <div className="container mx-auto w-full px-6 md:px-0">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
-          {/* Right: Image */}
+    <section ref={sectionRef} className="bg-[#0B0B0D] py-20 md:py-28">
+      <div className="container mx-auto px-6 md:px-10 lg:px-0">
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.35fr] lg:gap-16">
           <motion.div
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={imageRevealVariants}
-            className="relative aspect-4/3 overflow-hidden bg-[#E8E8E6] lg:aspect-5/4"
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex h-full flex-col"
           >
-            <motion.div
-              variants={imageScaleVariants}
-              className="absolute inset-0"
-            >
-              <Image
-                src={
-                  content?.publicUrl ||
-                  "https://i.ibb.co.com/BHBQ9B8H/Image-With-Fallback-3.png"
-                }
-                alt={content?.title || "Fashion designer working in studio"}
-                fill
-                className="object-cover"
-                quality={90}
-              />
-            </motion.div>
-
-            {/* Subtle overlay gradient */}
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/10 to-transparent" />
-          </motion.div>
-          {/* Left: Text Content */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="max-w-xl lg:pr-8"
-          >
-            <motion.p
-              variants={textRevealVariants}
-              className="font-darker mb-8 text-[11px] tracking-[0.3em] text-[#8A8A8A] uppercase"
-            >
-              Our Story
-            </motion.p>
-
-            <motion.h2
-              variants={textRevealVariants}
-              className="font-cormorant mb-10 text-3xl leading-[1.2] font-normal text-[#1A1A1A] md:text-4xl lg:text-[42px]"
-            >
-              {content?.title || "Born from a Fitting Room Frustration"}
-            </motion.h2>
-
-            <div className="space-y-6">
-              {(
-                content?.body ||
-                "In 2023, SUEDE co-founder Kikiola Akanbi — a former luxury buyer — tracked her online returns for a year. The result: 58% of everything she bought came back. Not because the clothes were poor quality. Because they didn't fit.\n\nShe called her old colleague Kai Tanaka, who had spent a decade building recommendation systems at major tech firms. Together they asked a simple question: what if the reviewer was built like you?\n\nSUEDE launched in January 2025 with 200 beta members, a measurement-matching algorithm, and a single conviction — that honest fit information, from real bodies, is the future of fashion retail."
-              )
-                .split("\n\n")
-                .map((paragraph, index) => (
-                  <motion.p
-                    key={index}
-                    variants={paragraphVariants}
-                    className="font-darker text-[15px] leading-[1.8] tracking-wide text-black/50"
-                  >
-                    {paragraph}
-                  </motion.p>
-                ))}
+            <div className="mb-8 flex items-center gap-5">
+              <span className="h-px w-9 bg-white/60" />
+              <p
+                className="text-center text-[24px] leading-normal font-normal text-white uppercase"
+                style={{ fontFamily: "Glacial Indifference" }}
+              >
+                II - Our Origin
+              </p>
             </div>
+
+            <h2
+              className="mb-16 text-[32px] leading-normal font-normal text-white"
+              style={{ fontFamily: "Glacial Indifference" }}
+            >
+              {content?.title || (
+                <>
+                  A name with <span className="font-semibold italic">two meanings.</span>
+                </>
+              )}
+            </h2>
+
+            <p
+              className="max-w-md text-[23px] leading-[152.825%] font-normal text-[rgba(255,255,255,0.70)]"
+              style={{ fontFamily: "Glacial Indifference" }}
+            >
+              Before it was Suede, it was a series of questions asked in a digital
+              shopping cart - will this actually fit me? Is it worth the price? Can I
+              really trust the brand?
+            </p>
+
+            <div className="mt-12 h-px w-full bg-white/20" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            transition={{ duration: 0.75, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            className="space-y-8 text-[23px] leading-[152.825%] font-normal text-[rgba(255,255,255,0.70)]"
+            style={{ fontFamily: "Glacial Indifference" }}
+          >
+            <p>
+              {content?.body || (
+                <>
+                  The internet has made fashion{" "}
+                  <span className="font-semibold italic text-white/95">
+                    infinitely more accessible and infinitely harder to buy well.
+                  </span>{" "}
+                  We are surrounded by imagery and short on evidence. Reviews are
+                  anonymous, sizing charts lie, and the person modeling the dress almost
+                  never looks like the person considering it.
+                </>
+              )}
+            </p>
+
+            <p>
+              Suede began as a direct answer to that gap. A platform built on a simple
+              premise: reviews should come from{" "}
+              <span className="font-semibold italic text-white/95">
+                people who share your measurements.
+              </span>{" "}
+              Because fit is often the first question, and every question after it
+              depends on getting that one right.
+            </p>
+
+            <p>
+              Today, Suede is built around four rooms - The Capsule, a curated directory
+              of brands worth knowing; The Lookbook, a discovery feed of
+              measurement-matched reviews; The Collective, a community powered by
+              Suede&apos;s proprietary Match algorithm; and The Consign, peer-to-peer
+              resale for pieces passed on.
+            </p>
+
+            <p>
+              Join the community, and instantly experience the{" "}
+              <span className="font-semibold italic text-white/95">
+                power of Suede.
+              </span>
+            </p>
           </motion.div>
         </div>
       </div>

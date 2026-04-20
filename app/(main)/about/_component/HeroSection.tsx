@@ -16,7 +16,7 @@ export function HeroSection({ content }: { content?: HeroContent }) {
         <Image
           src={
             content?.publicUrl ||
-            "https://i.ibb.co.com/C3MSFKSx/fc48437d3e8dfcfa1e04d6065f21d53ce4f6ecc7.jpg"
+            "https://i.ibb.co.com/JWpSj3rb/Image-With-Fallback-4.png"
           }
           alt={content?.title || "Luxury fashion closet"}
           fill
@@ -30,99 +30,45 @@ export function HeroSection({ content }: { content?: HeroContent }) {
         <div className="absolute inset-0 bg-linear-to-r from-[#121212] via-black/20 to-transparent" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 flex h-full items-center">
-        <div className="container mx-auto px-4 md:px-0">
-          <div className="max-w-2xl">
-            <motion.p
+        <div className="container mx-auto px-5 md:px-12 lg:px-0">
+          <div className="grid items-center gap-10 md:grid-cols-[1.2fr_0.8fr] md:gap-14">
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-darker mb-6 text-[12px] leading-[17.28px] text-white/80 uppercase"
+              className="flex items-start gap-5 md:gap-8"
             >
-              About Suede
-            </motion.p>
+              <div className="mt-2 h-42.5 w-0.5 bg-white/55 md:h-50" />
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="font-cormorant ] mb-8 leading-[70.4px] font-normal tracking-wide text-white md:text-[32px]"
-            >
-              {content?.title || "FASHION. BUILT ON\nTHE TRUTH OF FIT."}
-            </motion.h1>
+              <div>
+                <p className="font-darker mb-5 text-[13px] tracking-[0.12em] text-white/75 uppercase md:mb-6">
+                  About Us
+                </p>
+
+                <h1 className="font-cormorant whitespace-pre-line text-[42px] font-normal text-white uppercase md:text-[64px] lg:text-[64px]">
+                  {content?.title || "THE TRUST\nLAYER FOR\nFASHION"}
+                </h1>
+              </div>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="font-darker max-w-lg text-[16px] leading-relaxed tracking-wide text-white/60"
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="font-darker max-w-sm text-right text-[20px] leading-[1.45] tracking-[0.01em] text-white/90 md:ml-auto"
             >
-              {content?.body ||
-                "Suede is a luxury fashion trust platform that matches you with real reviews from people who share your exact body measurements."}
+              {content?.body || (
+                <>
+                  A fashion discovery and review platform that uses{" "}
+                  <span className="font-semibold italic">body measurements</span>{" "}
+                  to help you shop with confidence.
+                </>
+              )}
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-10"
-            >
-              <button className="font-darker text-[13px] tracking-[0.15em] text-white uppercase underline decoration-white/40 underline-offset-8 transition-all duration-300 hover:decoration-white">
-                Explore The Collective
-              </button>
-            </motion.div>
           </div>
         </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 transform"
-      >
-        <div className="flex flex-col items-center gap-3">
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="font-darker text-[10px] tracking-[0.2em] text-white/60 uppercase"
-          >
-            Scroll
-          </motion.span>
-
-          {/* Animated Line */}
-          <div className="relative h-10 w-px overflow-hidden">
-            <motion.div
-              initial={{ height: "0%" }}
-              animate={{ height: "100%" }}
-              transition={{
-                duration: 1.5,
-                delay: 1.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="absolute top-0 left-0 w-full bg-white/40"
-            />
-
-            {/* Moving dot */}
-            <motion.div
-              initial={{ top: "0%", opacity: 0 }}
-              animate={{
-                top: ["0%", "100%", "0%"],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 2,
-                delay: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-white"
-            />
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }
