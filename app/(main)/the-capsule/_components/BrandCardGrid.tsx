@@ -1,9 +1,9 @@
-"use-client";
 "use client";
 
 import { RippleButton } from "@/components/ui/ripple-button";
 import { BrandCard } from "./brandcard";
 import { useAuth } from "@/hooks/use-user";
+import { CardSkeleton } from "@/components/skeletons/card-skeleton";
 import Link from "next/link";
 
 const brands = [
@@ -131,21 +131,28 @@ export function BrandCardGrid() {
       <div className="w-full">
         {/* Full width gradient for unauthenticated users covering the bottom row */}
         {!isLoading && !isAuthenticated && (
-          <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[28%] w-full bg-linear-to-b from-transparent via-70% via-[#F8F6F3]/99 to-[#F8F6F3]" />
+          <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[28%] w-full bg-linear-to-b from-transparent via-[#F8F6F3]/99 via-70% to-[#F8F6F3]" />
         )}
         <div className="relative container mx-auto">
           <div className="grid grid-cols-1 gap-x-10 gap-y-24 md:grid-cols-3">
-            {brands.map((brand, index) => {
-              const isGuestRow = !isLoading && !isAuthenticated && index >= 6;
-              return (
-                <div
-                  key={`${brand.name}-${index}`}
-                  className={`relative ${isGuestRow ? "pointer-events-none" : ""}`}
-                >
-                  <BrandCard {...brand} index={index} />
-                </div>
-              );
-            })}
+            {isLoading
+              ? Array.from({ length: 9 }).map((_, index) => (
+                  <div key={`skeleton-${index}`}>
+                    <CardSkeleton />
+                  </div>
+                ))
+              : brands.map((brand, index) => {
+                  const isGuestRow =
+                    !isLoading && !isAuthenticated && index >= 6;
+                  return (
+                    <div
+                      key={`${brand.name}-${index}`}
+                      className={`relative ${isGuestRow ? "pointer-events-none" : ""}`}
+                    >
+                      <BrandCard {...brand} index={index} />
+                    </div>
+                  );
+                })}
           </div>
 
           {!isLoading && !isAuthenticated ? (
