@@ -36,7 +36,9 @@ export function StorySection({ content }: { content?: StoryContent }) {
               className="mb-16 text-[32px] leading-normal font-normal text-white"
               style={{ fontFamily: "Glacial Indifference" }}
             >
-              {content?.title || (
+              {content?.title ? (
+                <span dangerouslySetInnerHTML={{ __html: content.title }} />
+              ) : (
                 <>
                   A name with <span className="font-semibold italic">two meanings.</span>
                 </>
@@ -62,8 +64,13 @@ export function StorySection({ content }: { content?: StoryContent }) {
             className="space-y-8 text-[23px] leading-[152.825%] font-normal text-[rgba(255,255,255,0.70)]"
             style={{ fontFamily: "Glacial Indifference" }}
           >
-            <p>
-              {content?.body || (
+            {content?.body ? (
+              <div
+                className="[&_p]:m-0"
+                dangerouslySetInnerHTML={{ __html: content.body }}
+              />
+            ) : (
+              <p>
                 <>
                   The internet has made fashion{" "}
                   <span className="font-semibold italic text-white/95">
@@ -73,8 +80,8 @@ export function StorySection({ content }: { content?: StoryContent }) {
                   anonymous, sizing charts lie, and the person modeling the dress almost
                   never looks like the person considering it.
                 </>
-              )}
-            </p>
+              </p>
+            )}
 
             <p>
               Suede began as a direct answer to that gap. A platform built on a simple

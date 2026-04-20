@@ -71,27 +71,27 @@ const DEFAULT_BRANDS: Brand[] = [
   {
     id: 1,
     name: "MEJI MEJI",
-    src: "https://i.ibb.co.com/TMgp0zV8/image-44-1.png",
+    src: "https://i.ibb.co/TMgp0zV8/image-44-1.png",
   },
   {
     id: 2,
     name: "NADI",
-    src: "https://i.ibb.co.com/WpyZSSBM/Kairos-BRR-2.png",
+    src: "https://i.ibb.co/WpyZSSBM/Kairos-BRR-2.png",
   },
   {
     id: 3,
     name: "TOFECOL",
-    src: "https://i.ibb.co.com/ndCp44G/Bupbes-BRR-2-1.png",
+    src: "https://i.ibb.co/ndCp44G/Bupbes-BRR-2-1.png",
   },
   {
     id: 4,
     name: "STARFISH",
-    src: "https://i.ibb.co.com/PvYc8bq0/Nadi-BRR-1-1.png",
+    src: "https://i.ibb.co/PvYc8bq0/Nadi-BRR-1-1.png",
   },
   {
     id: 5,
     name: "BUBON",
-    src: "https://i.ibb.co.com/Rp6tYm1S/image-50-1.png",
+    src: "https://i.ibb.co/Rp6tYm1S/image-50-1.png",
   },
 ];
 

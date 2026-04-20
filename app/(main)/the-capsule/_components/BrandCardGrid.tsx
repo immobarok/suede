@@ -18,7 +18,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/mPDsZwn/Tofe-BRR-1.png",
+    image: "https://i.ibb.co/mPDsZwn/Tofe-BRR-1.png",
   },
   {
     slug: "hanifa",
@@ -31,7 +31,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/LzpzHxcT/Starbfish-BRR-2.png",
+    image: "https://i.ibb.co/LzpzHxcT/Starbfish-BRR-2.png",
   },
   {
     slug: "bbx-brand",
@@ -44,7 +44,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/N2Z0YbQL/Nysama-BRR-1.png",
+    image: "https://i.ibb.co/N2Z0YbQL/Nysama-BRR-1.png",
   },
   {
     slug: "cou-coo",
@@ -57,7 +57,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/671jPdcx/Nadi-BRR-1.png",
+    image: "https://i.ibb.co/671jPdcx/Nadi-BRR-1.png",
   },
   {
     slug: "cais-collective",
@@ -70,7 +70,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/mrFYv7NT/Meji-Meji-BRR-1.png",
+    image: "https://i.ibb.co/mrFYv7NT/Meji-Meji-BRR-1.png",
   },
   {
     slug: "cais-collective-2",
@@ -83,7 +83,7 @@ const brands = [
     ethics: 5,
     reviews: 234,
     followers: "12.4k",
-    image: "https://i.ibb.co.com/s9HHDsKy/Kairos-BRR-1.png",
+    image: "https://i.ibb.co/s9HHDsKy/Kairos-BRR-1.png",
   },
   {
     slug: "image-44",
@@ -95,7 +95,7 @@ const brands = [
     ethics: 4,
     reviews: 100,
     followers: "5k",
-    image: "https://i.ibb.co.com/tpNxyM4t/image-44.png",
+    image: "https://i.ibb.co/tpNxyM4t/image-44.png",
   },
   {
     slug: "bupbes-brr-2",
@@ -107,7 +107,7 @@ const brands = [
     ethics: 4,
     reviews: 150,
     followers: "8k",
-    image: "https://i.ibb.co.com/ymZBqS95/Bupbes-BRR-2.png",
+    image: "https://i.ibb.co/ymZBqS95/Bupbes-BRR-2.png",
   },
   {
     slug: "image-50",
@@ -119,7 +119,7 @@ const brands = [
     ethics: 4,
     reviews: 80,
     followers: "3k",
-    image: "https://i.ibb.co.com/C3Ng2Lxk/image-50.png",
+    image: "https://i.ibb.co/C3Ng2Lxk/image-50.png",
   },
 ];
 

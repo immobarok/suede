@@ -28,7 +28,7 @@ const ConsignShowcase = () => {
         primaryCta: "Shop the Consign",
         secondaryCta: "Sell Your Pieces",
         images: [
-          "https://i.ibb.co.com/JR0M7NQr/Frame-2087328463.png",
+          "https://i.ibb.co/JR0M7NQr/Frame-2087328463.png",
         ],
       },
       verified: {

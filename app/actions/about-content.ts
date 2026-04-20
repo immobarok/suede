@@ -12,7 +12,7 @@ type AboutSection =
   | "mission"
   | "story"
   | "values"
-  | "quote";
+  | "founder";
 type AboutContentType = "image" | "video" | "text" | "json";
 type AboutStatus = "draft" | "published" | "archived";
 

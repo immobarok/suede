@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AboutContentForm } from "./about-content-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import {
   createAboutContentAction,
   updateAboutContentAction,
@@ -17,10 +18,10 @@ import { toast } from "sonner";
 const sections = [
   "landing_hero",
   "about_hero",
-  "mission",
-  "story",
-  "values",
-  "quote",
+  "etymology",
+  "our_origin",
+  "our_values",
+  "founder",
 ] as const;
 const types = ["image", "video", "text", "json"] as const;
 
@@ -28,13 +29,32 @@ function isValidUrl(string: string) {
   try {
     new URL(string);
     return true;
-  } catch (_) {
+  } catch {
     return false;
   }
 }
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function formatSectionLabel(section: string) {
+  return section.split("_").map(capitalize).join(" ");
+}
+
+function htmlToPlainText(value: string | null) {
+  if (!value) return "";
+
+  return value
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export type AboutContentItem = {
@@ -158,7 +178,7 @@ export function AboutClient({ initialItems }: AboutClientProps) {
               value={section}
               className="rounded-lg font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm"
             >
-              {capitalize(section.replace("_", " "))}
+              {formatSectionLabel(section)}
             </TabsTrigger>
           ))}
         </TabsList>
@@ -185,7 +205,7 @@ export function AboutClient({ initialItems }: AboutClientProps) {
 
               <div className="space-y-4 pt-6">
                 <h3 className="font-cormorant border-b border-black/10 pb-3 text-3xl font-medium">
-                  {capitalize(section.replace("_", " "))} Content
+                  {formatSectionLabel(section)} Content
                 </h3>
                 {items.length === 0 && (
                   <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -222,7 +242,7 @@ export function AboutClient({ initialItems }: AboutClientProps) {
                         <div className="relative h-48 w-full bg-linear-to-br from-gray-50 to-gray-100">
                           <Image
                             src={item.publicUrl}
-                            alt={item.title || "Content preview"}
+                            alt={htmlToPlainText(item.title) || "Content preview"}
                             fill
                             className="object-cover"
                           />
@@ -238,11 +258,11 @@ export function AboutClient({ initialItems }: AboutClientProps) {
 
                       <div className="flex flex-1 flex-col p-6">
                         <h3 className="font-cormorant mb-2 line-clamp-1 text-xl font-semibold">
-                          {item.title || "Untitled Content"}
+                          {htmlToPlainText(item.title) || "Untitled Content"}
                         </h3>
-                        {item.body ? (
+                        {htmlToPlainText(item.body) ? (
                           <p className="font-darker mb-4 line-clamp-2 text-sm text-black/60">
-                            {item.body}
+                            {htmlToPlainText(item.body)}
                           </p>
                         ) : (
                           <p className="font-darker mb-4 text-sm text-black/40 italic">
@@ -251,27 +271,30 @@ export function AboutClient({ initialItems }: AboutClientProps) {
                         )}
 
                         <div className="mt-auto flex gap-3 border-t border-black/10 pt-4">
-                          <button
+                          <Button
                             type="button"
+                            variant="outline"
+                            size="sm"
                             onClick={() => setEditingItem(item)}
                             disabled={!!operationLoading}
-                            className="font-darker flex-1 cursor-pointer border border-black/30 px-3 py-2 text-[11px] tracking-[0.14em] text-black uppercase transition-colors hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="font-darker flex-1 rounded-sm border-black/30 text-[11px] tracking-[0.14em] uppercase hover:bg-black/5"
                           >
                             Edit
-                          </button>
+                          </Button>
 
                           {item.status !== "published" && (
                             <form action={handlePublish} className="flex-1">
                               <input type="hidden" name="id" value={item.id} />
-                              <button
+                              <Button
                                 type="submit"
+                                size="sm"
                                 disabled={operationLoading === "publish"}
-                                className="font-darker w-full cursor-pointer bg-green-600 px-3 py-2 text-[11px] tracking-[0.14em] text-white uppercase transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="font-darker w-full rounded-sm bg-green-600 text-[11px] tracking-[0.14em] text-white uppercase hover:bg-green-700"
                               >
                                 {operationLoading === "publish"
                                   ? "Publishing..."
                                   : "Make Public"}
-                              </button>
+                              </Button>
                             </form>
                           )}
 
@@ -285,15 +308,17 @@ export function AboutClient({ initialItems }: AboutClientProps) {
 
                           <form action={handleDelete} className="w-auto">
                             <input type="hidden" name="id" value={item.id} />
-                            <button
+                            <Button
                               type="submit"
+                              variant="outline"
+                              size="sm"
                               disabled={operationLoading === "delete"}
-                              className="font-darker cursor-pointer border border-red-500/30 px-3 py-2 text-[11px] tracking-[0.14em] text-red-600 uppercase transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+                              className="font-darker rounded-sm border-red-500/30 text-[11px] tracking-[0.14em] text-red-600 uppercase hover:bg-red-50"
                             >
                               {operationLoading === "delete"
                                 ? "Deleting..."
                                 : "Delete"}
-                            </button>
+                            </Button>
                           </form>
                         </div>
                       </div>

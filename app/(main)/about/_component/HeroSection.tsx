@@ -16,7 +16,7 @@ export function HeroSection({ content }: { content?: HeroContent }) {
         <Image
           src={
             content?.publicUrl ||
-            "https://i.ibb.co.com/JWpSj3rb/Image-With-Fallback-4.png"
+            "https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
           }
           alt={content?.title || "Luxury fashion closet"}
           fill
@@ -39,33 +39,42 @@ export function HeroSection({ content }: { content?: HeroContent }) {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex items-start gap-5 md:gap-8"
             >
-              <div className="mt-2 h-42.5 w-0.5 bg-white/55 md:h-50" />
+              <div className=" h-54.5 w-0.5 bg-white/55 md:h-[332px]" />
 
               <div>
-                <p className="font-darker mb-5 text-[13px] tracking-[0.12em] text-white/75 uppercase md:mb-6">
+                <p className="font-darker mb-5 text-[13px] tracking-[0.12em] text-white/75 uppercase md:mb-[36px]">
                   About Us
                 </p>
 
-                <h1 className="font-cormorant whitespace-pre-line text-[42px] font-normal text-white uppercase md:text-[64px] lg:text-[64px]">
-                  {content?.title || "THE TRUST\nLAYER FOR\nFASHION"}
-                </h1>
+                {content?.title ? (
+                  <div
+                    className="font-cormorant text-[42px] text-white uppercase md:text-[64px] lg:text-[64px] [&_p]:m-0 [&_strong]:!text-white [&_b]:!text-white font-[300]"
+                    dangerouslySetInnerHTML={{ __html: content.title }}
+                  />
+                ) : (
+                  <h1 className="font-cormorant whitespace-pre-line text-[42px] text-white uppercase md:text-[64px] lg:text-[64px]">
+                    THE TRUST{"\n"}LAYER FOR{"\n"}FASHION
+                  </h1>
+                )}
               </div>
             </motion.div>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45 }}
-              className="font-darker max-w-sm text-right text-[20px] leading-[1.45] tracking-[0.01em] text-white/90 md:ml-auto"
+              className="font-darker max-w-sm text-right text-[20px] leading-[1.45] tracking-[0.01em] text-white/90 md:ml-auto [&_p]:m-0 [&_strong]:!text-white [&_b]:!text-white"
             >
-              {content?.body || (
+              {content?.body ? (
+                <div dangerouslySetInnerHTML={{ __html: content.body }} />
+              ) : (
                 <>
                   A fashion discovery and review platform that uses{" "}
                   <span className="font-semibold italic">body measurements</span>{" "}
                   to help you shop with confidence.
                 </>
               )}
-            </motion.p>
+            </motion.div>
           </div>
         </div>
       </div>

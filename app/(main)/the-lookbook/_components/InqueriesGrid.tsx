@@ -7,7 +7,7 @@ import { CommunityQuestionCard } from "./CommunityQuestionCard";
 
 const questions = [
   {
-    productImage: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
+    productImage: "https://i.ibb.co/SwyPhMGM/Frame-2087328443.png",
     brandName: "Hanifa",
     productName: "The Nyomi Maxi",
     size: "6",
@@ -50,7 +50,7 @@ const questions = [
     ],
   },
   {
-    productImage: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
+    productImage: "https://i.ibb.co/SwyPhMGM/Frame-2087328443.png",
     brandName: "Maison Margiela",
     productName: "Tailored Blazer Dress",
     size: "4",
@@ -181,7 +181,7 @@ const questions = [
     ],
   },
   {
-    productImage: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
+    productImage: "https://i.ibb.co/SwyPhMGM/Frame-2087328443.png",
     brandName: "Jacquemus",
     productName: "Le Chiquito Mini",
     size: "OS",
@@ -224,7 +224,7 @@ const questions = [
     ],
   },
   {
-    productImage: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
+    productImage: "https://i.ibb.co/SwyPhMGM/Frame-2087328443.png",
     brandName: "Staud",
     productName: "Tommy Corduroy Set",
     size: "10",

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { HeroSection } from "./_component/HeroSection";
-import { MissionSection } from "./_component/MissionSection";
-import { StorySection } from "./_component/StorySection";
+import { MissionSection } from "./_component/Etymology";
+import { StorySection } from "./_component/OurOrigin";
 import { ValuesSection } from "./_component/ValuesSection";
-import { QuoteSection } from "./_component/QuoteSection";
+import QuoteSection from "./_component/OurFounder";
 
 export const metadata: Metadata = {
   title: "About",
@@ -34,7 +34,7 @@ const page = async () => {
   const missionContent = content.mission?.[0];
   const storyContent = content.story?.[0];
   const valuesContent = content.values || [];
-  const quoteContent = content.quote?.[0];
+  const founderContent = content.founder?.[0] ?? content.quote?.[0];
 
   return (
     <main className="min-h-screen bg-[#F5F5F0]">
@@ -43,7 +43,7 @@ const page = async () => {
       <MissionSection content={missionContent} />
       <StorySection content={storyContent} />
       <ValuesSection content={valuesContent} />
-      <QuoteSection content={quoteContent} />
+      <QuoteSection content={founderContent} />
     </main>
   );
 };

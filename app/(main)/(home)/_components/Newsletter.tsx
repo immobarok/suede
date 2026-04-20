@@ -6,7 +6,7 @@ export function NewsletterSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://i.ibb.co.com/60VFJ4YV/Section-2.png')",
+          backgroundImage: "url('https://i.ibb.co/60VFJ4YV/Section-2.png')",
         }}
       />
       <div className="absolute inset-0 bg-black/20" />
