@@ -114,16 +114,16 @@ export default function QuoteSection({
               </p>
             </div>
 
-            <h2 className="font-cormorant text-[96px] leading-normal font-normal text-black">
+            <h2 className="font-cormorant text-[58px] leading-[0.95] font-normal text-black sm:text-[72px] md:text-[96px] md:leading-normal">
               {plainText(content?.metadata?.name || content?.title) ||
                 "Kikiola"}
             </h2>
 
-            <p className="font-cormorant mt-4 text-[36px] leading-normal font-normal text-black">
+            <p className="font-cormorant mt-4 text-[28px] leading-normal font-normal text-black md:text-[36px]">
               {content?.metadata?.role || "Founder & CEO"}
             </p>
 
-            <p className="font-cormorant mt-4 text-[24px] leading-normal font-bold text-black">
+            <p className="font-cormorant mt-4 text-[22px] leading-normal font-bold text-black md:text-[24px]">
               {content?.metadata?.tagline ||
                 "I built the platform I wanted to shop on."}
             </p>

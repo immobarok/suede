@@ -48,7 +48,7 @@ export function HeroSection({ content }: { content?: HeroContent }) {
 
                 {content?.title ? (
                   <div
-                    className="font-cormorant text-[42px] text-white uppercase md:text-[64px] lg:text-[64px] [&_p]:m-0 [&_strong]:!text-white [&_b]:!text-white font-[300]"
+                    className="font-cormorant text-[42px] text-white uppercase md:text-[64px] lg:text-[64px] [&_p]:m-0 [&_strong]:text-white! [&_b]:text-white! font-light"
                     dangerouslySetInnerHTML={{ __html: content.title }}
                   />
                 ) : (
