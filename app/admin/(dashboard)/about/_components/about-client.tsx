@@ -23,6 +23,7 @@ const sections = [
   "our_values",
   "founder",
 ] as const;
+
 const types = ["image", "video", "text", "json"] as const;
 
 function isValidUrl(string: string) {
@@ -34,12 +35,11 @@ function isValidUrl(string: string) {
   }
 }
 
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 function formatSectionLabel(section: string) {
-  return section.split("_").map(capitalize).join(" ");
+  return section
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function htmlToPlainText(value: string | null) {
@@ -184,7 +184,14 @@ export function AboutClient({ initialItems }: AboutClientProps) {
         </TabsList>
 
         {sections.map((section) => {
-          const items = allItems.filter((item) => item.section === section);
+          const items = allItems.filter((item) => {
+            if (item.section === section) return true;
+            if (section === "etymology" && item.section === "mission") return true;
+            if (section === "our_origin" && item.section === "story") return true;
+            if (section === "our_values" && item.section === "values") return true;
+            return false;
+          });
+          
           return (
             <TabsContent
               key={section}
@@ -196,7 +203,15 @@ export function AboutClient({ initialItems }: AboutClientProps) {
                 types={types}
                 createAction={handleCreate}
                 updateAction={handleUpdate}
-                editingItem={editingItem?.section === section ? editingItem : null}
+                editingItem={
+                  editingItem && 
+                  (editingItem.section === section || 
+                   (section === "etymology" && editingItem.section === "mission") ||
+                   (section === "our_origin" && editingItem.section === "story") ||
+                   (section === "our_values" && editingItem.section === "values"))
+                    ? editingItem 
+                    : null
+                }
                 onCancelEdit={() => setEditingItem(null)}
                 isLoading={
                   operationLoading === "create" || operationLoading === "update"

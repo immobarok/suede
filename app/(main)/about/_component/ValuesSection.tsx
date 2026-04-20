@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type ValuesMetadata = {
+  label?: string;
   stats?: Array<{
     value?: string;
     description?: string;
@@ -11,10 +12,17 @@ type ValuesMetadata = {
 };
 
 type ValueItem = {
+  title?: string;
+  body?: string;
   metadata?: ValuesMetadata;
 };
 
 type ValuesContent = ValueItem[];
+
+function normalizeRichText(html?: string) {
+  if (!html) return "";
+  return html.replace(/&nbsp;/gi, " ").replace(/\u00a0/g, " ");
+}
 
 function AnimatedNumber({
   target,
@@ -96,13 +104,16 @@ const defaultStats = [
 export function ValuesSection({ content }: { content?: ValuesContent }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const incomingStats = content?.[0]?.metadata?.stats;
+  
+  const mainItem = content?.[0];
+  const incomingStats = mainItem?.metadata?.stats;
   const stats = incomingStats?.length ? incomingStats : defaultStats;
 
   return (
-    <section ref={sectionRef} className="bg-[#EBEBEA] py-14 md:py-20">
+    <section ref={sectionRef} className="bg-[#EBEBEA] py-16 md:py-24">
       <div className="container mx-auto px-6 md:px-10 lg:px-0">
-        <div className="grid grid-cols-1 gap-12 text-center md:grid-cols-3 md:gap-8">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 gap-12 text-center md:grid-cols-3 md:gap-8 ">
           {stats.slice(0, 3).map((stat, index) => (
             <motion.div
               key={`${stat.value}-${index}`}

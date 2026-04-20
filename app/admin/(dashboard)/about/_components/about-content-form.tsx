@@ -34,6 +34,7 @@ type FounderMetadata = {
 };
 
 type ValuesMetadata = {
+  label?: string;
   stats?: Array<{
     value?: string;
     description?: string;
@@ -222,76 +223,98 @@ export function AboutContentForm({
         </select>
       </label>
 
-      {selectedSection !== "founder" && (
-        <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase md:col-span-2">
-          Title
-          <div className="mt-2 overflow-hidden rounded-sm border border-black/20 bg-white [&_.ql-container]:border-0 [&_.ql-editor]:min-h-24 [&_.ql-editor]:px-3 [&_.ql-editor]:py-2.5 [&_.ql-toolbar]:border-x-0 [&_.ql-toolbar]:border-t-0">
-            <ReactQuill
-              theme="snow"
-              value={titleHtml}
-              modules={quillModules}
-              onChange={(value) => {
-                setTitleHtml(value);
-              }}
-            />
-          </div>
-          <input type="hidden" name="title" value={titleHtml} />
-        </label>
-      )}
+      {selectedSection !== "founder" &&
+        selectedSection !== "our_values" &&
+        selectedSection !== "values" && (
+          <>
+            <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase md:col-span-2">
+              Title
+              <div className="mt-2 overflow-hidden rounded-sm border border-black/20 bg-white [&_.ql-container]:border-0 [&_.ql-editor]:min-h-24 [&_.ql-editor]:px-3 [&_.ql-editor]:py-2.5 [&_.ql-toolbar]:border-x-0 [&_.ql-toolbar]:border-t-0">
+                <ReactQuill
+                  theme="snow"
+                  value={titleHtml}
+                  modules={quillModules}
+                  onChange={(value) => {
+                    setTitleHtml(value);
+                  }}
+                />
+              </div>
+              <input type="hidden" name="title" value={titleHtml} />
+            </label>
 
-      {selectedSection !== "founder" && (
-        <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase md:col-span-2">
-          Body/Content
-          <div className="mt-2 overflow-hidden rounded-sm border border-black/20 bg-white [&_.ql-container]:border-0 [&_.ql-editor]:min-h-40 [&_.ql-editor]:px-3 [&_.ql-editor]:py-2.5 [&_.ql-toolbar]:border-x-0 [&_.ql-toolbar]:border-t-0">
-            <ReactQuill
-              theme="snow"
-              value={bodyHtml}
-              modules={quillModules}
-              onChange={(value) => {
-                setBodyHtml(value);
-              }}
-            />
-          </div>
-          <input type="hidden" name="body" value={bodyHtml} />
-        </label>
-      )}
+            <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase md:col-span-2">
+              Body/Content
+              <div className="mt-2 overflow-hidden rounded-sm border border-black/20 bg-white [&_.ql-container]:border-0 [&_.ql-editor]:min-h-40 [&_.ql-editor]:px-3 [&_.ql-editor]:py-2.5 [&_.ql-toolbar]:border-x-0 [&_.ql-toolbar]:border-t-0">
+                <ReactQuill
+                  theme="snow"
+                  value={bodyHtml}
+                  modules={quillModules}
+                  onChange={(value) => {
+                    setBodyHtml(value);
+                  }}
+                />
+              </div>
+              <input type="hidden" name="body" value={bodyHtml} />
+            </label>
+          </>
+        )}
 
-      {selectedSection === "values" && (
+      {(selectedSection === "values" || selectedSection === "our_values") && (
         <div className="space-y-6 md:col-span-2">
           <h3 className="font-cormorant text-xl font-medium text-black">
+            Values Section Content
+          </h3>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase md:col-span-2">
+              Label
+              <input
+                name="valuesLabel"
+                placeholder="III - OUR VALUES"
+                defaultValue={valuesMeta.label || "III - OUR VALUES"}
+                className="mt-2 w-full rounded-sm border border-black/20 p-2.5 text-sm transition-colors outline-none focus:border-black"
+              />
+            </label>
+          </div>
+
+          <h3 className="font-cormorant text-xl font-medium text-black pt-4">
             Stats (3 Columns)
           </h3>
-          {[1, 2, 3].map((index) => (
-            <div
-              key={index}
-              className="rounded-md border border-black/10 bg-gray-50/50 p-5"
-            >
-              <h4 className="font-darker mb-3 text-xs tracking-[0.1em] text-black/60 uppercase">
-                Stat {index}
-              </h4>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase">
-                  Value
-                  <input
-                    name={`stat${index}Value`}
-                    placeholder={index === 2 ? "$21 - $46" : index === 1 ? "25%" : "38%"}
-                    defaultValue={statsForForm[index - 1]?.value || ""}
-                    className="mt-2 w-full rounded-sm border border-black/20 p-2.5 text-sm transition-colors outline-none focus:border-black"
-                  />
-                </label>
-                <label className="font-darker text-xs font-semibold tracking-wider text-black/70 uppercase">
-                  Description
-                  <textarea
-                    name={`stat${index}Description`}
-                    rows={2}
-                    placeholder="Stat description"
-                    defaultValue={statsForForm[index - 1]?.description || ""}
-                    className="mt-2 w-full rounded-sm border border-black/20 p-2.5 text-sm transition-colors outline-none focus:border-black"
-                  />
-                </label>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {[1, 2, 3].map((index) => (
+              <div
+                key={index}
+                className="rounded-md border border-black/10 bg-gray-50/50 p-5"
+              >
+                <h4 className="font-darker mb-3 text-xs tracking-[0.1em] text-black/60 uppercase text-center">
+                  Stat {index}
+                </h4>
+                <div className="space-y-4">
+                  <label className="font-darker block text-xs font-semibold tracking-wider text-black/70 uppercase">
+                    Value
+                    <input
+                      name={`stat${index}Value`}
+                      placeholder={
+                        index === 2 ? "$21 - $46" : index === 1 ? "25%" : "38%"
+                      }
+                      defaultValue={statsForForm[index - 1]?.value || ""}
+                      className="mt-2 w-full rounded-sm border border-black/20 p-2.5 text-sm transition-colors outline-none focus:border-black"
+                    />
+                  </label>
+                  <label className="font-darker block text-xs font-semibold tracking-wider text-black/70 uppercase">
+                    Description
+                    <textarea
+                      name={`stat${index}Description`}
+                      rows={3}
+                      placeholder="Stat description"
+                      defaultValue={statsForForm[index - 1]?.description || ""}
+                      className="mt-2 w-full rounded-sm border border-black/20 p-2.5 text-sm transition-colors outline-none focus:border-black"
+                    />
+                  </label>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 

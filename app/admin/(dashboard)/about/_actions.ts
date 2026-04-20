@@ -22,6 +22,13 @@ function getOptionalString(formData: FormData, key: string) {
   return text.length ? text : undefined;
 }
 
+function normalizeSection(section: string): AboutSection {
+  if (section === "etymology") return "mission";
+  if (section === "our_origin") return "story";
+  if (section === "our_values") return "values";
+  return section as AboutSection;
+}
+
 function parseParagraphs(value?: string) {
   if (!value) return [];
   // If it's HTML (contains tags), return as a single element to preserve rich text
@@ -35,7 +42,7 @@ function parseParagraphs(value?: string) {
 }
 
 function buildMetadata(section: string, formData: FormData) {
-  if (section === "values") {
+  if (section === "values" || section === "our_values") {
     const stats = [1, 2, 3]
       .map((index) => ({
         value: getOptionalString(formData, `stat${index}Value`),
@@ -43,7 +50,10 @@ function buildMetadata(section: string, formData: FormData) {
       }))
       .filter((item) => item.value || item.description);
 
-    return { stats };
+    return {
+      label: getOptionalString(formData, "valuesLabel"),
+      stats,
+    };
   }
 
   if (section === "founder") {
@@ -65,7 +75,12 @@ function buildMetadata(section: string, formData: FormData) {
 }
 
 function getContentType(section: string) {
-  if (section === "values" || section === "founder") return "json";
+  if (
+    section === "values" ||
+    section === "our_values" ||
+    section === "founder"
+  )
+    return "json";
   return "text";
 }
 
@@ -79,11 +94,12 @@ function revalidateAboutPages() {
 export async function createAboutContentAction(formData: FormData) {
   "use server";
 
-  const section = formData.get("section") as string;
-  if (!section) return;
+  const sectionInput = formData.get("section") as string;
+  if (!sectionInput) return;
+  const section = normalizeSection(sectionInput);
 
   await upsertAboutContent({
-    section: section as AboutSection,
+    section,
     contentType: getContentType(section),
     title: String(formData.get("title") ?? "") || null,
     body: String(formData.get("body") ?? "") || null,
@@ -107,8 +123,9 @@ export async function updateAboutContentAction(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   if (!id) return;
 
-  const section = formData.get("section") as string;
-  if (!section) return;
+  const sectionInput = formData.get("section") as string;
+  if (!sectionInput) return;
+  const section = normalizeSection(sectionInput);
 
   const existingItems = await listAboutContentForAdmin();
   const existingItem = existingItems.find((item) => item.id === id);
@@ -116,7 +133,7 @@ export async function updateAboutContentAction(formData: FormData) {
 
   await upsertAboutContent({
     id,
-    section: section as AboutSection,
+    section,
     contentType: getContentType(section),
     title: formData.has("title")
       ? String(formData.get("title") ?? "") || null
