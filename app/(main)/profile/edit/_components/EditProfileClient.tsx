@@ -207,7 +207,7 @@ export default function EditProfileClient({
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#F5F5F0]">
       <Image
-        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+        src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
         alt="Background"
         fill
         className="object-cover opacity-25 grayscale"

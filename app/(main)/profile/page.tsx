@@ -62,15 +62,18 @@ export default async function ProfilePage({
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <Image
-        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
-        alt="Background"
-        fill
-        className="object-cover opacity-25 grayscale"
-        priority
-      />
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/20 to-white/10" />
+    <main className="relative min-h-screen bg-[#F5F5F0]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-screen">
+        <Image
+          src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
+          alt="Background"
+          fill
+          className="object-cover opacity-25 grayscale"
+          priority
+        />
+        <div className="absolute inset-0 bg-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white" />
+      </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-24 pb-12 md:px-0">
         <Link

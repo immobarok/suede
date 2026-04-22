@@ -46,7 +46,7 @@ export default function CapsuleBrandPage() {
     <main className="relative overflow-hidden py-16">
       <Notifications />
       <Image
-        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
+        src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
         alt="Background"
         fill
         className="object-cover opacity-25 grayscale"

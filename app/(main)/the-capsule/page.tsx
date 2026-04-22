@@ -20,7 +20,7 @@ const page = () => {
           {/* Background Image */}
           <div className="absolute inset-0 -z-10">
             <Image
-              src="https://i.ibb.co.com/JWpSj3rb/Image-With-Fallback-4.png"
+              src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
               alt="Background"
               fill
               className="object-cover opacity-25 grayscale"

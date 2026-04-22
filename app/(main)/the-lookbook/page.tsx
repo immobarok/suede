@@ -30,26 +30,31 @@ const page = async (props: { searchParams: SearchParams }) => {
 
   return (
     <main className="relative overflow-hidden">
-      <Image
-        src="https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg"
-        alt="Background"
-        fill
-        className="object-cover opacity-25 grayscale"
-        priority
-      />
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/20 to-white/10" />
-
       <div className="relative z-10">
-        <section className="px-4 py-24">
+        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4">
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
+              alt="Background"
+              fill
+              className="object-cover opacity-25 grayscale"
+              priority
+            />
+            <div className="absolute inset-0 bg-white/10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white" />
+          </div>
+
           <AnimatedSectionHeader
             topText="Discovery feed"
             middleText="The Lookbook"
             bottomText="Real reviews from real bodies. Ranked by your measurement match."
           />
         </section>
-        <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
-        <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
-        {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+        <div className="relative -mt-20 md:-mt-28">
+          <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
+          <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
+          {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+        </div>
       </div>
     </main>
   );

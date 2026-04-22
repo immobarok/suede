@@ -32,7 +32,7 @@ const Hero = async () => {
 
   const imageUrl =
     banner?.publicUrl ||
-    "https://i.ibb.co/nsvQbBSQ/41ddd7debba1acf170f27b180927b8514ffaebd3.jpg";
+    "https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png";
   const title = banner?.title || undefined;
   const subtext = banner?.body || undefined;
 
