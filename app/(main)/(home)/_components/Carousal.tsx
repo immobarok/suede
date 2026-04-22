@@ -49,7 +49,7 @@ const useResponsiveConfig = () => {
       swipeThreshold: 50,
       autoPlayInterval: 5000,
     }),
-    [windowWidth, isMobile, isTablet],
+    [isMobile, isTablet],
   );
 };
 
@@ -95,45 +95,6 @@ const DEFAULT_BRANDS: Brand[] = [
   },
 ];
 
-const useMagneticButton = (ref: React.RefObject<HTMLButtonElement | null>) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const springConfig = { stiffness: 150, damping: 15 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  useEffect(() => {
-    const button = ref.current;
-    if (!button) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = button.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const distanceX = e.clientX - centerX;
-      const distanceY = e.clientY - centerY;
-
-      x.set(distanceX * 0.3);
-      y.set(distanceY * 0.3);
-    };
-
-    const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
-    };
-
-    button.addEventListener("mousemove", handleMouseMove);
-    button.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      button.removeEventListener("mousemove", handleMouseMove);
-      button.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [ref, x, y]);
-
-  return { x: springX, y: springY };
-};
 
 const useCarousel = (
   itemCount: number,
@@ -562,7 +523,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
         }}
       />
 
-      <motion.div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.04]">
+      {/* <motion.div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.04]">
         <motion.div
           animate={shouldReduceMotion ? {} : { x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 60 }}
@@ -578,7 +539,7 @@ const ProfessionalCarousel: React.FC<CarouselProps> = ({
             </span>
           ))}
         </motion.div>
-      </motion.div>
+      </motion.div> */}
 
       <div className="relative z-20 container mx-auto px-4">
         <motion.header
