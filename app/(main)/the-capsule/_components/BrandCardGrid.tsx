@@ -127,7 +127,7 @@ export function BrandCardGrid() {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <section className="relative -mt-20 px-4 pb-24 md:-mt-28 md:px-0">
+    <section className="relative -mt-38 px-4 pb-24 md:-mt-48 md:px-0">
       <div className="w-full">
         {/* Full width gradient for unauthenticated users covering the bottom row */}
         {!isLoading && !isAuthenticated && (

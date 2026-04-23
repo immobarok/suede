@@ -16,7 +16,7 @@ const page = () => {
     <main className="relative overflow-hidden">
       <div className="relative z-10">
         {/* HERO SECTION */}
-        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4">
+        <section className="relative flex min-h-[90vh] items-start justify-center overflow-hidden px-4 pt-46 md:pt-48">
           {/* Background Image */}
           <div className="absolute inset-0 -z-10">
             <Image

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { RippleButton } from "@/components/ui/ripple-button";
 import { createClient } from "@/lib/supabase/server";
@@ -110,18 +111,33 @@ const CollectivePage = async (props: { searchParams: SearchParams }) => {
   const visibleMembers = members.slice(startIndex, startIndex + pageSize);
 
   return (
-    <main className="min-h-screen bg-[#F5F5F0] pt-24 pb-20">
-      <section className="mb-12 px-4">
-        <AnimatedSectionHeader
-          topText="COMMUNITY"
-          middleText="The Collective"
-          bottomText="Style discussions, fit questions, and community connections."
-        />
-      </section>
+    <main className="relative overflow-hidden bg-[#F5F5F0] pb-20">
+      <div className="relative z-10">
+        <section className="relative flex min-h-[90vh] items-start justify-center overflow-hidden px-4 pt-46 md:pt-48">
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
+              alt="Background"
+              fill
+              className="object-cover opacity-25 grayscale"
+              priority
+            />
+            <div className="absolute inset-0 bg-white/10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5F5F0]/70 to-[#F5F5F0]" />
+          </div>
+          <AnimatedSectionHeader
+            topText="COMMUNITY"
+            middleText="The Collective"
+            bottomText="Style discussions, fit questions, and community connections."
+          />
+        </section>
 
-      <CollectiveSearchBar />
+        <div className="relative -mt-56 md:-mt-70">
+          <div className="relative z-20">
+            <CollectiveSearchBar />
+          </div>
 
-      <div className="relative container mx-auto mt-12 px-4 md:px-0">
+          <div className="relative z-10 container mx-auto mt-3 px-4 pt-0 md:mt-4 md:px-0">
         {!isAuthenticated && (
           <div className="pointer-events-none absolute bottom-0 left-0 z-10 h-[32%] w-full bg-linear-to-b from-transparent via-[#F5F5F0]/98 via-70% to-[#F5F5F0]" />
         )}
@@ -154,8 +170,8 @@ const CollectivePage = async (props: { searchParams: SearchParams }) => {
           </div>
         ) : null}
 
-        {isAuthenticated && totalPages > 1 && (
-          <div className="mt-16 flex items-center justify-center gap-4 text-sm text-neutral-700">
+            {isAuthenticated && totalPages > 1 && (
+              <div className="mt-16 flex items-center justify-center gap-4 text-sm text-neutral-700">
             {currentPage > 1 ? (
               <Link
                 href={`/the-collective?page=${currentPage - 1}`}
@@ -208,8 +224,10 @@ const CollectivePage = async (props: { searchParams: SearchParams }) => {
                 →
               </span>
             )}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </main>
   );

@@ -14,7 +14,7 @@ import {
 export const CollectiveSearchBar = () => {
   return (
     <motion.div
-      className="container mx-auto flex flex-col md:flex-row items-stretch md:items-center gap-3 px-4 md:px-0"
+      className="container mx-auto flex flex-col items-stretch gap-3 px-4 pt-4 md:flex-row md:items-center md:px-0"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
