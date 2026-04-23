@@ -37,7 +37,7 @@ export const CollectiveCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="overflow-hidden rounded-none border-none bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+      <Card className="overflow-hidden rounded-none bg-[#FFFDF9] ring-0 shadow-[0_2px_10px_rgba(0,0,0,0.05)] mt-8">
         <div className="p-8">
           {/* Header: Name/Username Left, Measurements Right */}
           <div className="mb-8 flex items-start justify-between">
@@ -56,14 +56,14 @@ export const CollectiveCard = ({
           </div>
 
           {/* Main Content: Large Centered Image with Side Actions */}
-          <div className="mb-8 flex items-start justify-center gap-8">
+          <div className="mb-8 flex items-center justify-between gap-8">
             {/* Large Profile Image */}
             <div className="relative aspect-square w-[280px] overflow-hidden bg-[#f5f5f5]">
               <Image src={avatarUrl} alt={name} fill className="object-cover" />
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex flex-col gap-4 pt-4">
+            <div className="flex min-h-[280px] flex-col items-end justify-center gap-4 text-right">
               <button className="font-darker text-[14px] text-[#1A1A1A] underline decoration-[#999] underline-offset-4 transition-all hover:decoration-[#1A1A1A]">
                 Follow+
               </button>
@@ -74,7 +74,7 @@ export const CollectiveCard = ({
           </div>
 
           {/* Stats Row: Reviews, Inquiries, Capsule Brands */}
-          <div className="grid grid-cols-3 gap-8 border-t border-[#F0EFEA] pt-6">
+          <div className="grid grid-cols-3 gap-8 pt-6">
             <div className="text-center">
               <p className="font-darker mb-2 text-[11px] tracking-[0.2em] text-[#1A1A1A] uppercase">
                 Reviews

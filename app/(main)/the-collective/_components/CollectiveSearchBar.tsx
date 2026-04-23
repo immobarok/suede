@@ -22,15 +22,15 @@ export const CollectiveSearchBar = () => {
       <div className="flex-1">
         <AnimatedSearchBar
           placeholder="Search Members"
-          inputClassName="bg-white border-[#E7E4DF] rounded-none h-12"
+          inputClassName="bg-[#FFFDF9] border-[#E7E4DF] rounded-none h-12"
           animate={false}
         />
       </div>
-      
+
       <div className="flex items-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex h-12 items-center gap-2 bg-white border border-[#E7E4DF] px-6 text-[13px] text-[#8A8A82] font-medium transition-colors hover:bg-[#F9F8F6] whitespace-nowrap">
+            <button className="flex h-12 items-center gap-2 border border-[#E7E4DF] bg-[#FFFDF9] px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] transition-colors hover:bg-[#F9F8F6]">
               Sort by <ChevronDown className="h-4 w-4" />
             </button>
           </DropdownMenuTrigger>
@@ -40,14 +40,20 @@ export const CollectiveSearchBar = () => {
             className="w-48 max-w-[calc(100vw-2rem)] rounded-none border-[#E7E4DF]"
           >
             <DropdownMenuRadioGroup value="recent">
-              <DropdownMenuRadioItem value="recent" className="font-darker">Recent</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="popular" className="font-darker">Popular</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="match" className="font-darker">Best Match</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="recent" className="font-darker">
+                Recent
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="popular" className="font-darker">
+                Popular
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="match" className="font-darker">
+                Best Match
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <button className="flex h-12 items-center gap-2 bg-white border border-[#E7E4DF] px-6 text-[13px] text-[#8A8A82] font-medium transition-colors hover:bg-[#F9F8F6] whitespace-nowrap">
+        <button className="flex h-12 items-center gap-2 border border-[#E7E4DF] bg-[#FFFDF9] px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] transition-colors hover:bg-[#F9F8F6]">
           <SlidersHorizontal className="h-4 w-4" /> Filter
         </button>
       </div>

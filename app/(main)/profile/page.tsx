@@ -72,7 +72,7 @@ export default async function ProfilePage({
           priority
         />
         <div className="absolute inset-0 bg-white/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F5F5F0]/70 to-[#F5F5F0]" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-24 pb-12 md:px-0">

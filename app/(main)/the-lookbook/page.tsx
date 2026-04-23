@@ -31,7 +31,7 @@ const page = async (props: { searchParams: SearchParams }) => {
   return (
     <main className="relative overflow-hidden">
       <div className="relative z-10">
-        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4">
+        <section className="relative flex min-h-[90vh] items-start justify-center overflow-hidden px-4 pt-46 md:pt-48">
           <div className="absolute inset-0 -z-10">
             <Image
               src="https://i.ibb.co/JWpSj3rb/Image-With-Fallback-4.png"
