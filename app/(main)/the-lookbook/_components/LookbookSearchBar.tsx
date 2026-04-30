@@ -28,7 +28,7 @@ export const LookbookSearchBar = ({
             placeholder={
               isOpenInquiries ? "Search Inquiries" : "Search Reviews"
             }
-            inputClassName="bg-white border-[#E7E4DF] rounded-none h-12 flex-1 w-full"
+            inputClassName="bg-[#FFFDF9] border-[#E7E4DF] rounded-none h-12 flex-1 w-full"
             animate={false}
           />
         </div>

@@ -83,7 +83,7 @@ export function LookBookCard({
         }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Card className="flex h-full flex-col overflow-hidden rounded-none bg-white shadow-md ring-0">
+        <Card className="flex h-full flex-col overflow-hidden rounded-none bg-[#FFFDF9] shadow-md ring-0">
           {/* Header: User Info & Measurements */}
           <div className="flex items-start justify-between px-8 pt-8 pb-6">
             {!hideUserStats && (

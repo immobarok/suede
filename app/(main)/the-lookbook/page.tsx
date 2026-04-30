@@ -29,7 +29,7 @@ const page = async (props: { searchParams: SearchParams }) => {
   const isOpenInquiries = view === "open-inquiries";
 
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden bg-[#F5F5F0]">
       <div className="relative z-10">
         <section className="relative flex min-h-[90vh] items-start justify-center overflow-hidden px-4 pt-46 md:pt-48">
           <div className="absolute inset-0 -z-10">
@@ -41,7 +41,7 @@ const page = async (props: { searchParams: SearchParams }) => {
               priority
             />
             <div className="absolute inset-0 bg-white/10" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white" />
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#F5F5F0]/70 to-[#F5F5F0]" />
           </div>
 
           <AnimatedSectionHeader
@@ -50,10 +50,14 @@ const page = async (props: { searchParams: SearchParams }) => {
             bottomText="Real reviews from real bodies. Ranked by your measurement match."
           />
         </section>
-        <div className="relative -mt-20 md:-mt-28">
-          <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
-          <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
-          {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+        <div className="relative -mt-56 md:-mt-70">
+          <div className="relative z-20">
+            <LookbookSearchBar isOpenInquiries={isOpenInquiries} />
+            <LookbookTabsSortRow isOpenInquiries={isOpenInquiries} />
+          </div>
+          <div className="relative z-10">
+            {isOpenInquiries ? <Inqueries /> : <LookBookGrid />}
+          </div>
         </div>
       </div>
     </main>

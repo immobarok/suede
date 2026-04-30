@@ -42,7 +42,7 @@ const SortBy = () => {
     <div className="flex w-full flex-col items-stretch justify-end gap-3 md:w-auto md:flex-row md:items-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex h-12 items-center justify-between gap-2 border border-[#E7E4DF] bg-white px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
+          <button className="flex h-12 items-center justify-between gap-2 border border-[#E7E4DF] bg-[#FFFDF9] px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
             Sort by: {currentLabel} <ChevronDown className="h-4 w-4" />
           </button>
         </DropdownMenuTrigger>
@@ -63,7 +63,7 @@ const SortBy = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <button className="flex h-12 items-center justify-center gap-2 border border-[#E7E4DF] bg-white px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
+      <button className="flex h-12 items-center justify-center gap-2 border border-[#E7E4DF] bg-[#FFFDF9] px-6 text-[13px] font-medium whitespace-nowrap text-[#8A8A82] uppercase transition-colors hover:bg-[#F9F8F6] md:justify-start">
         <SlidersHorizontal className="h-4 w-4" /> Filter
       </button>
     </div>
