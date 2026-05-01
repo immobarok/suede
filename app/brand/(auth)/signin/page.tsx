@@ -94,6 +94,7 @@ Listen Back." <br />
                   </Label>
                 </div>
                 <Input 
+                  placeholder="•••••••••"
                   id="password" 
                   type="password"
                   className="border-0 border-b border-black/10 rounded-none px-0 focus-visible:ring-0 focus-visible:border-black transition-all"
