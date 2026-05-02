@@ -57,10 +57,10 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-[#F8F7F2] px-6 py-12 text-[#0d0d0d] sm:px-10 lg:px-16">
+    <footer className="bg-[#F8F7F2] px-6 py-6 text-[#0d0d0d] sm:px-10 lg:px-16">
       <div className="container mx-auto">
         {/* Top Section: Logo and Navigation Columns */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 lg:grid-cols-7">
           <div className="col-span-2 sm:col-span-1">
             <Image
               src="/vector-logo.svg"
@@ -82,7 +82,7 @@ export function Footer() {
               >
                 {column.title}
               </Link>
-              <ul className="mt-4 flex flex-col gap-2">
+              <ul className="mt-2 flex flex-col gap-2">
                 {column.links
                   .filter((link) => !link.hiddenLabel)
                   .map((link) => (
@@ -110,7 +110,7 @@ export function Footer() {
         </div>
 
         {/* Middle Section: Newsletter and Contact */}
-        <div className="mt-16 flex flex-col items-start justify-between gap-12 lg:flex-row lg:items-end">
+        <div className="mt-6 flex flex-col items-start justify-between gap-12 lg:flex-row lg:items-end">
           <div className="w-full max-w-md">
             <form
               onSubmit={async (e) => {
@@ -141,7 +141,7 @@ export function Footer() {
               >
                 Sign up for our Newsletter | Per Suede
               </label>
-              <div className="mt-6 flex items-center border-b border-[#0d0d0d] pb-2">
+              <div className="mt-4 flex items-center border-b border-[#0d0d0d] pb-2">
                 <input
                   id="footer-newsletter-email"
                   type="email"
@@ -177,7 +177,7 @@ export function Footer() {
         </div>
 
         {/* Large Logo Section */}
-        <div className="mt-20 mb-12">
+        <div className="mt-6 mb-4">
           <Image
             src="/Logo_black.svg"
             alt="SUEDE"
@@ -188,7 +188,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Section: Copyright and Socials */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-6 sm:flex-row">
+        <div className="mt-2 flex flex-col items-center justify-between gap-6 sm:flex-row">
           <p className="text-[12px] font-medium text-[#4b4b4b]">Suede LLC</p>
 
           <div className="flex items-center gap-6">
