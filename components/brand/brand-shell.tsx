@@ -4,18 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Settings,
-  Package,
-  MessageCircle,
-  TrendingUp,
+  MessageSquareWarning,
   Globe,
-  PlusCircle,
+  MessageSquareText,
   LogOut,
   Bell,
   Search,
 } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -41,37 +38,19 @@ const brandNav = [
     icon: LayoutDashboard,
   },
   {
-    label: "My Products",
-    href: "/brand/products",
-    icon: Package,
+    label: "Reviews",
+    href: "/brand/dashboard/reviews",
+    icon: MessageSquareText,
   },
   {
-    label: "Customer Inquiries",
-    href: "/brand/inquiries",
-    icon: MessageCircle,
+    label: "Inquiries",
+    href: "/brand/dashboard/inquiries",
+    icon: MessageSquareWarning,
   },
   {
-    label: "Analytics",
-    href: "/brand/analytics",
-    icon: TrendingUp,
-  },
-  {
-    label: "Brand Profile",
-    href: "/brand/profile",
+    label: "Profile",
+    href: "/brand/dashboard/profile",
     icon: Globe,
-  },
-];
-
-const secondaryNav = [
-  {
-    label: "Add New Product",
-    href: "/brand/products/new",
-    icon: PlusCircle,
-  },
-  {
-    label: "Settings",
-    href: "/brand/settings",
-    icon: Settings,
   },
 ];
 
@@ -126,29 +105,7 @@ export default function BrandShell({ children }: { children: React.ReactNode }) 
             </SidebarMenu>
           </SidebarGroup>
 
-          <SidebarGroup className="px-0">
-            <SidebarGroupLabel className="px-4 text-[10px] uppercase font-bold text-black/40 tracking-widest">
-              Quick Actions
-            </SidebarGroupLabel>
-            <SidebarMenu>
-              {secondaryNav.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.label}
-                  >
-                    <Link
-                      href={item.href}
-                      className="font-medium text-sm"
-                    >
-                      <item.icon className="size-4" />
-                      <span>{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
+
         </SidebarContent>
 
         <SidebarFooter className="gap-3">
