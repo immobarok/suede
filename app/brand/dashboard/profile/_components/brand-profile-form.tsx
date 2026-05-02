@@ -59,7 +59,6 @@ export function BrandProfileForm() {
         description="The essentials. Your brand name is locked once you've joined."
       >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Brand Name - Locked */}
           <div className="space-y-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-gray-500">
               Brand Name
