@@ -66,7 +66,7 @@ export default function BrandShell({ children }: { children: React.ReactNode }) 
       >
         <SidebarHeader className="gap-3">
           <div className="flex items-center gap-3 px-2 py-1">
-            <div className="bg-black text-white flex size-9 items-center justify-center rounded-sm">
+            <div className="bg-black text-white flex size-9 items-center justify-center rounded-none">
               <span className="font-serif text-lg italic">B</span>
             </div>
             <div className="group-data-[collapsible=icon]:hidden">

@@ -279,7 +279,7 @@ function Sidebar({
           <div
             data-sidebar="sidebar"
             data-slot="sidebar-inner"
-            className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+            className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-none group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
           >
             {children}
           </div>
@@ -348,7 +348,7 @@ function SidebarInset({ className, ...props }: SidebarInsetProps) {
       data-slot="sidebar-inset"
       className={cn(
         "bg-background relative flex w-full flex-1 flex-col",
-        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
         className,
       )}
       {...props}
@@ -453,7 +453,7 @@ function SidebarGroupLabel({
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       className={cn(
-        "text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-300 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-none px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-300 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className,
       )}
@@ -478,7 +478,7 @@ function SidebarGroupAction({
       data-slot="sidebar-group-action"
       data-sidebar="group-action"
       className={cn(
-        "text-sidebar-foreground  ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "text-sidebar-foreground  ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-none p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         // Increases the hit area of the button on mobile.
         "after:absolute after:-inset-2 md:after:hidden",
         "group-data-[collapsible=icon]:hidden",
@@ -533,7 +533,7 @@ function SidebarMenuItem({ className, ...props }: SidebarMenuItemProps) {
 
 const sidebarMenuButtonVariants = cva(
   // add a positioned pseudo-element that expands width on active to create a fill effect
-  "peer/menu-button group/menu-button relative z-0 flex w-56 items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-sidebar-primary before:transition-[width] before:duration-300 before:ease-linear before:-z-10 [&:not([data-highlight])]:hover:bg-black/80 [&:not([data-highlight])]:hover:text-white! focus-visible:ring-2 active:bg-sidebar-primary active:text-sidebar-primary-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:before:w-full data-[active=true]:bg-sidebar-primary data-[active=true]:font-medium data-[active=true]:text-sidebar-primary-foreground [&:not([data-highlight])]:data-[state=open]:hover:bg-black/80 [&:not([data-highlight])]:data-[state=open]:hover:text-white! group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+  "peer/menu-button group/menu-button relative z-0 flex w-56 items-center gap-2 overflow-hidden rounded-none p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-sidebar-primary before:transition-[width] before:duration-300 before:ease-linear before:-z-10 [&:not([data-highlight])]:hover:bg-black/80 [&:not([data-highlight])]:hover:text-white! focus-visible:ring-2 active:bg-sidebar-primary active:text-sidebar-primary-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:before:w-full data-[active=true]:bg-sidebar-primary data-[active=true]:font-medium data-[active=true]:text-sidebar-primary-foreground [&:not([data-highlight])]:data-[state=open]:hover:bg-black/80 [&:not([data-highlight])]:data-[state=open]:hover:text-white! group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -576,7 +576,7 @@ function SidebarMenuButton({
   const button = (
     <HighlightItem
       className="w-full"
-      activeClassName="rounded-md bg-black/10"
+      activeClassName="rounded-none bg-black/10"
     >
       <Comp
         data-slot="sidebar-menu-button"
@@ -631,7 +631,7 @@ function SidebarMenuAction({
       data-sidebar="menu-action"
       className={cn(
         // Increases the hit area of the button on mobile.
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-black/80 hover:text-white peer-hover/menu-button:text-white absolute top-1.5 right-1 z-[1] flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "text-sidebar-foreground ring-sidebar-ring hover:bg-black/80 hover:text-white peer-hover/menu-button:text-white absolute top-1.5 right-1 z-[1] flex aspect-square w-5 items-center justify-center rounded-none p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "after:absolute after:-inset-2 md:after:hidden",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
@@ -654,7 +654,7 @@ function SidebarMenuBadge({ className, ...props }: SidebarMenuBadgeProps) {
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       className={cn(
-        "text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none",
+        "text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-none px-1 text-xs font-medium tabular-nums select-none",
         "peer-hover/menu-button:text-white peer-data-[active=true]/menu-button:text-sidebar-primary-foreground",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
@@ -685,12 +685,12 @@ function SidebarMenuSkeleton({
     <div
       data-slot="sidebar-menu-skeleton"
       data-sidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
+      className={cn("flex h-8 items-center gap-2 rounded-none px-2", className)}
       {...props}
     >
       {showIcon && (
         <Skeleton
-          className="size-4 rounded-md"
+          className="size-4 rounded-none"
           data-sidebar="menu-skeleton-icon"
         />
       )}
@@ -755,7 +755,7 @@ function SidebarMenuSubButton({
   return (
     <HighlightItem
       className="w-full"
-      activeClassName="rounded-md bg-black/10"
+      activeClassName="rounded-none bg-black/10"
     >
       <Comp
         data-slot="sidebar-menu-sub-button"
@@ -763,7 +763,7 @@ function SidebarMenuSubButton({
         data-size={size}
         data-active={isActive}
         className={cn(
-          "text-sidebar-foreground ring-sidebar-ring [&:not([data-highlight])]:hover:bg-black/80 [&:not([data-highlight])]:hover:text-white [&:not([data-highlight])]:hover:[&_svg]:text-white [&:not([data-highlight])]:hover:[&_span]:text-white active:bg-sidebar-primary active:text-sidebar-primary-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+          "text-sidebar-foreground ring-sidebar-ring [&:not([data-highlight])]:hover:bg-black/80 [&:not([data-highlight])]:hover:text-white [&:not([data-highlight])]:hover:[&_svg]:text-white [&:not([data-highlight])]:hover:[&_span]:text-white active:bg-sidebar-primary active:text-sidebar-primary-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-none px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
           "data-[active=true]:bg-sidebar-primary data-[active=true]:text-sidebar-primary-foreground",
           size === "sm" && "text-xs",
           size === "md" && "text-sm",
