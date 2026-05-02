@@ -46,7 +46,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function BrandChartClient() {
+export function BrandChart() {
   return (
     <Card className="border-0 shadow-none bg-transparent rounded-none">
       <CardHeader className="px-4 flex flex-row items-center justify-between">
@@ -66,8 +66,8 @@ export function BrandChartClient() {
           >
             <defs>
               <linearGradient id="colorReviews" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-reviews)" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="var(--color-reviews)" stopOpacity={0.05} />
+                <stop offset="5%" stopColor="#000000" stopOpacity={0.15} />
+                <stop offset="95%" stopColor="#000000" stopOpacity={0.01} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={true} horizontal={true} strokeDasharray="3 3" stroke="rgba(0,0,0,0.08)" />
@@ -87,7 +87,7 @@ export function BrandChartClient() {
             <Area
               type="monotone"
               dataKey="reviews"
-              stroke="var(--color-reviews)"
+              stroke="#000000"
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorReviews)"

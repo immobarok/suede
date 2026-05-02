@@ -11,7 +11,7 @@ import {
   CardHeader, 
   CardTitle,
 } from "@/components/ui/card";
-import { BrandChartClient } from "./_components/brand-chart-client";
+import { BrandChart } from "./_components/brand-chart";
 
 const stats = [
   {
@@ -122,7 +122,7 @@ export default async function BrandDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Chart Column (Client Component) */}
         <div className="lg:col-span-7">
-          <BrandChartClient />
+          <BrandChart />
         </div>
 
         {/* Product Lists Column */}
