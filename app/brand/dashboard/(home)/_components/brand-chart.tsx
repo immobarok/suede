@@ -1,6 +1,5 @@
 "use client"
 
-import { MessageSquare } from "lucide-react";
 import { 
   Area, 
   AreaChart, 
@@ -20,6 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import Icon from "@/components/Icon";
 
 const chartData = [
   { date: "May 7", reviews: 10 },
@@ -52,7 +52,7 @@ export function BrandChart() {
       <CardHeader className="px-4 flex flex-row items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-black/5 rounded-sm flex items-center justify-center">
-            <MessageSquare size={16} className="text-black/60" />
+            <Icon src="/icons/message.svg"/>
           </div>
           <CardTitle className="text-xl font-medium tracking-tight">Review Count Overtime</CardTitle>
         </div>

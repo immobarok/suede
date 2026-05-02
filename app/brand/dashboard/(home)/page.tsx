@@ -1,50 +1,47 @@
 import { 
-  MessageSquare, 
-  Star, 
-  Ruler, 
-  ThumbsUp, 
-  Eye,
-} from "lucide-react";
-import { 
   Card, 
   CardContent, 
   CardHeader, 
   CardTitle,
 } from "@/components/ui/card";
+
 import { BrandChart } from "./_components/brand-chart";
+import Image from "next/image";
+import Icon from "@/components/Icon";
+
 
 const stats = [
   {
     title: "Total Review Count",
     value: "1,248",
     subtitle: "Total reviews",
-    icon: MessageSquare,
+    icon: <Icon src="/icons/message.svg"/>,
   },
   {
     title: "Average Overall Rating",
     value: "4.6",
     unit: "Out of 5",
     subtitle: "Total reviews",
-    icon: Star,
+    icon: <Icon src="/icons/star.svg"/>,
   },
   {
     title: "Average Sizing Accuracy",
     value: "4.6",
     unit: "Out of 5",
     subtitle: "Total reviews",
-    icon: Ruler,
+    icon: <Icon src="/icons/ruler.svg"/>,
   },
   {
     title: "Recommend Rate",
     value: "92%",
     subtitle: "Of reviewers recommends",
-    icon: ThumbsUp,
+    icon: <Icon src="/icons/thumbs-up.svg"/>,
   },
   {
     title: "Brand Page Views",
     value: "1,541",
     subtitle: "Total page views",
-    icon: Eye,
+    icon: <Icon src="/icons/eye.svg"/>,
   },
 ];
 
@@ -54,14 +51,14 @@ const highestRated = [
     name: "Flowy Dress",
     rating: 4.8,
     reviews: 124,
-    image: "/placeholder-product-1.jpg",
+    image: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
   },
   {
     rank: 2,
     name: "The Nyomi Maxi",
     rating: 4.7,
     reviews: 100,
-    image: "/placeholder-product-2.jpg",
+    image: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
   },
 ];
 
@@ -71,14 +68,14 @@ const lowestRated = [
     name: "Flowy Dress",
     rating: 2.1,
     reviews: 45,
-    image: "/placeholder-product-1.jpg",
+    image: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
   },
   {
     rank: 2,
     name: "The Nyomi Maxi",
     rating: 1.5,
     reviews: 62,
-    image: "/placeholder-product-2.jpg",
+    image: "https://i.ibb.co.com/SwyPhMGM/Frame-2087328443.png",
   },
 ];
 
@@ -100,17 +97,17 @@ export default async function BrandDashboardPage() {
         {stats.map((stat, i) => (
           <div key={stat.title} className={`space-y-6 ${i === 0 ? "" : "md:pl-8"} ${i === 4 ? "" : "md:pr-8"}`}>
             <div className="space-y-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-black/20">
+              <p className="text-[14px] font-normal text-[#62636799]">
                 {stat.title}
               </p>
               <div className="w-10 h-10 bg-black/[0.03] rounded-sm flex items-center justify-center">
-                <stat.icon size={18} className="text-black/40" />
+                {stat.icon}
               </div>
             </div>
             <div className="space-y-1">
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl font-bold tracking-tight">{stat.value}</span>
-                {stat.unit && <span className="text-[10px] text-black/40 font-bold uppercase tracking-widest">{stat.unit}</span>}
+                {stat.unit && <span className="text-[14px] text-black font-normal tracking-tight">{stat.unit}</span>}
               </div>
               <p className="text-[11px] text-black/40 font-medium">{stat.subtitle}</p>
             </div>
@@ -130,7 +127,7 @@ export default async function BrandDashboardPage() {
           {/* Highest Rated */}
           <Card className="border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] rounded-sm">
             <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest text-black/80">Highest Rated Products</CardTitle>
+              <CardTitle className="text-xl font-semibold tracking-tight text-black">Highest Rated Products</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {highestRated.map((product) => (
@@ -140,14 +137,14 @@ export default async function BrandDashboardPage() {
                       {product.rank}
                     </div>
                     <div className="w-12 h-12 bg-black/5 rounded-sm relative overflow-hidden">
-                      <div className="w-full h-full bg-stone-200" />
+                      <Image src={product.image} alt={product.name} width={100} height={100} priority className="object-cover object-center"/>
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-semibold">{product.name}</p>
                       <div className="flex items-center gap-2">
                         <div className="flex">
-                          {[1, 2, 3, 4].map((s) => <Star key={s} size={10} fill="currentColor" className="text-black" />)}
-                          <Star size={10} className="text-black/20" />
+                          {[1, 2, 3, 4].map((s) => <Icon key={s} src="/icons/rating.svg" className="text-black" />)}
+                          <Icon src="/icons/rating.svg" className="text-black/20"/>
                         </div>
                         <span className="text-[10px] text-black/40 font-medium">{product.rating} ({product.reviews} Reviews)</span>
                       </div>
@@ -161,7 +158,7 @@ export default async function BrandDashboardPage() {
             </CardContent>
             <div className="h-px bg-black/5 mx-6"/>
             <CardHeader>
-              <CardTitle className="text-sm font-bold uppercase tracking-widest text-black/80">Lowest Rated Products</CardTitle>
+              <CardTitle className="text-xl font-semibold tracking-tight text-black">Lowest Rated Products</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {lowestRated.map((product) => (
@@ -171,14 +168,15 @@ export default async function BrandDashboardPage() {
                       {product.rank}
                     </div>
                     <div className="w-12 h-12 bg-black/5 rounded-sm relative overflow-hidden">
-                      <div className="w-full h-full bg-stone-200" />
+                      {/* <div className="w-full h-full bg-stone-200" /> */}
+                      <Image src={product.image} alt={product.name} width={100} height={100} priority className="object-cover object-center"/>
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-semibold">{product.name}</p>
                       <div className="flex items-center gap-2">
                         <div className="flex">
-                          {[1, 2].map((s) => <Star key={s} size={10} fill="currentColor" className="text-black" />)}
-                          {[3, 4, 5].map((s) => <Star key={s} size={10} className="text-black/20" />)}
+                          {[1, 2].map((s) => <Icon key={s} src="/icons/rating.svg" className="text-black" />)}
+                          {[3, 4, 5].map((s) => <Icon key={s} src="/icons/rating.svg" className="text-black/20" />)}
                         </div>
                         <span className="text-[10px] text-black/40 font-medium">{product.rating} ({product.reviews} Reviews)</span>
                       </div>
